@@ -4,10 +4,10 @@ var app = express();
 var port = process.env.PORT || 8000;
 
 
-// AUTHENTICATION & MIDDLEWARE
-//require('./Routes/config.js')(app, express);
+// AUTHENTICATION & MIDDLEWARE TO BE DECLARED IN 'config.js'
+require('./Routes/config.js')(app, express);
 
-// ROUTES
+// ROUTES & CONTROLLER CALLS TO BE DECLARED IN 'routes.js'
 require('./Routes/routes.js')(app, express);
 
 app.listen(port);
