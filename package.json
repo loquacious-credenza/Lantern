@@ -1,0 +1,23 @@
+{
+  "name": "lantern",
+  "version": "1.0.0",
+  "description": "A personal safety app.",
+  "main": "index.js",
+  "dependencies": {
+    "mongoose": "^4.3.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loquacious-credenza/Lantern.git"
+  },
+  "author": "Max O'Connell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loquacious-credenza/Lantern/issues"
+  },
+  "homepage": "https://github.com/loquacious-credenza/Lantern#readme"
+}

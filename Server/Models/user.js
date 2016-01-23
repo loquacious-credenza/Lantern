@@ -1,0 +1,11 @@
+// ID
+
+// NAME
+
+// PHONE NUMBER
+
+// CONTACTS
+
+// DELAY
+
+// CURRENT ROUTES = ROUTE MODEL || NULL
