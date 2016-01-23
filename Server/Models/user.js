@@ -1,3 +1,11 @@
+/*var mongoose = require('../Database/db.js');
+
+var UserSchema = new mongoose.Schema({
+	id: String,
+	name: String,
+	phone: 
+
+})*/
 // ID
 
 // NAME
