@@ -1,19 +1,15 @@
-/*var mongoose = require('../Database/db.js');
+var mongoose = require('mongoose');
+var ContactSchema = require('./contact.js').schema;
+//var TripSchema = require('./trip.js').schema;
+
 
 var UserSchema = new mongoose.Schema({
-	id: String,
+	user_id: String,
 	name: String,
-	phone: 
+	phone: Number,
+	delay: Number,
+	contacts: [ContactSchema]
+	//trip: [TripSchema];
+});
 
-})*/
-// ID
-
-// NAME
-
-// PHONE NUMBER
-
-// CONTACTS
-
-// DELAY
-
-// CURRENT ROUTES = ROUTE MODEL || NULL
+module.exports = mongoose.model("User", UserSchema);
