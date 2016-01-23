@@ -4,10 +4,11 @@ var app = express();
 var port = process.env.PORT || 8000;
 
 
-// SHOULD LATER INCORPORATE AUTH WHEN READY
+// AUTHENTICATION & MIDDLEWARE
+//require('./Routes/config.js')(app, express);
 
-// SHOULD LATER INCORPORATE ROUTES WHEN READY
-// require(./Routes/routes.js)(app, express);
+// ROUTES
+require('./Routes/routes.js')(app, express);
 
 app.listen(port);
 console.log("Listening on port: " + port);
