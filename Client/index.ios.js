@@ -11,6 +11,8 @@ import React, {
   View
 } from 'react-native';
 
+
+
 class Lantern extends Component {
   render() {
     return (
