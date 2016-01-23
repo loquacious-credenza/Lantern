@@ -4,6 +4,7 @@
   "description": "A personal safety app.",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.13.4",
     "mongoose": "^4.3.6"
   },
   "devDependencies": {},
