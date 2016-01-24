@@ -1,54 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
-import React, {
+
+
+var React = require('react-native');
+var {
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+  Image,
+} = React;
 
+var Login = require('./Login');
 
-
-class Lantern extends Component {
-  render() {
+/**
+ * A sample app that demonstrates use of the FBSDK login button, native share dialog, and graph requests.
+ */
+var Lantern = React.createClass({
+  render: function() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Image
+      //react native uses this new require tage to use images instead of uri now.
+        source={require('./plutoBack.png')}
+        style={styles.loginImage}>
+        <View style={styles.disclaimerContainer}>
+        //testing to see if text would show up
+          <Text style={styles.disclaimerText}>Hey is this working</Text>
+        </View>
+        //importing the login facebook button.
+        <Login style={styles.loginContainer}/>
+      </Image>
     );
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
+
+// importing styles
+var styles = StyleSheet.create(require('./styles.js'));
 
 AppRegistry.registerComponent('Lantern', () => Lantern);
