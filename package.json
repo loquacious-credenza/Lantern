@@ -10,7 +10,12 @@
     "express": "^4.13.4",
     "mongoose": "^4.3.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "jshint-stylish": "^2.1.0"
+  },
   "scripts": {
     "test": "test"
   },
