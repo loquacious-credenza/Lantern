@@ -8,7 +8,7 @@ var Trip = require('../Models/trip');
  * @param  {object} res  The response to client, either new record or error
  * @return {undefined}      The server responds from within the promise.
  */
-function create(req, res, data){
+function create(req, res){
   // Grab userId from the req params.
   var user = req.params.user_id;
 
@@ -20,11 +20,15 @@ function create(req, res, data){
     destination: req.body.destination,
     start_time: req.body.startTime,
     overdue_time: req.body.overdueTime
-  }).then(function(newTrip){ //Once the new trip is created
+  }).then(
+    // onSuccess handler
+    function(newTrip){ //Once the new trip is created
       console.log(newTrip); // console.log for debugging  REMOVE
       res.status(201).json(newTrip); //send the object back to client with status 201
-    })
-    .catch(function(err){ // if there is an error
+      return newTrip;
+    },
+    // onError handler
+    function(err){ // if there is an error
       // TODO: be sure that server logs errors with logger
       res.status(500).send('The trip could not be created', err); //send appropriate response to client.
     });
@@ -42,10 +46,13 @@ function read(req, res){
 
   // uses the findOne method to return a single object found by ID
   return Trip.findOne({ _id: id})
-    .then(function(record){ //the record is passed to callback
+    .then(
+    // onSuccess handler
+    function(record){ //the record is passed to callback
       res.json(record); //and sent as the response to the front-end
-    })
-    .catch(function(err){ //if there is an error it is passed to callback
+    },
+    // onError handler
+    function(err){ //if there is an error it is passed to callback
       res.status(404).send(err); // and a response is sent with 404 (not found) status.
     });
 }
@@ -54,10 +61,13 @@ function update(req, res, data){
   var id = req.params.trip_id;
 
   return Trip.findByIdAndUpdate(id, { $set: req.body })
-    .then(function(trip){
+    .then(
+    // onSuccess handler
+    function(trip){
       res.status(204);
-    })
-    .catch(function(err){
+    },
+    // onError handler
+    function(err){
       res.status(500).send('There was problem updated the trip.  It was either not found, or the update data is invalid.');
     })
 }
@@ -74,10 +84,13 @@ function del(req, res){
 
   // Find a trip in the Trips collecton by id and remove it from Storage
   return Trip.findByIdAndRemove(id)
-    .then(function(deleted){ //pass the removed record to the callback.
+    .then(
+    // onSuccess handler
+    function(deleted){ //pass the removed record to the callback.
       res.json(deleted); //respond with status 200 returning the removed record to the caller.
-    })
-    .catch(function(err){
+    },
+    // onError handler
+    function(err){
       res.status(500).send('There was a problem finding or deleting the record', err);
     })
 }
