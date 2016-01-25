@@ -54,8 +54,29 @@ function update(req, res, data){
     })
 }
 
+/**
+ * Deletes the the current Trip found by id.
+ * @param  {object} req Request object containing Trip.id to be deleted
+ * @param  {object} res Response is either removed record or error indicating delete was unsuccessful
+ * @return {undefined}     Server response is initiated from method.
+ */
+function del(req, res){
+  // grab the trip_id from the request object params
+  var id = req.params.trip_id;
+
+  // Find a trip in the Trips collecton by id and remove it from Storage
+  return Trip.findByIdAndRemove(id)
+    .then(function(deleted){ //pass the removed record to the callback.
+      res.json(deleted); //respond with status 200 returning the removed record to the caller.
+    })
+    .catch(function(err){
+      res.status(500).send('There was a problem finding or deleting the record', err);
+    })
+}
+
 module.exports = {
   create: create,
   read: read,
-  update: update
+  update: update,
+  delete: del
 };
