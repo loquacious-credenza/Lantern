@@ -1,3 +1,4 @@
+var UserMethods = require('../Controllers/user-controller.js');
 
 
 module.exports = function (app, express) {
@@ -36,19 +37,22 @@ module.exports = function (app, express) {
 // GET USER STATS
 // GET -USER/USER_ID:
 	app.get('/user/:user_id', function (req, res) {
-		res.send('Arrived at endpoint: ' + req.url);
+		//res.send('Arrived at endpoint: ' + req.url);
+		UserMethods.findUser(req.params.user_id, res);
 	});
 
 // CREATE NEW CONTACTS
 // POST -USER/USER_ID:
 	app.post('/user/:user_id', function (req, res) {
-		res.send('Arrived at endpoint: ' + req.url);
+		//res.send('Arrived at endpoint: ' + req.url);
+		UserMethods.findOrCreateUser(req.body, res);
 	});
 
 // UPDATES USER STATS
 // PUT -/ID:/SETTINGS
 	app.put('/user/:user_id', function (req, res) {
-		res.send('Arrived at endpoint: ' + req.url);
+		//res.send('Arrived at endpoint: ' + req.url);
+		UserMethods.updateContacts(req.params.user_id, req.body.contacts, res);
 	});
 }
 
