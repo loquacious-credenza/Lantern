@@ -30,6 +30,32 @@ function create(req, res, data){
     });
 }
 
+function read(req, res){
+  var trip = req.params.trip_id;
+
+  return Trip.findOne({ _id: trip})
+    .then(function(record){
+      res.json(record);
+    })
+    .catch(function(err){
+      res.status(404).send(err);
+    });
+}
+
+function update(req, res, data){
+  var id = req.params.trip_id;
+
+  return Trip.findByIdAndUpdate(id, { $set: req.body })
+    .then(function(trip){
+      res.status(204);
+    })
+    .catch(function(err){
+      res.status(500).send('There was problem updated the trip.  It was either not found, or the update data is invalid.');
+    })
+}
+
 module.exports = {
-  create: create
+  create: create,
+  read: read,
+  update: update
 };
