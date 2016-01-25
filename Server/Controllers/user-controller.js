@@ -15,7 +15,7 @@ module.exports = {
 	// SEARCHES FOR 'user' BY ID INCLUDED IN 'userObj'. IF 'user' IS FOUND, IT IS RETURNED.
 	// IF NOT, 'user' IS CREATED IN THE DATABASE USING 'userObj' AND THEN RETURNED
 	findOrCreateUser: function (userObj, res) {
-		User.findById(userObj.user_id, function (err, response) {
+		User.findById(userObj._id, function (err, response) {
 			if (err) {
 				console.log("Error finding user: ", err);
 				res.sendStatus(500);
