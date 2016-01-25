@@ -15,6 +15,9 @@ var locPointSchema = new Schema({
     type: Date,
     default: Date.now
   }
+},
+{
+  noId: true
 });
 
 locPointSchema.index({ location: '2dsphere'});
