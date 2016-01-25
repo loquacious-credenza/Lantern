@@ -3,12 +3,12 @@ var ContactSchema = require('./contact.js').schema;
 var TripSchema = require('./trip.js').schema;
 
 var UserSchema = new mongoose.Schema({
-	user_id: String,
+	_id: String,
 	name: String,
 	phone: Number,
 	delay: Number,
 	contacts: [ContactSchema],
-	trips: [TripSchema]
+	trips: [ String ]
 });
 
 module.exports = mongoose.model("User", UserSchema);
