@@ -1,5 +1,6 @@
 var UserMethods = require('../Controllers/user-controller.js');
 
+var Trip = require('../Controllers/trip-controller');
 
 module.exports = function (app, express) {
 /* =============== LOGIN ================= */
@@ -11,8 +12,8 @@ module.exports = function (app, express) {
 /* =========== TRIP ENDPOINTS =========== */
 // CREATES A TRIP
 // POST -USER/USER_ID:/TRIPS/TRIP_ID
-	app.post('/user/:user_id/:trip_id', function (req, res) {
-		res.send('Arrived at endpoint: ' + req.url);
+	app.post('/users/:user_id/trips', function (req, res) {
+    Trip.create(req, res);
 	});
 
 // GETS A TRIP
