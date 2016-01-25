@@ -30,15 +30,23 @@ function create(req, res, data){
     });
 }
 
+/**
+ * Gets a trip record with a trip id.
+ * @param  {object} req Request object decorated with trip_id
+ * @param  {object} res Response is either JSON of trip record or error message
+ * @return {undefined}     Server response is made with either error or data payload.
+ */
 function read(req, res){
-  var trip = req.params.trip_id;
+  // trip id from req params
+  var id = req.params.trip_id;
 
-  return Trip.findOne({ _id: trip})
-    .then(function(record){
-      res.json(record);
+  // uses the findOne method to return a single object found by ID
+  return Trip.findOne({ _id: id})
+    .then(function(record){ //the record is passed to callback
+      res.json(record); //and sent as the response to the front-end
     })
-    .catch(function(err){
-      res.status(404).send(err);
+    .catch(function(err){ //if there is an error it is passed to callback
+      res.status(404).send(err); // and a response is sent with 404 (not found) status.
     });
 }
 
