@@ -1,8 +1,10 @@
 var Trip = require('../Models/trip.js');
 var User = require('../Models/user.js');
+var twilio = require('./twilio-methods.js');
 var cronJob = require('cron').CronJob;
 var async = require('async');
 
+// CALLS 'checkTrips' EVERY 20 SECONDS.
 var job = new cronJob({
 	cronTime: '*/20 * * * * *',
 	onTick: function () {
@@ -12,11 +14,8 @@ var job = new cronJob({
 	start: true
 });
 
-// THIS FUNCTION WILL BE FLESHED OUT LATER. CURRENCTLY ACCEPTS USERS THAT HAVE TRIPS THAT ARE BOTH ACTIVE AND EXPIRED
-var pingTwilio = function (user, trip) {
-	console.log('User: ' + user + '\n');
-};
-
+// CHECKS DATABASE PERIODICALLY FOR TRIPS THAT ARE BOTH EXPIRED AND ACTIVE. IF IT FINDS ONE, IT LOOKS UP
+// THE USER ASSOCIATED WITH THE TRIP, AND THEN PASSES BOTH TO 'pingTwilio'.
 var checkTrips = function () {
 	var currentTime = Date.now();
 	Trip.find({active:true, overdue_time: {$lt: currentTime}}, '-video -active', function (err, trips) {
@@ -28,9 +27,8 @@ var checkTrips = function () {
 					if (err) {
 						console.log('Error checking for user associated with an expired trip: ', err);
 					} else if (user !== null) {
-						pingTwilio(user, item);
+						twilio(user, item);
 					}
-					console.log('Callback reached!');
 					callback();
 				});
 			});
