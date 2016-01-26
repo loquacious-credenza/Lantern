@@ -2,11 +2,7 @@
 
 var React = require('react-native');
 var {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
+  AppRegistry
 } = React;
 
 var Main = require('./Src/main');

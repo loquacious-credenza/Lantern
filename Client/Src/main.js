@@ -1,27 +1,34 @@
 var React = require('react-native');
 var {
-  AppRegistry,
   StyleSheet,
-  Text,
-  View,
-  Image,
+  Navigator
 } = React;
 
-var Login = require('./Facebook/Login');
+var Signin = require('./Facebook/Signin');
+var Home = require('./Home/Home');
+
+var ROUTES = {
+  signin: Signin,
+  home: Home
+};
 
 /**
  * A sample app that demonstrates use of the FBSDK login button, native share dialog, and graph requests.
  */
 var Main = React.createClass({
+  renderScene: function(route, navigator){
+    var Component = ROUTES[route.name];
+    return <Component route={route} navigator={navigator}/>;
+  },
   render: function() {
     return (
-      <View style={styles.container}>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>We dont need no stinking image background yet!!</Text>
-          </View>
-          {/*this is the log in button*/}
-          <Login style={styles.loginContainer}/>
-      </View>
+      <Navigator
+        style={styles.navigator}
+        initialRoute={{name: 'signin'}}
+        renderScene={this.renderScene}
+        configureScene={() => {
+          return Navigator.SceneConfigs.FloatFromRight; }}
+      />
     );
   }
 });

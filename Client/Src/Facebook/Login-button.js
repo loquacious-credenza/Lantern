@@ -16,6 +16,14 @@ var {
 } = FBSDKCore;
 
 var Login = React.createClass({
+  componentDidMount: function() {
+    FBSDKAccessToken.getCurrentAccessToken((result) => {
+      if (result) {
+        this.props.navigator.push({name: 'home'});
+      }
+    })
+  },
+
   render: function() {
     return (
       <View style={this.props.style}>
@@ -40,14 +48,13 @@ var Login = React.createClass({
               if (result.isCancelled) {
                 alert('Login cancelled.');
               } else {
-                alert('Logged in.');
-                console.log('logging result',result);
+                this.props.navigator.push({ name: 'home'})
               }
             }
           {/*calling function again to get acess token after log in*/}
           FBSDKAccessToken.getCurrentAccessToken((data) => {
-            console.log('data',data);
-          });
+              console.log('data',data);
+            });
           }
         }
 
