@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 module.exports = {
@@ -7,6 +5,10 @@ module.exports = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  navigator: {
+    flex: 1
   },
 
   textContainer: {
@@ -28,6 +30,7 @@ module.exports = {
     shadowColor: '#000000',
     shadowOpacity: 1,
     shadowOffset: {width: 0, height: 0},
+    borderRadius: 10
   },
 
   text: {
