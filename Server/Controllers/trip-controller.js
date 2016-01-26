@@ -17,6 +17,7 @@ function create(req, res){
   // Note that `path` and `videos` are empty at create time.
   return Trip.create({
     user_id: user,
+    active: true,
     destination: req.body.destination,
     start_time: req.body.startTime,
     overdue_time: req.body.overdueTime
