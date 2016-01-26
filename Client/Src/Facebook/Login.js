@@ -5,7 +5,7 @@ var {
   StyleSheet,
   View,
 } = React;
-
+/*facebook react native wrapper for SDK*/
 var FBSDKLogin = require('react-native-fbsdklogin');
 var {
   FBSDKLoginButton,
@@ -22,6 +22,7 @@ var Login = React.createClass({
         <FBSDKLoginButton
           style={styles.loginButton}
           onWillLogin={() => {
+          /*method to check to see if login is needed*/
             FBSDKAccessToken.getCurrentAccessToken((result) => {
               console.log('first', result);
               if (result == null) {
@@ -43,6 +44,7 @@ var Login = React.createClass({
                 console.log('logging result',result);
               }
             }
+          {/*calling function again to get acess token after log in*/}
           FBSDKAccessToken.getCurrentAccessToken((data) => {
             console.log('data',data);
           });

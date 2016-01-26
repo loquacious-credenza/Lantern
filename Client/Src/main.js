@@ -19,6 +19,7 @@ var Main = React.createClass({
           <View style={styles.textContainer}>
             <Text style={styles.text}>We dont need no stinking image background yet!!</Text>
           </View>
+          {/*this is the log in button*/}
           <Login style={styles.loginContainer}/>
       </View>
     );
