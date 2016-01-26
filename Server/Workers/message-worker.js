@@ -12,6 +12,11 @@ var job = new cronJob({
 	start: true
 });
 
+// THIS FUNCTION WILL BE FLESHED OUT LATER. CURRENCTLY ACCEPTS USERS THAT HAVE TRIPS THAT ARE BOTH ACTIVE AND EXPIRED
+var pingTwilio = function (user, trip) {
+	console.log('User: ' + user + '\n');
+};
+
 var checkTrips = function () {
 	var currentTime = Date.now();
 	Trip.find({active:true, overdue_time: {$lt: currentTime}}, '-video -active', function (err, trips) {
@@ -33,9 +38,5 @@ var checkTrips = function () {
 	});
 };
 
-var pingTwilio = function (user, trip) {
-	console.log('User: ' + user + '\n');
-	console.log('Trip: ' + trip + '\n');
-}
 
 module.exports = job;
