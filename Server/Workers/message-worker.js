@@ -1,12 +1,13 @@
 var Trip = require('../Models/trip.js');
 var User = require('../Models/user.js');
 var twilio = require('./twilio-methods.js');
+var mail = require('./email-methods.js');
 var cronJob = require('cron').CronJob;
 var async = require('async');
 
 // CALLS 'checkTrips' EVERY 20 SECONDS.
 var job = new cronJob({
-	cronTime: '*/20 * * * * *',
+	cronTime: '*/30 * * * * *',
 	onTick: function () {
 		console.log("CronJob running!");
 		checkTrips();
@@ -27,7 +28,8 @@ var checkTrips = function () {
 					if (err) {
 						console.log('Error checking for user associated with an expired trip: ', err);
 					} else if (user !== null) {
-						twilio(user, item);
+						//twilio(user, item);
+						mail(user, item);
 					}
 					callback();
 				});
