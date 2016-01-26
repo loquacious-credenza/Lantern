@@ -5,9 +5,11 @@ var {
 } = React;
 
 var Signin = require('./Facebook/Signin');
+var Home = require('./Home/Home');
 
 var ROUTES = {
-  signin: Signin
+  signin: Signin,
+  home: Home
 };
 
 /**
@@ -25,7 +27,6 @@ var Main = React.createClass({
         initialRoute={{name: 'signin'}}
         renderScene={this.renderScene}
         configureScene={() => {
-          console.log('TETETETET', Navigator.SceneConfigs.FloatFromRight)
           return Navigator.SceneConfigs.FloatFromRight; }}
       />
     );
