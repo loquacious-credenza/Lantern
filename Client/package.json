@@ -9,7 +9,6 @@
     "react-native": "^0.18.1",
     "react-native-fbsdkcore": "0.0.8",
     "react-native-fbsdklogin": "0.0.8",
-    "react-native-fbsdkshare": "0.0.8",
     "react-native-maps": "^0.2.3"
   }
 }

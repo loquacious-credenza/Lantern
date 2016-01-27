@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var {
+  AsyncStorage,
   StyleSheet,
   View,
 } = React;
@@ -12,16 +13,43 @@ var {
 } = FBSDKLogin;
 var FBSDKCore = require('react-native-fbsdkcore');
 var {
+  FBSDKGraphRequest,
   FBSDKAccessToken,
 } = FBSDKCore;
 
 var Login = React.createClass({
+
   componentDidMount: function() {
-    FBSDKAccessToken.getCurrentAccessToken((result) => {
-      if (result) {
-        this.props.navigator.push({name: 'home'});
+    AsyncStorage.getItem('userID').then((ID)=>{
+      console.log('COMPENENTDIDMOUNTANDSTUFF',ID)
+      if(ID !== null){
+        this.loggedIn();
+      }else{
+        alert('error has access token but not set in async state');
       }
     })
+  },
+  loggedIn: function() {
+    //all of this vars are here to get this to bind correct
+    var name;
+    var id;
+    var push = () => this.props.navigator.push({name: 'home', userName: name, id: id});
+
+    new FBSDKGraphRequest((error, result) => {
+      if (error) {
+        alert('Error making request.');
+      } else {
+        console.log('GRAPHINGGGGGGGG',result)
+        name = result.name;
+        id = result.id;
+        //setting AsyncStorage with userID and userName.
+        AsyncStorage.multiSet([['userID',id],['userName',name]]).then(() => {
+          //pushing new navigation view
+        push();
+        })
+        // Data from request is in result
+      }
+    }, '/me').start();
   },
 
   render: function() {
@@ -34,7 +62,6 @@ var Login = React.createClass({
             FBSDKAccessToken.getCurrentAccessToken((result) => {
               console.log('first', result);
               if (result == null) {
-                alert('Start logging in.');
               } else {
                 alert('Start logging out.');
               }
@@ -48,18 +75,14 @@ var Login = React.createClass({
               if (result.isCancelled) {
                 alert('Login cancelled.');
               } else {
-                this.props.navigator.push({ name: 'home'})
+                this.loggedIn();
               }
             }
-          {/*calling function again to get acess token after log in*/}
-          FBSDKAccessToken.getCurrentAccessToken((data) => {
-              console.log('data',data);
-            });
           }
         }
 
           onLogoutFinished={() => alert('Logged out.')}
-          readPermissions={[]}
+          readPermissions={['public_profile']}
           publishPermissions={[]}/>
       </View>
     );
