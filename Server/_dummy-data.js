@@ -19,7 +19,7 @@ var cont3 = {
 
 var trip1 = {
   user_id: 'A',
-  active: true,
+  active: false,
   destination: { "location": { "coordinates": [ -122.40906260000001, 37.783750399999995] } },
   start_time: Date.now(),
   overdue_time: "2015-07-18T00:43:35.490Z"
@@ -37,7 +37,7 @@ var trip2 = {
 };
 var trip3 = {
   user_id: 'C',
-  active: true,
+  active: false,
   destination: { "location": { "coordinates": [ -122.40906260000001, 37.783750399999995] } },
   start_time: Date.now(),
   overdue_time: "2016-04-10T19:27:19.698Z"
