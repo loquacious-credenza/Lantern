@@ -28,7 +28,7 @@ var checkTrips = function () {
 					if (err) {
 						console.log('Error checking for user associated with an expired trip: ', err);
 					} else if (user !== null) {
-						//twilio(user, item);
+						twilio(user, item);
 						mail(user, item);
 					}
 					callback();
