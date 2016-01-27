@@ -15,6 +15,7 @@ var Home = React.createClass({
     return (
       <View style={styles.container} >
         <Text style={styles.text} > let me do it as it would be on the home screen</Text>
+        <Text>{this.props.route.userName}</Text>
       </View>
     );
   }
