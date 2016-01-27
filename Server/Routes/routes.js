@@ -1,4 +1,5 @@
 var UserMethods = require('../Controllers/user-controller.js');
+var path = require('path');
 
 var Trip = require('../Controllers/trip-controller');
 
@@ -55,7 +56,12 @@ module.exports = function (app, express) {
 		//res.send('Arrived at endpoint: ' + req.url);
 		UserMethods.updateContacts(req.params.user_id, req.body.contacts, res);
 	});
+/* ================ CONTACT ENDPOINTS ================= */
+	app.get('/contact', function (req, res) {
+		res.end();
+	});
 }
+
 
 
 
