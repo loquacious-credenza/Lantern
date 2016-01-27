@@ -220,6 +220,12 @@ var {
   RESET_DELAY_FAIL
 } = require('./config');
 
+
+/**
+ * Action that fires when the ETA+delay has elapsed.
+ * @param  {object} payload action that toggles `user.isOverdue`
+ * @return {object}         processed by reducer
+ */
 export var passedAcceptableDelay = (payload) => {
   return {
     type: PASSED_ACCEPTABLE_DELAY,
@@ -227,6 +233,12 @@ export var passedAcceptableDelay = (payload) => {
   };
 }
 
+/**
+ * Action that fires when ETA time has elapsed and checkin has not occured.
+ * Should change the view to be red.
+ * @param  {object} payload contains boolean  `false` to toggle `user.isOverdue`
+ * @return {object}         processed by reducer to change `user.isOverdue` to false
+ */
 export var passedEta = (payload) => {
   return {
     type: PASSED_ETA,
@@ -234,6 +246,14 @@ export var passedEta = (payload) => {
   };
 }
 
+
+/**
+ * Action fired when the ETA is to be reset to the current time.
+ * This effectively allows the delay to run again like snooze.
+ * This initatiates a request to server to reset activeTrip.endTime.
+ * @param  {object} payload contains new Date value for `activeTrip.endTime`
+ * @return {object}         processed by reducers for `user.isOverdue` and `activeTrip.endTime`
+ */
 export var resetDelay = (payload) => {
   return {
     type: RESET_DELAY,
@@ -241,6 +261,11 @@ export var resetDelay = (payload) => {
   };
 }
 
+/**
+ * Action that occurs on successful response from server
+ * @param  {object} payload server response and original payload from `resetDelay`
+ * @return {object}         reducer will return current state
+ */
 export var resetDelaySuccess = (payload) => {
   return {
     type: RESET_DELAY_SUCCESS,
@@ -248,6 +273,12 @@ export var resetDelaySuccess = (payload) => {
   };
 }
 
+/**
+ * Action fired when there is a problem sending the resetDelay message to server.
+ * The network request should retry with payload.
+ * @param  {object} payload the new `activeTrip.endTime` date value
+ * @return {object}         action object that can message user or revert state
+ */
 export var resetDelayFail = (payload) => {
   return {
     type: RESET_DELAY_FAIL,
@@ -263,6 +294,12 @@ var {
   UPDATE_EMERGENCY_CONTACT_FAIL
 } = require('./config');
 
+/**
+ * Action that sends updated contacts back to server.
+ * This method sends the entire contacts array (5 items)
+ * @param  {object} payload the new array of contacts
+ * @return {object}         reducer will update state
+ */
 export var updateEmergencyContact = (payload) => {
   return {
     type: UPDATE_EMERGENCY_CONTACT,
@@ -270,3 +307,102 @@ export var updateEmergencyContact = (payload) => {
   };
 }
 
+/**
+ * Action that occurs when the server has updated contacts
+ * A message can notify user that contact updates were saved.
+ * @param  {object} payload server response and msg to user
+ * @return {object}         action object will notify user of success.
+ */
+export var updateEmergencyContactSuccess = (payload) => {
+  return {
+    type: UPDATE_EMERGENCY_CONTACT_SUCCESS,
+    payload
+  };
+}
+
+/**
+ * Action that occurs when server cannot update contacts
+ * @param  {object} payload payload is contacts object for retry attempts
+ * @return {object}         action object for `user.emergencyContacts` reducer
+ */
+export var updateEmergencyContactFail = (payload) => {
+  return {
+    type: UPDATE_EMERGENCY_CONTACT_FAIL,
+    payload
+  };
+}
+
+
+/*=============================================================*/
+
+var {
+  GET_CURRENT_LOCATION,
+  GET_CURRENT_LOCATION_SUCCESS,
+  GET_CURRENT_LOCATION_FAIL
+} = require('./config');
+
+/**
+ * Action fired when the geolocation is being updated from device.
+ * @param  {object} payload action type
+ * @return {object}         action object for `user.currentLocation`
+ */
+export var getCurrentLocation = (payload) => {
+  return {
+    type: GET_CURRENT_LOCATION,
+    payload
+  };
+}
+
+/**
+ * Action fired when a request for geolocation is successful.
+ * @param  {object} payload contains geolocation latitude, longitude, timestamp
+ * @return {object}         action object for `currentLocation` reducer
+ */
+export var getCurrentLocationSuccess = (payload) => {
+  return {
+    type: GET_CURRENT_LOCATION_SUCCESS,
+    payload
+  };
+}
+
+/**
+ * Action fired when geolocation cannot be read from device
+ * Should retry getting location and return message to user after x time.
+ * @param  {object} payload contains error msg
+ * @return {object}         object processed by `currentLocation` reducer
+ */
+export var getCurrentLocationFail = (payload) => {
+  return {
+    type: GET_CURRENT_LOCATION_FAIL,
+    payload
+  };
+}
+
+/*=============================================================*/
+
+var {
+  AUTHENTICATE,
+  AUTH_SUCCESS,
+  AUTH_FAIL
+} = require('./config');
+
+export var authenticate = (payload) => {
+  return {
+    type: AUTHENTICATE,
+    payload
+  };
+}
+
+export var authSuccess = (payload) => {
+  return {
+    type: AUTH_SUCCESS,
+    payload
+  };
+}
+
+export var authError = (payload) => {
+  return {
+    type: AUTH_FAIL,
+    payload
+  };
+}
