@@ -6,7 +6,6 @@ module.exports = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   navigator: {
     flex: 1
   },
@@ -37,5 +36,30 @@ module.exports = {
     color: 'blue',
     fontSize: 20,
     textAlign: 'center'
-  }
+  },
+    map: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+    },
+
+    mapView: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    },
+
+    mapCenterMarkerView: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'transparent',
+    },
+
+    mapCenterMarker: {
+        width: 32,
+        height: 32,
+        backgroundColor: 'transparent'
+    },
 };
