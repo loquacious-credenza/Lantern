@@ -1,3 +1,7 @@
-module.exports = (function(){
-  activeTrip: require('./active-trip')
-})();
+'use strict';
+
+var {combineReducers} = require('redux');
+
+export default combineReducers({
+  currentLocation: require('./current-location')
+})
