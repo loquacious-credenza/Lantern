@@ -10,7 +10,7 @@ var {
 /**
  * A sample app that demonstrates use of the FBSDK login button, native share dialog, and graph requests.
  */
-var Home = React.createClass({
+export var Home = React.createClass({
   render: function() {
     return (
       <View style={styles.container} >
@@ -24,4 +24,3 @@ var Home = React.createClass({
 // importing styles
 var styles = StyleSheet.create(require('../styles.js'));
 
-module.exports = Home;
