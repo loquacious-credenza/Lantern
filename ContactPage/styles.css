@@ -1,10 +1,27 @@
+h2 {
+	font-size:25px;
+	font-family: sans-serif;
+}
+
 .main-container {
 	margin-top: 40px;
 	border-radius: 3px;
 	background-color: #eee;
+	padding: 0px;
+}
+
+.user-information-form {
+	margin: 20px;
+}
+
+.user-information-form ul li {
+	list-style: none;
+	background-color: #fff;
+	border-radius: 3px;
 }
 
 #map {
 	border: solid 1px black;
 	height: 500px;
 }
+

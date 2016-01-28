@@ -40,6 +40,12 @@ var renderLocationsToMap = function (map, data) {
 	}
 };
 
+var renderUserToPage = function (data) {
+	console.log(data);
+	$('#user-name').html(data.name);
+	$('#user-phone').html(data.phone);
+};
+
 // THIS FUNCTION MAKES A GET REQUEST TO THE SERVER EVERY 20 SECONDS, PROVIDING 'user_id' and 'trip_id' IN THE URL. 
 // IT THEN PASSES THE RESULTING DATA ALONG TO 'renderLocations'.
 var updateLocationData = function (map, targetUrl) {
@@ -51,6 +57,19 @@ var updateLocationData = function (map, targetUrl) {
 		}, 
 		error: function (err) {
 			console.log("Error getting map data: ", err);
+		}
+	});
+};
+
+var updateUserData = function (targetUrl) {
+	$.ajax({
+		url: targetUrl + 'user',
+		type: 'GET',
+		success: function (data) {
+			renderUserToPage(data);
+		},
+		error: function (err) {
+			console.log("Error getting user data: ", err);
 		}
 	});
 };
@@ -70,6 +89,7 @@ var parseUrl = function (url) {
 $(document).ready(function () {
 	var map = initializeMap();
 	var url = parseUrl($(location).attr('href'));
+	updateUserData(url);
 	updateLocationData(map, url);
 	setTimeout(function () {
 		updateLocationData(map, url);
