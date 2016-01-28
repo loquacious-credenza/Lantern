@@ -10,9 +10,18 @@ var initializeMap = function () {
 var renderLocationsToMap = function (map, data) {
 	var points = [];
 	var path;
+	var destination;
 	for (var i = 0; i < data.path.length; i++) {
 		points.push(new google.maps.LatLng(data.path[i].location.coordinates[0], data.path[i].location.coordinates[1]));
 	};
+
+	destination = new google.maps.Marker({
+		position: new google.maps.LatLng(data.destination.location.coordinates[0], data.destination.location.coordinates[1])
+	});
+
+	console.log(data.destination.location.coordinates);
+	console.log(destination);
+
 	path = new google.maps.Polyline({
 		path: points,
 		strokeColor: "#0000FF",
@@ -21,6 +30,7 @@ var renderLocationsToMap = function (map, data) {
 	});
 
 	path.setMap(map);
+	destination.setMap(map);
 };
 
 var updateLocationData = function (map, targetUrl) {

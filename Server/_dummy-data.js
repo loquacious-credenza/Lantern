@@ -68,7 +68,7 @@ var trip3 = {
 var trip4 = {
   user_id: 'D',
   active: true,
-  destination: {"location": { "coordinates": [ -122.40906260000001, 37.783750399999995] } },
+  destination: {"location": { "coordinates": [51.508742,-0.120850] } },
   start_time: Date.now(),
   overdue_time: "2015-08-05T00:28:14.617Z",
   path: [locpoint1, locpoint2, locpoint3]
