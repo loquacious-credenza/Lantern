@@ -13,9 +13,30 @@ var cont2 = {
 };
 var cont3 = {
 	contact_name: 'Alf',
-	contact_email: 'motherfuckingAlf@geocities.com',
+	contact_email: 'Alf@geocities.com',
 	contact_phone: 4555
 };
+var cont4 = {
+  contact_name: 'Max',
+  contact_email: 'fakemail@gmail.com',
+  contact_phone: 4555
+}
+
+var locpoint1 = {
+  location: {
+    coordinates: [52.395715,4.888916]
+  }
+}
+var locpoint2 = {
+  location: {
+    coordinates: [58.983991,5.734863]
+  }
+}
+var locpoint3 = {
+  location: {
+    coordinates: [51.508742,-0.120850]
+  }
+}
 
 var trip1 = {
   user_id: 'A',
@@ -44,6 +65,14 @@ var trip3 = {
   //path: []
   //videos: [ VideoModel ]
 };
+var trip4 = {
+  user_id: 'D',
+  active: true,
+  destination: {"location": { "coordinates": [51.508742,-0.120850] } },
+  start_time: Date.now(),
+  overdue_time: "2015-08-05T00:28:14.617Z",
+  path: [locpoint1, locpoint2, locpoint3]
+}
 
 var user1 = {
 _id:'A',
@@ -69,14 +98,22 @@ delay: 5,
 contacts: [cont3]
 //trips: [trip3]
 };
+var user4 = {
+_id:'D',
+name:'Bob Dole',
+phone: 5555,
+contacts: [cont4]
+};
 
 Trip.create(trip1, function(){});
 Trip.create(trip2, function(){});
 Trip.create(trip3, function(){});
+Trip.create(trip4, function(){});
 
 User.create(user1, function(){});
 User.create(user2, function(){});
 User.create(user3, function(){});
+User.create(user4, function(){});
 
 
 
