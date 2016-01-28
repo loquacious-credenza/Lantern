@@ -13,12 +13,12 @@ import startTime from './start-time';
 import waypoints from './waypoints';
 
 export {
-  currentLocation//,
+  currentLocation,
   // authenticate,
   // destination,
   // emergencyContacts,
   // endTime,
-  // isLoggedIn,
+  isLoggedIn//,
   // isOverdue,
   // onTrip,
   // origin,

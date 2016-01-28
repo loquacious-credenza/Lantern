@@ -1,4 +1,9 @@
 'use strict';
+//user.login
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
 //user.currentLocation
 export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION';
