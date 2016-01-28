@@ -13,7 +13,7 @@ import {
  * @param  {object} payload contains new Date value for `activeTrip.endTime`
  * @return {object}         processed by reducers for `user.isOverdue` and `activeTrip.endTime`
  */
-export var resetDelay = (payload) => {
+export const resetDelay = (payload) => {
   return {
     type: RESET_DELAY,
     payload
@@ -25,7 +25,7 @@ export var resetDelay = (payload) => {
  * @param  {object} payload server response and original payload from `resetDelay`
  * @return {object}         reducer will return current state
  */
-export var resetDelaySuccess = (payload) => {
+export const resetDelaySuccess = (payload) => {
   return {
     type: RESET_DELAY_SUCCESS,
     payload
@@ -38,7 +38,7 @@ export var resetDelaySuccess = (payload) => {
  * @param  {object} payload the new `activeTrip.endTime` date value
  * @return {object}         action object that can message user or revert state
  */
-export var resetDelayFail = (payload) => {
+export const resetDelayFail = (payload) => {
   return {
     type: RESET_DELAY_FAIL,
     payload

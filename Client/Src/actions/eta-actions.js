@@ -10,7 +10,7 @@ import {
  * @param  {object} payload object `endTime` property that is a date item occuring in future
  * @return {object}         processed by reducer and updating `activeTrip.endTime`
  */
-export var addEta = (payload) => {
+export const addEta = (payload) => {
   return {
     type: ADD_ETA,
     payload

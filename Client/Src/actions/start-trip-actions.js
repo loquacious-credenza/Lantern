@@ -12,7 +12,7 @@ import {
  * @param  {object} payload geolocation data. default is current location from device
  * @return {object}         action processed by reducer `user.onTrip`
  */
-export var startTrip = (payload) => {
+export const startTrip = (payload) => {
   // do send message to server.  Need to do action with thunk.
   return {
     type: START_TRIP,
@@ -27,7 +27,7 @@ export var startTrip = (payload) => {
  * @param  {object} payload response object from server
  * @return {object}         actions taken after server response
  */
-export var startTripSuccess = (payload) => {
+export const startTripSuccess = (payload) => {
   // on successful response from server
   return {
     type: START_TRIP_SUCCESS,
@@ -41,7 +41,7 @@ export var startTripSuccess = (payload) => {
  * @param  {object} payload contains error from server and boolean value in `onTrip` property
  * @return {object}         processed by reducer to revert `user.onTrip`
  */
-export var startTripError = (payload) => {
+export const startTripError = (payload) => {
   // on error response from server. Do cleanup
   return {
     type: START_TRIP_FAIL,

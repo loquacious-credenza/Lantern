@@ -12,7 +12,7 @@ import {
  * @param  {object} payload the new array of contacts
  * @return {object}         reducer will update state
  */
-export var updateEmergencyContact = (payload) => {
+export const updateEmergencyContact = (payload) => {
   return {
     type: UPDATE_EMERGENCY_CONTACT,
     payload
@@ -25,7 +25,7 @@ export var updateEmergencyContact = (payload) => {
  * @param  {object} payload server response and msg to user
  * @return {object}         action object will notify user of success.
  */
-export var updateEmergencyContactSuccess = (payload) => {
+export const updateEmergencyContactSuccess = (payload) => {
   return {
     type: UPDATE_EMERGENCY_CONTACT_SUCCESS,
     payload
@@ -37,7 +37,7 @@ export var updateEmergencyContactSuccess = (payload) => {
  * @param  {object} payload payload is contacts object for retry attempts
  * @return {object}         action object for `user.emergencyContacts` reducer
  */
-export var updateEmergencyContactFail = (payload) => {
+export const updateEmergencyContactFail = (payload) => {
   return {
     type: UPDATE_EMERGENCY_CONTACT_FAIL,
     payload

@@ -8,7 +8,7 @@ import { ADD_WAYPOINT } from '../constants/action-types';
  * @param {object} payload object with gelocation data
  * @return {object} processed by reducer to update `waypoints` array
  */
-export var addWaypoint = (payload) => {
+export const addWaypoint = (payload) => {
   return {
     type: ADD_WAYPOINT,
     payload

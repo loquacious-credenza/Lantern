@@ -13,7 +13,7 @@ import {
  * @param  {object} payload contains final geolocation and timestamp
  * @return {object}         passed onto server and success
  */
-export var checkIn = (payload) => {
+export const checkIn = (payload) => {
   // initiate a transition to authenticated action
   // send a message to server
   return {
@@ -27,7 +27,7 @@ export var checkIn = (payload) => {
  * @param  {object} payload gets the payload from `checkin`
  * @return {object}         passes on to reducer
  */
-export var checkInSuccess = (payload) => {
+export const checkInSuccess = (payload) => {
   // do stuff after the server successfully checks in
   return {
     type: CHECK_IN_SUCCESS,
@@ -41,7 +41,7 @@ export var checkInSuccess = (payload) => {
  * @param  {object} payload the response from server and original geolocation object
  * @return {object}         processed by reducer
  */
-export var checkInFail = (payload) => {
+export const checkInFail = (payload) => {
   // do stuff when the server did responded with error on authenticate
   return {
     type: CHECK_IN_FAIL,

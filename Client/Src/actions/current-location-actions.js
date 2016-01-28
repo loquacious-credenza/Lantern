@@ -47,7 +47,7 @@ export const getCurrentLocationSuccess = (payload) => {
  * @param  {object} payload contains error msg
  * @return {object}         object processed by `currentLocation` reducer
  */
-export var getCurrentLocationFail = (payload) => {
+export const getCurrentLocationFail = (payload) => {
   return {
     type: GET_CURRENT_LOCATION_FAIL,
     payload

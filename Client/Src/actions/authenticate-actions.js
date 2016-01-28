@@ -6,21 +6,21 @@ import {
   AUTH_FAIL
 } from '../constants/action-types';
 
-export var authenticate = (payload) => {
+export const authenticate = (payload) => {
   return {
     type: AUTHENTICATE,
     payload
   };
 }
 
-export var authSuccess = (payload) => {
+export const authSuccess = (payload) => {
   return {
     type: AUTH_SUCCESS,
     payload
   };
 }
 
-export var authError = (payload) => {
+export const authError = (payload) => {
   return {
     type: AUTH_FAIL,
     payload

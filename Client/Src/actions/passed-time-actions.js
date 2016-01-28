@@ -10,7 +10,7 @@ import {
  * @param  {object} payload action that toggles `user.isOverdue`
  * @return {object}         processed by reducer
  */
-export var passedAcceptableDelay = (payload) => {
+export const passedAcceptableDelay = (payload) => {
   return {
     type: PASSED_ACCEPTABLE_DELAY,
     payload
@@ -23,7 +23,7 @@ export var passedAcceptableDelay = (payload) => {
  * @param  {object} payload contains boolean  `false` to toggle `user.isOverdue`
  * @return {object}         processed by reducer to change `user.isOverdue` to false
  */
-export var passedEta = (payload) => {
+export const passedEta = (payload) => {
   return {
     type: PASSED_ETA,
     payload
