@@ -1,0 +1,42 @@
+'use strict';
+
+//user.currentLocation
+export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION';
+export const GET_CURRENT_LOCATION_SUCCESS = 'GET_CURRENT_LOCATION_SUCCESS';
+export const GET_CURRENT_LOCATION_FAIL = 'GET_CURRENT_LOCATION_FAIL';
+
+//user.activeTrip
+export const ADD_START = 'ADD_START';
+export const ADD_DESTINATION = 'ADD_DESTINATION';
+export const ADD_DESTINATION_SUCCESS = 'ADD_DESTINATION_SUCCESS';
+export const ADD_DESTINATION_FAIL = 'ADD_DESTINATION_FAIL';
+export const ADD_ETA = 'ADD_ETA';
+
+
+//activeTrip.waypoints
+export const ADD_WAYPOINT = 'ADD_WAYPOINT';
+
+//user.onTrip
+export const START_TRIP = 'START_TRIP';
+export const START_TRIP_SUCCESS = 'START_TRIP_SUCCESS';
+export const START_TRIP_FAIL = 'START_TRIP_FAIL';
+export const CHECK_IN = 'CHECK_IN';
+export const CHECK_IN_SUCCESS = 'CHECK_IN_SUCCESS';
+export const CHECK_IN_FAIL = 'CHECK_IN_FAIL';
+
+//user.isOverdue
+export const PASSED_ACCEPTABLE_DELAY = 'PASSED_ACCEPTABLE_DELAY';
+export const PASSED_ETA = 'PASSED_ETA';
+export const RESET_DELAY = 'RESET_DELAY';
+export const RESET_DELAY_SUCCESS = 'RESET_DELAY_SUCCESS';
+export const RESET_DELAY_FAIL = 'RESET_DELAY_FAIL';
+
+//user.emergencyContacts
+export const UPDATE_EMERGENCY_CONTACT = 'UPDATE_EMERGENCY_CONTACT';
+export const UPDATE_EMERGENCY_CONTACT_SUCCESS = 'UPDATE_EMERGENCY_CONTACT_SUCCESS';
+export const UPDATE_EMERGENCY_CONTACT_FAIL = 'UPDATE_EMERGENCY_CONTACT_FAIL';
+
+//TBD
+export const AUTHENTICATE = 'AUTHENTICATE';
+export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';

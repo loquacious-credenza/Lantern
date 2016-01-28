@@ -6,12 +6,12 @@ const {
   GET_CURRENT_LOCATION,
   GET_CURRENT_LOCATION_SUCCESS,
   GET_CURRENT_LOCATION_FAIL
-} = require('../config/constants');
+} = require('../constants/action-types');
 
 const initialState = {
-  latitude:null,
-  longitude:null,
-  timestamp:null,
+  latitude: null,
+  longitude: null,
+  timestamp: null,
   failedAttemptsToUpdate: 0
 }
 

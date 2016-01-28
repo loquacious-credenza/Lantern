@@ -8,7 +8,7 @@ const {
   RESET_DELAY,
   RESET_DELAY_SUCCESS,
   RESET_DELAY_FAIL
-} = require('./config');
+} = require('../constants/action-types');
 
 export var isOverdue = (state = false, { type, payload }) => {
   switch (type) {
@@ -35,7 +35,7 @@ export var isOverdue = (state = false, { type, payload }) => {
       });
     case RESET_DELAY_FAIL:
       return extend({}, state, {
-        isOverdue; true
+        isOverdue: true
       });
     default:
       return state;
