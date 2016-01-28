@@ -13,12 +13,12 @@ var cont2 = {
 };
 var cont3 = {
 	contact_name: 'Alf',
-	contact_email: 'motherfuckingAlf@geocities.com',
+	contact_email: 'Alf@geocities.com',
 	contact_phone: 4555
 };
 var cont4 = {
   contact_name: 'Max',
-  contact_email: 'moconnell7171@gmail.com',
+  contact_email: 'fakemail@gmail.com',
   contact_phone: 4555
 }
 
