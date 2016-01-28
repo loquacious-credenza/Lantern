@@ -18,13 +18,12 @@ const initialState = {
 export default (state = initialState, {type,payload}) => {
   switch(type) {
     case GET_CURRENT_LOCATION:
+      return state;
+    case GET_CURRENT_LOCATION_SUCCESS:
       return extend({}, state, {
         latitude: payload.latitude,
         longitude: payload.longitude,
-        timestamp: Date.now() // TO DO: Evaluate if this makes sense
-      });
-    case GET_CURRENT_LOCATION_SUCCESS:
-      return extend({}, state, {
+        timestamp: payload.timestamp,
         failedAttemptsToUpdate: 0
       });
     case GET_CURRENT_LOCATION_FAIL:
