@@ -60,6 +60,10 @@ module.exports = function (app, express) {
 	app.get('/userpath/:user_id/:trip_id', function (req, res) {
 		Trip.read(req, res);
 	});
+
+	app.get('/userpath/:user_id/:trip_id/user', function (req, res) {
+		UserMethods.findUser(req.params.user_id, res);
+	});
 }
 
 

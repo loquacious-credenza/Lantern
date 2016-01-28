@@ -1,3 +1,5 @@
+var mapCentered = false;
+
 // RENDER MAP ONTO THE PAGE
 var initializeMap = function () {
 	return new google.maps.Map(document.getElementById('map'), {
@@ -23,9 +25,6 @@ var renderLocationsToMap = function (map, data) {
 		position: new google.maps.LatLng(data.destination.location.coordinates[0], data.destination.location.coordinates[1])
 	});
 
-	console.log(data.destination.location.coordinates);
-	console.log(destination);
-
 	path = new google.maps.Polyline({
 		path: points,
 		strokeColor: "#0000FF",
@@ -35,6 +34,16 @@ var renderLocationsToMap = function (map, data) {
 
 	path.setMap(map);
 	destination.setMap(map);
+	if (!mapCentered) {
+		mapCentered = true;
+		map.setCenter(points[0]);
+	}
+};
+
+var renderUserToPage = function (data) {
+	console.log(data);
+	$('#user-name').html(data.name);
+	$('#user-phone').html(data.phone);
 };
 
 // THIS FUNCTION MAKES A GET REQUEST TO THE SERVER EVERY 20 SECONDS, PROVIDING 'user_id' and 'trip_id' IN THE URL. 
@@ -48,6 +57,19 @@ var updateLocationData = function (map, targetUrl) {
 		}, 
 		error: function (err) {
 			console.log("Error getting map data: ", err);
+		}
+	});
+};
+
+var updateUserData = function (targetUrl) {
+	$.ajax({
+		url: targetUrl + 'user',
+		type: 'GET',
+		success: function (data) {
+			renderUserToPage(data);
+		},
+		error: function (err) {
+			console.log("Error getting user data: ", err);
 		}
 	});
 };
@@ -67,6 +89,8 @@ var parseUrl = function (url) {
 $(document).ready(function () {
 	var map = initializeMap();
 	var url = parseUrl($(location).attr('href'));
+	updateUserData(url);
+	updateLocationData(map, url);
 	setTimeout(function () {
 		updateLocationData(map, url);
 	}, 20000);
