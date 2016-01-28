@@ -57,8 +57,8 @@ module.exports = function (app, express) {
 		UserMethods.updateContacts(req.params.user_id, req.body.contacts, res);
 	});
 /* ================ CONTACT ENDPOINTS ================= */
-	app.get('/contact', function (req, res) {
-		res.end();
+	app.get('/userpath/:user_id/:trip_id', function (req, res) {
+		Trip.read(req, res);
 	});
 }
 

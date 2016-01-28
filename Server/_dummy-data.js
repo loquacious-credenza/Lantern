@@ -22,6 +22,22 @@ var cont4 = {
   contact_phone: 4555
 }
 
+var locpoint1 = {
+  location: {
+    coordinates: [52.395715,4.888916]
+  }
+}
+var locpoint2 = {
+  location: {
+    coordinates: [58.983991,5.734863]
+  }
+}
+var locpoint3 = {
+  location: {
+    coordinates: [51.508742,-0.120850]
+  }
+}
+
 var trip1 = {
   user_id: 'A',
   active: false,
@@ -54,7 +70,8 @@ var trip4 = {
   active: true,
   destination: {"location": { "coordinates": [ -122.40906260000001, 37.783750399999995] } },
   start_time: Date.now(),
-  overdue_time: "2015-08-05T00:28:14.617Z"
+  overdue_time: "2015-08-05T00:28:14.617Z",
+  path: [locpoint1, locpoint2, locpoint3]
 }
 
 var user1 = {
