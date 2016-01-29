@@ -20,13 +20,12 @@ var {
 var Login = React.createClass({
 
   componentDidMount: function() {
-    console.log("Props are:",this.props)
     AsyncStorage.multiGet(['userName','userID']).then((response) => {
-      // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN     
+      // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN
         if(response[0][1] !== null){
           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
-          this.props.login({name:response[0][1],id:response[1][1]});
-          // this.push(response[0][1],response[1][1]);
+          this.props.actions.login({name:response[0][1],id:response[1][1]});
+          this.props.navigator.push({name: 'getLocation', userName: response[0][1], userID: response[1][1]});
         } else {
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
 
@@ -40,14 +39,12 @@ var Login = React.createClass({
     //all of these vars are here to get this to bind correctly
     var name;
     var id;
-    console.log(this.props.navigator)
 
     new FBSDKGraphRequest((error, result) => {
       if (error) {
         alert('Error making request.');
         // THIS IS AN ERROR MAKING THE FB GRAPH REQUEST TO GET NAME
       } else {
-        console.log('GRAPHINGGGGGGGG',result)
         name = result.name;
         id = result.id;
         //setting AsyncStorage with userID and userName.
@@ -68,7 +65,7 @@ var Login = React.createClass({
           onWillLogin={() => {
           /*method to check to see if login is needed*/
             FBSDKAccessToken.getCurrentAccessToken((result) => {
-              console.log('first', result);
+              // console.log('first', result);
               if (result == null) {
               } else {
                 alert('Start logging out.');

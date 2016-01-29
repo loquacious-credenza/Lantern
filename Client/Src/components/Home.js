@@ -1,17 +1,14 @@
 'use strict';
 
-var React = require('react-native');
-var {
+import React, {
   StyleSheet,
+  Component,
   Text,
-  View,
-} = React;
+  View
+} from 'react-native';
 
-/**
- * A sample app that demonstrates use of the FBSDK login button, native share dialog, and graph requests.
- */
-export var Home = React.createClass({
-  render: function() {
+export default class Home extends Component {
+  render() {
     return (
       <View style={styles.container} >
         <Text style={styles.text} > let me do it as it would be on the home screen</Text>
@@ -19,8 +16,7 @@ export var Home = React.createClass({
       </View>
     );
   }
-});
+};
 
 // importing styles
 var styles = StyleSheet.create(require('../styles.js'));
-
