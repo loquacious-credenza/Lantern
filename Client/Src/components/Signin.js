@@ -1,5 +1,11 @@
 'use strict';
 
+
+import { Component } from 'react-native';
+import * as actions from '../actions';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 var React = require('react-native');
 var {
   StyleSheet,
@@ -17,7 +23,7 @@ var Signin = React.createClass({
     return (
       <View style={styles.container} >
         <Text style={styles.text} >We dont need no stinking image background yet!!</Text>
-        <Login navigator={this.props.navigator} style={styles.loginContainer}/>
+        <Login navigator={this.props.navigator} style={styles.loginContainer} login={this.props.login}/>
       </View>
     );
   }
@@ -26,4 +32,10 @@ var Signin = React.createClass({
 // importing styles
 var styles = StyleSheet.create(require('../styles.js'));
 
-module.exports = Signin;
+export default connect(state => ({
+    state: state
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators(actions, dispatch)
+  })
+)(Signin);

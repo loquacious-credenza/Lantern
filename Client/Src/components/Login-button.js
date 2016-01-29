@@ -20,24 +20,32 @@ var {
 var Login = React.createClass({
 
   componentDidMount: function() {
-    AsyncStorage.getItem('userID').then((ID)=>{
-      console.log('COMPENENTDIDMOUNTANDSTUFF',ID)
-      if(ID !== null){
-        this.loggedIn();
-      }else{
-        alert('error has access token but not set in async state');
-      }
-    })
+    console.log("Props are:",this.props)
+    AsyncStorage.multiGet(['userName','userID']).then((response) => {
+      // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN     
+        if(response[0][1] !== null){
+          // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
+          this.props.login({name:response[0][1],id:response[1][1]});
+          // this.push(response[0][1],response[1][1]);
+        } else {
+          // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
+
+        }
+    }).done();
+  },
+  push: function(name, id) {
+    this.props.navigator.push({name: 'home', userName: name, id: id});
   },
   loggedIn: function() {
-    //all of this vars are here to get this to bind correct
+    //all of these vars are here to get this to bind correctly
     var name;
     var id;
-    var push = () => this.props.navigator.push({name: 'home', userName: name, id: id});
+    console.log(this.props.navigator)
 
     new FBSDKGraphRequest((error, result) => {
       if (error) {
         alert('Error making request.');
+        // THIS IS AN ERROR MAKING THE FB GRAPH REQUEST TO GET NAME
       } else {
         console.log('GRAPHINGGGGGGGG',result)
         name = result.name;
@@ -45,7 +53,7 @@ var Login = React.createClass({
         //setting AsyncStorage with userID and userName.
         AsyncStorage.multiSet([['userID',id],['userName',name]]).then(() => {
           //pushing new navigation view
-        push();
+        this.push(name,id);
         })
         // Data from request is in result
       }

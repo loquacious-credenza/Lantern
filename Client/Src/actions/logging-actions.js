@@ -14,14 +14,21 @@ import {
  * The action dispatched on login
  * @return {object} Has the action type to modify `isLoggedIn` to true
  */
+
+ // payload looks like this {name: , id: }
 export const login = (payload) => {
-    var userId = payload._id // TODO: CONFIRM FORMAT
+ // TODO: CONFIRM FORMAT
+  var responseBody = {}
+  responseBody._id = payload.id;
+  responseBody.name = payload.name;
   return (dispatch) => {
-    fetch({
-      path: 'http://localhost:8000/user/' + userId,
+    fetch('http://localhost:8000/user/' + payload.id,
+    {
       method: 'POST',
-      body: payload //TODO: EVALUATE PAYLOAD DATA
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(responseBody)
     }).then( (response) => {
+        console.log('WE GOT SOMETHING BACK', response)
       loginSuccess(extend({},response,{isOverdue:false})); // TO DO: FIGURE THIS OUT
     }).catch( (err) => {
       loginFail(err);
