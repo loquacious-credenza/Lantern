@@ -1,44 +1,46 @@
 'use strict';
 
-import React, { Component } from 'react-native';
+import React, { Component, Navigator, StyleSheet } from 'react-native';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+
+
+// Components
 import CurrentLocation from '../components/get-location';
-import SignIn from '../components/Signin.js' // NOTE THIS SHOULD BE MOVED TO CONTAINERS - RY
+import SignIn from '../components/Signin'; // NOTE THIS SHOULD BE MOVED TO CONTAINERS - RY
+import Home from '../components/Home';
 
+var ROUTES = {
+  signin: SignIn,
+  home: Home,
+  getLocation: CurrentLocation
+};
 
-/// UNCOMMENT BELOW TO CHECK CURRENT LOCATION ------------------------------------------------------------------
-
-// class Main extends Component {
-//   constructor(props) {
-//     super(props);
-//   }
-
-//   render() {
-//     const { state, actions } = this.props;
-//     return (
-//       <CurrentLocation
-//         location={state}
-//         {...actions} />
-//     );
-//   }
-// }
-
-/// UNCOMMENT ABOVE TO CHECK CURRENT LOCATION ------------------------------------------------------------------
-
-/// UNCOMMENT BELOW TO CHECK LOGIN COMPONENT -------------------------------------------------------------------
 class Main extends Component {
   constructor(props) {
     super(props);
   }
 
+  renderScene(route, navigator){
+    console.log('RENDER SCENE',route.name);
+    let Component = ROUTES[route.name];
+    console.log('COMPONENT', Component);
+    return <Component route={route} navigator={navigator} actions={actions}/>;
+  }
+
   render() {
-    const { state, actions } = this.props;
+
+    const { currentLocation, user, actions } = this.props;
+    console.log('HAOOY', currentLocation);
     return (
-      <SignIn
-        user={state}
-        {...actions} />
+      <Navigator
+        style={styles.navigator}
+        initialRoute={{name: 'signin'}}
+        renderScene={this.renderScene}
+        configureScene={() => {
+          return Navigator.SceneConfigs.FloatFromRight; }}
+      />
     );
   }
 }
@@ -47,9 +49,13 @@ class Main extends Component {
 
 
 export default connect(state => ({
-    state: state.user
+    user: state.user,
+    currentLocation: state.currentLocation
   }),
   (dispatch) => ({
     actions: bindActionCreators(actions, dispatch)
   })
 )(Main);
+
+// importing styles
+var styles = StyleSheet.create(require('../styles.js'));

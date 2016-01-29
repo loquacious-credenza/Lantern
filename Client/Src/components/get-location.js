@@ -28,13 +28,13 @@ export default class CurrentLocation extends Component {
 
   render() {
 
-    const { location, getCurrentLocation } = this.props;
+    // const { location, getCurrentLocation } = this.props;
 
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <TouchableOpacity onPress={() => getCurrentLocation()} style={styles.button}>
+        <TouchableOpacity onPress={this.props.actions.getCurrentLocation} style={styles.button}>
           <Text>call to get location</Text>
-          <Text>{JSON.stringify(location)}</Text>
+          <Text>{JSON.stringify(this.props.currentLocation)}</Text>
         </TouchableOpacity>
       </View>
     );

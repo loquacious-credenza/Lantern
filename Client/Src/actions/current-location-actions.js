@@ -14,6 +14,7 @@ import {
 // import * as types from './actionTypes';
 
 export const getCurrentLocation = () => {
+  console.log('CURRENT-LOCATION-ACTION')
   return (dispatch) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {

@@ -20,6 +20,7 @@ export default (state = initialState, {type,payload}) => {
     case GET_CURRENT_LOCATION:
       return state;
     case GET_CURRENT_LOCATION_SUCCESS:
+    console.log('CURRENT-LOCATION-REDUCER')
       return extend({}, state, {
         latitude: payload.latitude,
         longitude: payload.longitude,

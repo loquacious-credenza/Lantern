@@ -1,41 +1,26 @@
 'use strict';
 
-
-import { Component } from 'react-native';
-import * as actions from '../actions';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-var React = require('react-native');
-var {
+import React, {
   StyleSheet,
+  Component,
   Text,
-  View,
-} = React;
+  View
+} from 'react-native';
 
-var Login = require('./Login-button');
+// Component
+import Login from './Login-button';
 
-/**
- * A sample app that demonstrates use of the FBSDK login button, native share dialog, and graph requests.
- */
-var Signin = React.createClass({
-  render: function() {
+export default class SignIn extends Component {
+  render() {
+    const { actions, state, navigator } = this.props;
     return (
       <View style={styles.container} >
         <Text style={styles.text} >We dont need no stinking image background yet!!</Text>
-        <Login navigator={this.props.navigator} style={styles.loginContainer} login={this.props.login}/>
+        <Login navigator={navigator} actions={actions} style={styles.loginContainer}/>
       </View>
     );
   }
-});
+};
 
 // importing styles
 var styles = StyleSheet.create(require('../styles.js'));
-
-export default connect(state => ({
-    state: state
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(actions, dispatch)
-  })
-)(Signin);
