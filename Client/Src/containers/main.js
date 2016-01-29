@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component, Navigator, StyleSheet } from 'react-native';
+import React, { Component, Navigator, StyleSheet, AsyncStorage } from 'react-native';
 import * as actionCreators from '../actions';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -31,22 +31,40 @@ const SCENE_CONFIGS = {
   VerticalDownSwipeJump: (route, routeStack) => Navigator.SceneConfigs.VerticalDownSwipeJump
 }
 
+// var INITIALROUTE = {
+//   name: 'signin',
+//   scene: 'FloatFromRight'
+// }
+
 class Main extends Component {
   constructor(props) {
     super(props);
-  }
+  };
+
+//   componentWillMount(){
+//     AsyncStorage.multiGet(['userName','userID']).then((response) => {
+//       // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN
+//         if(response[0][1] !== null){
+//           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
+//           this.props.actions.login({name:response[0][1],id:response[1][1]});
+//           INITIALROUTE.name = 'home'
+//         } else {
+//           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
+
+//         }
+//   })
+// }
+
 
   renderScene(route, navigator){
     let Component = ROUTES[route.name].view;
     let sceneConfig = SCENE_CONFIGS[ROUTES[route.name].scene]
-    console.log("SCENE_CONFIGS", sceneConfig.toString())
     return <Component
       route={route}
       navigator={navigator}
       state={this.state}
       actions={this.actions}
-      configureScene={sceneConfig}
-      />;
+      configureScene={sceneConfig}/>;
   }
 
   render() {

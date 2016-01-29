@@ -1,7 +1,6 @@
 'use strict';
 
 import {
-  UPDATE_EMERGENCY_CONTACT,
   UPDATE_EMERGENCY_CONTACT_SUCCESS,
   UPDATE_EMERGENCY_CONTACT_FAIL
 } from '../constants/action-types';

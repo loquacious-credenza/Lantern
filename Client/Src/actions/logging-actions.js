@@ -2,11 +2,13 @@
 
 import {extend} from 'lodash';
 
+import {loadDelay, loadEmergencyContact} from './loading-actions';
+
+
 import {
-  LOGIN,
   LOGOUT,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
 } from '../constants/action-types';
 
 // var rest = require('rest')
@@ -28,36 +30,45 @@ export const login = (payload) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(responseBody)
     }).then( (response) => {
-        console.log('WE GOT SOMETHING BACK', response)
-      loginSuccess(extend({},response,{isOverdue:false})); // TO DO: FIGURE THIS OUT
+      var data = JSON.parse(response._bodyInit).user
+      console.log("DATA", data.delay)
+      dispatch(loginSuccess(data));
+      console.log(loadDelay(data.delay));
+      dispatch(loadDelay(data.delay));
+      dispatch(loadEmergencyContact(data.contacts))
+      if(data.activeTrip !== null){
+        loadActiveTrip(true);
+      }
+      //EXPECTED RESPONSE:
+      //{_id , name: , activeTrip, contacts}
+      
     }).catch( (err) => {
-      loginFail(err);
-    });
+      // loginFail(err);
+    })
   }
-  return {
-    type: LOGIN
-  }
-}
+};
 
 export const loginSuccess = (payload) => {
   return {
     type: LOGIN_SUCCESS,
     payload
   };
-}
+};
 
-export const loginFail = (payload) => {
-  return {
-    type: LOGIN_FAIL,
-    payload
-  };
-}
-/**
- * The action dispatched on logout
- * @return {object} Has the action type to modify `isLoggedIn` to false
- */
-export const logout = () => {
-  return {
-    type: LOGOUT
-  };
-}
+
+
+// export const loginFail = (payload) => {
+//   return {
+//     type: LOGIN_FAIL,
+//     payload
+//   };
+// }
+// *
+//  * The action dispatched on logout
+//  * @return {object} Has the action type to modify `isLoggedIn` to false
+ 
+// export const logout = () => {
+//   return {
+//     type: LOGOUT
+//   };
+// }

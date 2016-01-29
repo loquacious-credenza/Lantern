@@ -1,9 +1,11 @@
 'use strict';
 
+import {addStart, addDestination, addEta} from './'
+
 import {
-  START_TRIP,
   START_TRIP_SUCCESS,
-  START_TRIP_FAIL
+  START_TRIP_FAIL,
+
 } from '../constants/action-types';
 
 /**

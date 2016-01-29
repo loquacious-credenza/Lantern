@@ -1,7 +1,6 @@
 'use strict';
 
 import {
-  GET_CURRENT_LOCATION,
   GET_CURRENT_LOCATION_SUCCESS,
   GET_CURRENT_LOCATION_FAIL
 } from '../constants/action-types';
@@ -24,7 +23,9 @@ export const getCurrentLocation = () => {
               timestamp:position.timestamp
             }));
       },
-      (error) => dispatch(getCurrentLocationFail(error.message)),
+      (error) => {
+       dispatch(getCurrentLocationFail(error.message)) 
+      },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }

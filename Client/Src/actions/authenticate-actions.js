@@ -1,7 +1,8 @@
+// NOT BEING USED CURRENTLY
+// !MVP
 'use strict';
 
 import {
-  AUTHENTICATE,
   AUTH_SUCCESS,
   AUTH_FAIL
 } from '../constants/action-types';
