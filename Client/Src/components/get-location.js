@@ -28,7 +28,6 @@ export default class CurrentLocation extends Component {
 
   render() {
     const { state, actions, configureScene, route } = this.props;
-    console.log("CJKJKLJER:EJR:EHRKJEHRKJEHLRJ",configureScene.toString());
     const { currentLocation } = state;
     const { getCurrentLocation } = actions;
 
@@ -36,7 +35,7 @@ export default class CurrentLocation extends Component {
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity onPress={getCurrentLocation} style={styles.button}>
           <Text>call to get location</Text>
-          <Text>{JSON.stringify(currentLocation)}</Text>
+          <Text>{JSON.stringify(state)}</Text>
         </TouchableOpacity>
       </View>
     );

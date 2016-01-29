@@ -6,7 +6,7 @@ var UserSchema = new mongoose.Schema({
 	_id: String,
 	name: String,
 	phone: Number,
-	delay: Number,
+	delay: {type: Number, default:30},
 	contacts: [ContactSchema],
 	trips: [ String ]
 });

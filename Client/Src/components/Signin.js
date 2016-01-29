@@ -17,6 +17,7 @@ export default class SignIn extends Component {
       <View style={styles.container} >
         <Text style={styles.text} >We dont need no stinking image background yet!!</Text>
         <Login navigator={navigator} actions={actions} style={styles.loginContainer}/>
+
       </View>
     );
   }

@@ -11,8 +11,8 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container} >
-        <Text style={styles.text} > let me do it as it would be on the home screen</Text>
-        <Text>{this.props.route.userName}</Text>
+        <Text style={styles.text} >Guardian</Text>
+        <Text>Hello {this.props.state.user.name}</Text>
       </View>
     );
   }

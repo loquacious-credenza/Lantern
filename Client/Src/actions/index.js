@@ -97,3 +97,10 @@ export {
   authSuccess,
   authError
 } from './authenticate-actions';
+
+/*=============================================================*/
+
+export {
+  loadDelay,
+  loadEmergencyContact
+} from './loading-actions';
