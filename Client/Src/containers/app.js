@@ -14,7 +14,7 @@ const store = createStoreWithMiddleware(reducer);
 
 export default class App extends Component {
   render() {
-    console.log("STATE", store.getState());
+    // console.log("STATE", store.getState());
     return (
       <Provider store={store}>
         <Main />

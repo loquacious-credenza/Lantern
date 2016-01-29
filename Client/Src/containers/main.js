@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component, Navigator, StyleSheet } from 'react-native';
-import * as actions from '../actions';
+import * as actionCreators from '../actions';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -12,10 +12,24 @@ import SignIn from '../components/Signin'; // NOTE THIS SHOULD BE MOVED TO CONTA
 import Home from '../components/Home';
 
 var ROUTES = {
-  signin: SignIn,
-  home: Home,
-  getLocation: CurrentLocation
+  signin: { view: SignIn, scene: 'FloatFromBottom' },
+  home: { view: Home, scene: 'FloatFromBottom' },
+  getLocation: { view: CurrentLocation, scene: 'FloatFromLeft' }
 };
+
+const SCENE_CONFIGS = {
+  default: (route, routeStack) => Navigator.SceneConfigs.FloatFromRight,
+  PushFromRight: (route, routeStack) => Navigator.SceneConfigs.PushFromRight,
+  FloatFromRight: (route, routeStack) => Navigator.SceneConfigs.FloatFromRight,
+  FloatFromLeft: (route, routeStack) => Navigator.SceneConfigs.FloatFromLeft,
+  FloatFromBottom: (route, routeStack) => Navigator.SceneConfigs.FloatFromBottom,
+  // FloatFromBottomAndroid: (route, routeStack) => Navigator.SceneConfigs.FloatFromBottomAndroid,
+  FadeAndroid: (route, routeStack) => Navigator.SceneConfigs.FadeAndroid,
+  HorizontalSwipeJump: (route, routeStack) => Navigator.SceneConfigs.HorizontalSwipeJump,
+  HorizontalSwipeJumpFromRight: (route, routeStack) => Navigator.SceneConfigs.HorizontalSwipeJumpFromRight,
+  VerticalUpSwipeJump: (route, routeStack) => Navigator.SceneConfigs.VerticalUpSwipeJump,
+  VerticalDownSwipeJump: (route, routeStack) => Navigator.SceneConfigs.VerticalDownSwipeJump
+}
 
 class Main extends Component {
   constructor(props) {
@@ -23,23 +37,31 @@ class Main extends Component {
   }
 
   renderScene(route, navigator){
-    console.log('RENDER SCENE',route.name);
-    let Component = ROUTES[route.name];
-    console.log('COMPONENT', Component);
-    return <Component route={route} navigator={navigator} actions={actions}/>;
+    let Component = ROUTES[route.name].view;
+    let sceneConfig = SCENE_CONFIGS[ROUTES[route.name].scene]
+    console.log("SCENE_CONFIGS", sceneConfig.toString())
+    return <Component
+      route={route}
+      navigator={navigator}
+      state={this.state}
+      actions={this.actions}
+      configureScene={sceneConfig}
+      />;
   }
 
   render() {
 
-    const { currentLocation, user, actions } = this.props;
-    console.log('HAOOY', currentLocation);
+    const { state, actions } = this.props;
+
+        console.log(Object.keys(Navigator.SceneConfigs))
     return (
       <Navigator
         style={styles.navigator}
-        initialRoute={{name: 'signin'}}
+        initialRoute={{name: 'signin', scene: 'FloatFromRight'}}
+        state={state}
+        actions={actions}
         renderScene={this.renderScene}
-        configureScene={() => {
-          return Navigator.SceneConfigs.FloatFromRight; }}
+        configureScene={SCENE_CONFIGS['FloatFromBottom'] || SCENE_CONFIGS.default}
       />
     );
   }
@@ -47,13 +69,11 @@ class Main extends Component {
 
 /// UNCOMMENT ABOVE TO CHECK LOGIN COMPONENT -------------------------------------------------------------------
 
-
 export default connect(state => ({
-    user: state.user,
-    currentLocation: state.currentLocation
+    state: state
   }),
   (dispatch) => ({
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(actionCreators, dispatch)
   })
 )(Main);
 
