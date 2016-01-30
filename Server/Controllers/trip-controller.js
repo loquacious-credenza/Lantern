@@ -18,6 +18,7 @@ function create(req, res){
   return Trip.create({
     user_id: user,
     active: true,
+    origin: req.body.origin,
     destination: req.body.destination,
     start_time: req.body.startTime,
     overdue_time: req.body.overdueTime

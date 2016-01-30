@@ -12,13 +12,15 @@ import SignIn from '../components/Signin'; // NOTE THIS SHOULD BE MOVED TO CONTA
 import Home from '../components/Home';
 import MapStart from '../components/create-trip-start';
 import MapEnd from '../components/create-trip-end';
+import Map from '../components/Map';
 
 var ROUTES = {
   signin: { view: SignIn, scene: 'FloatFromBottom' },
   home: { view: Home, scene: 'FloatFromBottom' },
   getLocation: { view: CurrentLocation, scene: 'FloatFromLeft' },
   startLocation: { view: MapStart, scene: 'FloatFromLeft' },
-  endLocation: { view: MapEnd, scene: 'FloatFromLeft' }
+  endLocation: { view: MapEnd, scene: 'FloatFromLeft' },
+  map: {view: Map, scene: 'FloatFromLeft'}
 };
 
 const SCENE_CONFIGS = {

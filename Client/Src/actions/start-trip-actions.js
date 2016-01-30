@@ -14,12 +14,39 @@ import {
  * @param  {object} payload geolocation data. default is current location from device
  * @return {object}         action processed by reducer `user.onTrip`
  */
+// PAYLOAD LOOKS LIKE THIS
+/*
+{
+  id:
+  origin:{
+    latitude:
+    longitude
+  },
+  destination:{
+    latitude:
+    longitude
+  },
+  eta:,
+  acceptableDelay:
+}
+*/
+
 export const startTrip = (payload) => {
   // do send message to server.  Need to do action with thunk.
-  return {
-    type: START_TRIP,
-    payload
-  };
+  var responseBody = {}
+  responseBody.user_id = payload.id
+  responseBody.origin = payload.origin
+  responseBody.destination = payload.destination
+  return (dispatch) => {
+    fetch('http://localhost:8000/user/' + payload.id +'/trips',
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(responseBody)
+    }).then( (response) => {
+
+    })
+  }
 }
 
 

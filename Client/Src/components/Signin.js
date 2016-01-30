@@ -15,7 +15,7 @@ export default class SignIn extends Component {
     const { actions, state, navigator } = this.props;
     return (
       <View style={styles.container} >
-        <Text style={styles.text} >We dont need no stinking image background yet!!</Text>
+        <Text style={styles.text} >Guardian</Text>
         <Login navigator={navigator} actions={actions} style={styles.loginContainer}/>
 
       </View>

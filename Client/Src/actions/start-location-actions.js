@@ -13,6 +13,8 @@ import {
  * @param  {object} payload An object with `latitude` (number) and `longitude`(number)
  * @return {object}         To be processed by reducer
  */
+
+ // ACCEPTS AN OBJECT WITH LATITUDE AND LONGITUDE
 export const addStart = (payload) => {
   return {
     type: ADD_START,

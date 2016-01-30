@@ -8,6 +8,9 @@ import React, {
 } from 'react-native';
 
 export default class Home extends Component {
+  componentDidMount = () => { 
+    setTimeout(()=>{ this.props.navigator.push({name:'map'}) },2000)
+  };
   render() {
     return (
       <View style={styles.container} >

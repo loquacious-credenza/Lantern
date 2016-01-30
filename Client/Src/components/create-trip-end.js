@@ -30,6 +30,7 @@ export default class MapStart extends Component {
 
   focusIn = (location) => {
     this.props.actions.addDestination(location);
+    this.props.navigator.push({name: 'map'})
   };
 
   render() {
