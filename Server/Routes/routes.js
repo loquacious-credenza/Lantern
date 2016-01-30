@@ -53,9 +53,13 @@ module.exports = function (app, express) {
 
 // UPDATES USER STATS
 // PUT -/ID:/SETTINGS
-	app.put('/user/:user_id', function (req, res) {
+	app.put('/user/:user_id/contacts', function (req, res) {
 		//res.send('Arrived at endpoint: ' + req.url);
 		UserMethods.updateContacts(req.params.user_id, req.body, res);
+	});
+
+	app.put('/user/:user_id/delay', function () {
+
 	});
 /* ================ CONTACT ENDPOINTS ================= */
 	app.get('/userpath/:user_id/:trip_id', function (req, res) {
