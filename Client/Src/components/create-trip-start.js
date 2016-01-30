@@ -36,7 +36,6 @@ export default class MapStart extends Component {
   }
 
   focusIn = (location) => {
-    console.log(location)
     this.props.actions.addStart(location);
     test.latitude = location.latitude;
     test.longitude = location.longitude;

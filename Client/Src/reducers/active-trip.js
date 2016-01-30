@@ -5,7 +5,9 @@ const {
     CHECK_IN,
     ADD_WAYPOINT,
     LOAD_TRIP,
-    RESET_DELAY
+    RESET_DELAY,
+    ADD_DESTINATION,
+    ADD_START
 } = require('../constants/action-types');
 
 const initialState = null
@@ -37,6 +39,10 @@ export default (state = initialState, {type, payload}) => {
         case RESET_DELAY:
             return extend({}, state, {endTime:new Date});
             // TO DO: DOUBLE CHECK THIS LOGIC
+        case ADD_START:
+            return extend({}, state, {origin:payload});
+        case ADD_DESTINATION:
+            return extend({}, state, {destination:payload})
         default:
             return state;
     }
