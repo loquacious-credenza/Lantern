@@ -14,7 +14,6 @@ import {
  * @return {object}         To be processed by reducer
  */
 export const addStart = (payload) => {
-  console.log('STARTLOCATION', payload)
   return {
     type: ADD_START,
     payload
