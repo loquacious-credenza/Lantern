@@ -17,6 +17,7 @@ var renderLocationsToMap = function (map, data) {
 	var points = [];
 	var path;
 	var destination;
+	console.log(data);
 	for (var i = 0; i < data.path.length; i++) {
 		points.push(new google.maps.LatLng(data.path[i].location.coordinates[0], data.path[i].location.coordinates[1]));
 	};

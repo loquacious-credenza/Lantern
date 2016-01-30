@@ -1,7 +1,7 @@
 var UserMethods = require('../Controllers/user-controller.js');
+var TripMethods = require('../Controllers/trip-controller.js');
 var path = require('path');
 
-var Trip = require('../Controllers/trip-controller');
 
 module.exports = function (app, express) {
 /* =============== LOGIN ================= */
@@ -14,7 +14,7 @@ module.exports = function (app, express) {
 // CREATES A TRIP
 // POST -USER/USER_ID:/TRIPS/TRIP_ID
 	app.post('/users/:user_id/trips', function (req, res) {
-    Trip.create(req, res);
+    TripMethods.create(req, res);
 	});
 
 // GETS A TRIP
@@ -26,7 +26,8 @@ module.exports = function (app, express) {
 // UPDATES A TRIP'S GEOLOCATION DATA !OR! SOCKETS
 // PUT -USER/USER_ID:/TRIPS/TRIP_ID !OR! SOCKETS
 	app.put('/user/:user_id/:trip_id', function (req, res) {
-		res.send('Arrived at endpoint: ' + req.url);
+		//res.send('Arrived at endpoint: ' + req.url);
+		TripMethods.addLocPoints(req.params.trip_id, req.body, res);
 	});
 
 // MARKS A TRIP AS 'active: false'
@@ -58,7 +59,7 @@ module.exports = function (app, express) {
 	});
 /* ================ CONTACT ENDPOINTS ================= */
 	app.get('/userpath/:user_id/:trip_id', function (req, res) {
-		Trip.read(req, res);
+		TripMethods.read(req, res);
 	});
 
 	app.get('/userpath/:user_id/:trip_id/user', function (req, res) {
