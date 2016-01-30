@@ -5,6 +5,7 @@ import {
   GET_CURRENT_LOCATION_FAIL
 } from '../constants/action-types';
 
+import {addWaypoint} from './';
 /**
  * Action fired when the geolocation is being updated from device.
  * @param  {object} payload action type
@@ -12,22 +13,13 @@ import {
  */
 // import * as types from './actionTypes';
 
-export const getCurrentLocation = () => {
-  console.log('CURRENT-LOCATION-ACTION')
+
+
+
+export const getCurrentLocation = (payload) => {
   return (dispatch) => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        dispatch(getCurrentLocationSuccess({
-              longitude:position.coords.longitude,
-              latitude:position.coords.latitude,
-              timestamp:position.timestamp
-            }));
-      },
-      (error) => {
-       dispatch(getCurrentLocationFail(error.message)) 
-      },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
+      dispatch(getCurrentLocationSuccess(payload));
+      dispatch(addWaypoint(payload))
   }
 }
 
@@ -55,3 +47,12 @@ export const getCurrentLocationFail = (payload) => {
     payload
   };
 }
+
+// navigator.geolocation.getCurrentPosition(
+//   (position) => {
+//     dispatch(getCurrentLocationSuccess({
+//           longitude:position.coords.longitude,
+//           latitude:position.coords.latitude,
+//           timestamp:position.timestamp
+//         }));
+//   }
