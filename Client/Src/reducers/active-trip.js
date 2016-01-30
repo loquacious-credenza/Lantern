@@ -10,20 +10,17 @@ const {
     ADD_START
 } = require('../constants/action-types');
 
-const initialState = null
-// STATE OBJECT LOOKS LIKE THIS
-// {
-//     id: String,
-//     startTime: Date,
-//     endTime: Date,
-//     origin: {
-    
-//     },
-//     destination: {},
-//     waypoints: [],
-//     created_at: Date
+const initialState = {
+    id: null,
+    startTime: null,
+    endTime: null,
+    origin: {
+    },
+    destination: {},
+    waypoints: [],
+    created_at: null
 
-//   }
+  };
 
 export default (state = initialState, {type, payload}) => {
     switch(type) {
@@ -32,7 +29,7 @@ export default (state = initialState, {type, payload}) => {
         case CHECK_IN:
             return null;
         case ADD_WAYPOINT:
-            return extend({}, state, state.waypoints.concat(payload));
+            return extend({}, state, {waypoints:state.waypoints.concat([payload])});
             // return waypointReducer(state, {type, action});
         case LOAD_TRIP:
             return payload;
