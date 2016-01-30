@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var ContactSchema = new mongoose.Schema({
 	contact_name: String,
 	contact_email: String,
-	contact_phone: Number
+	contact_phone: String
 }, {
 	noId: true
 });

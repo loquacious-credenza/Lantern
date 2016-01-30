@@ -13,14 +13,18 @@ import Home from '../components/Home';
 import MapStart from '../components/create-trip-start';
 import MapEnd from '../components/create-trip-end';
 import Map from '../components/Map';
+import Settings from '../components/Settings';
 
 var ROUTES = {
   signin: { view: SignIn, scene: 'FloatFromBottom' },
-  home: { view: Home, scene: 'FloatFromBottom' },
+  // home: { view: Home, scene: 'FloatFromBottom' },
   getLocation: { view: CurrentLocation, scene: 'FloatFromLeft' },
   startLocation: { view: MapStart, scene: 'FloatFromLeft' },
   endLocation: { view: MapEnd, scene: 'FloatFromLeft' },
-  map: {view: Map, scene: 'FloatFromLeft'}
+  map: {view: Map, scene: 'FloatFromLeft'},
+  // home: { view: MapStart, scene: 'FloatFromLeft' },
+  home: { view: Settings, scene: 'FloatFromLeft' },
+  settings: { view: Settings, scene: 'FloatFromLeft'}
 };
 
 const SCENE_CONFIGS = {

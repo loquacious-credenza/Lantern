@@ -46,7 +46,7 @@ export default (state = initialState, {type, payload}) => {
       });
     case UPDATE_EMERGENCY_CONTACT:
       return extend({}, state, {
-        emergencyContacts: payload
+        emergencyContacts: state.emergencyContacts.concat([payload])
       });
     case UPDATE_ACCEPTABLE_DELAY:
       return extend({}, state, {

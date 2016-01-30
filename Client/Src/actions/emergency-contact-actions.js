@@ -2,7 +2,8 @@
 
 import {
   UPDATE_EMERGENCY_CONTACT_SUCCESS,
-  UPDATE_EMERGENCY_CONTACT_FAIL
+  UPDATE_EMERGENCY_CONTACT_FAIL,
+  UPDATE_EMERGENCY_CONTACT
 } from '../constants/action-types';
 
 /**
@@ -12,10 +13,25 @@ import {
  * @return {object}         reducer will update state
  */
 export const updateEmergencyContact = (payload) => {
-  return {
-    type: UPDATE_EMERGENCY_CONTACT,
-    payload
+  var requestBody = {
+    contact_name:payload.name,
+    contact_phone:payload.phone,
+    contact_email:payload.email
   };
+
+  return (dispatch) => {
+    fetch('http://localhost:8000/user/' + payload.id,
+      {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(requestBody)
+    })
+    .then((response) => {
+      dispatch(updateEmergencyContactSuccess(response))
+    })
+    .catch()//TODO: do error handling
+
+  }
 }
 
 /**
