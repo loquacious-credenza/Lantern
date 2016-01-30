@@ -54,7 +54,7 @@ module.exports = function (app, express) {
 // PUT -/ID:/SETTINGS
 	app.put('/user/:user_id', function (req, res) {
 		//res.send('Arrived at endpoint: ' + req.url);
-		UserMethods.updateContacts(req.params.user_id, req.body.contacts, res);
+		UserMethods.updateContacts(req.params.user_id, req.body, res);
 	});
 /* ================ CONTACT ENDPOINTS ================= */
 	app.get('/userpath/:user_id/:trip_id', function (req, res) {
