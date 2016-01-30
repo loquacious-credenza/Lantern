@@ -10,11 +10,13 @@ import {bindActionCreators} from 'redux';
 import CurrentLocation from '../components/get-location';
 import SignIn from '../components/Signin'; // NOTE THIS SHOULD BE MOVED TO CONTAINERS - RY
 import Home from '../components/Home';
+import MapStart from '../create-trip-start-end';
 
 var ROUTES = {
   signin: { view: SignIn, scene: 'FloatFromBottom' },
-  home: { view: Home, scene: 'FloatFromBottom' },
-  getLocation: { view: CurrentLocation, scene: 'FloatFromLeft' }
+  // home: { view: Home, scene: 'FloatFromBottom' },
+  getLocation: { view: CurrentLocation, scene: 'FloatFromLeft' },
+  home: { view: MapStart, scene: 'FloatFromLeft' }
 };
 
 const SCENE_CONFIGS = {
