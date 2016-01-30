@@ -53,7 +53,7 @@ var Login = React.createClass({
         AsyncStorage.multiSet([['userID',id],['userName',name]]).then(() => {
           //pushing new navigation view
           this.props.actions.login({name:name,id:id});
-          this.props.navigator.push({name: 'settings'})
+          this.props.navigator.push({name: 'startLocation'})
         // this.push(name,id);
         })
         // Data from request is in result
