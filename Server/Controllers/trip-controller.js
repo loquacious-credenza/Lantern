@@ -74,6 +74,19 @@ function update(req, res, data){
     })
 }
 
+function addLocPoints(id, data, res) {
+  console.log('ID IS: ', id);
+  Trip.findByIdAndUpdate(id, { $pushAll: {path: data} }, function (err, response) {
+    if (err) {
+      console.log("Error pushing locpoint data to trip: ", err);
+      res.sendStatus(500);
+    } else {
+      //res.sendStatus(200);
+      res.json(response);
+    }
+  });
+}
+
 /**
  * Deletes the the current Trip found by id.
  * @param  {object} req Request object containing Trip.id to be deleted
@@ -98,6 +111,7 @@ function del(req, res){
 }
 
 module.exports = {
+  addLocPoints: addLocPoints,
   create: create,
   read: read,
   update: update,
