@@ -1,5 +1,10 @@
 'use strict';
 
+import { Dimensions } from 'react-native';
+  var width = Dimensions.get('window').width; //full width
+  var height = Dimensions.get('window').height; //full height
+
+
 module.exports = {
   navigator: {
     flex: 1
@@ -71,7 +76,7 @@ module.exports = {
   autoCompleteContainer: {
     position: 'absolute',
     top: 10,
-    width: 400,
+    width: width,
     flexDirection: 'row',
     backgroundColor: 'rgba(255,255,255,0.7)',
   },
@@ -80,7 +85,7 @@ module.exports = {
     fontSize: 30,
     textAlign: 'center',
     bottom: 0,
-    width: 400,
+    width: width,
     flexDirection: 'row',
     backgroundColor: 'rgba(255,255,255,0.7)',
   }
