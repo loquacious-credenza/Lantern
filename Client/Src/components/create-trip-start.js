@@ -11,8 +11,8 @@ import React, {
 
 
 const MapView = require('react-native-maps');
-const AutoComplete = require('./Common/AutoComplete');
-const styles = StyleSheet.create(require('./styles.js'));
+const AutoComplete = require('../Common/AutoComplete');
+const styles = StyleSheet.create(require('../styles.js'));
 
 
 const { width, height } = Dimensions.get('window');
@@ -23,17 +23,28 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
+let test = {
+  latitude: LATITUDE,
+  longitude: LONGITUDE,
+  latitudeDelta: LATITUDE_DELTA,
+  longitudeDelta: LONGITUDE_DELTA,
+}
+
 export default class MapStart extends Component {
   constructor(props) {
     super(props);
   }
 
   focusIn = (location) => {
+    console.log(location)
     this.props.actions.addStart(location);
+    test.latitude = location.latitude;
+    test.longitude = location.longitude;
+    this.props.navigator.push({name: 'endLocation'})
   };
 
   render() {
-    const { state, actions } = this.props;
+    const { state, actions, navigator } = this.props;
     const { currentLocation } = state; //destructure the parts of state that you need
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
 
@@ -41,7 +52,7 @@ export default class MapStart extends Component {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          Region={currentLocation}
+          region={test}
           showsUserLocation={true}
         >
         </MapView>

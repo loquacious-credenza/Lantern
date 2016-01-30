@@ -15,7 +15,7 @@ var AutoComplete = React.createClass({
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
           // console.log(data);
           var coords = details.geometry.location;
-          this.props.selectPoint({lattitude: coords.lat,longitude: coords.lng});
+          this.props.selectPoint({latitude: coords.lat,longitude: coords.lng});
           // console.log(details);
         }}
         getDefaultValue={() => {
