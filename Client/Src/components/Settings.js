@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     margin: 2,
-    width: width - 20,
+    width: Math.floor(width * 0.9),
     alignSelf: 'center'
   },
   saveButton: {
@@ -109,7 +109,8 @@ export default class Settings extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.subHeading}>Emergency Contacts:</Text>
+      <View style={{position: 'relative', flex: 0, top: -60, width: Math.floor(width * 0.9)}}>
+        <Text style={[styles.subHeading, {marginLeft: 0, marginTop: 20, marginBottom: 5}]}>Emergency Contacts:</Text>
       {/*This will need to become a component that can be mapped*/}
         <TextInput
           style={styles.nameInput}
@@ -141,9 +142,10 @@ export default class Settings extends Component {
             phone: this.getAndReset('phone', ''),
             email: this.getAndReset('email', '')
           })}
-          style={styles.saveButton}>
+          style={[styles.saveButton, {right: 0}]}>
           <Text style={styles.saveButtonText}>Add</Text>
         </TouchableOpacity>
+        </View>
 
         <View style={[styles.container, {marginTop: 20, flex: 0, width: width, height: 75, flexDirection: 'column', justifyContent: 'space-around'}]}>
           <Text style={[styles.subHeading, {marginTop: 0, color: 'blue'}]}>
