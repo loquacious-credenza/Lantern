@@ -55,18 +55,12 @@ var CreateTripContainer = React.createClass({
     // Repeatedly track position
     this.watchID = navigator.geolocation.watchPosition((lastPosition) => {
       this.setState({lastPosition});
-      // console.log('lastposition',lastPosition)
       let coords = lastPosition.coords;
-      let temp = this.state.polyline;
       this.props.actions.getCurrentLocation({latitude: coords.latitude, longitude:coords.longitude, timestamp:lastPosition.timestamp});
       console.log('waypoints',this.props.state.activeTrip.waypoints);
     });
   },
-  // getInitialState: function() {
-  //   return {
-  //     polyline: [],
-  //   }
-  // },
+
   render: function() {
     var {activeTrip} = this.props.state
     const markers = [{id:'origin',latitude:activeTrip.origin.latitude, longitude:activeTrip.origin.longitude},{id:'destination',latitude:activeTrip.destination.latitude, longitude:activeTrip.destination.longitude}];
@@ -74,6 +68,7 @@ var CreateTripContainer = React.createClass({
     var midpoint = calculateMidpoint(markers[0].latitude,markers[0].longitude,markers[1].latitude,markers[1].longitude)
     return (
           <MapView
+            ref={'map'}
             style={styles.map}
             initialRegion={{latitude:midpoint.lat,longitude:midpoint.lng,latitudeDelta:1.2*Math.abs(activeTrip.origin.latitude - activeTrip.destination.latitude),longitudeDelta:1.2*Math.abs(activeTrip.origin.longitude - activeTrip.destination.longitude)}}
             annotations={markers}
@@ -83,10 +78,10 @@ var CreateTripContainer = React.createClass({
             <MapView.Marker coordinate={markers[1]} ref={'destination'} title={'Destination'}/>
             <MapView.Polyline
             coordinates={this.props.state.activeTrip.waypoints}
-            strokeColor="rgba(0,0,200,0.5"
-            strokeWidth={3}
+            strokeColor="rgba(0,255,100,0.5"
+            strokeWidth={5}
             lineDashPattern={[5, 2, 3, 2]}
-              />
+            />
           </MapView>
     );
   }

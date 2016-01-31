@@ -22,8 +22,8 @@ var ROUTES = {
   startLocation: { view: MapStart, scene: 'FloatFromLeft' },
   endLocation: { view: MapEnd, scene: 'FloatFromLeft' },
   map: {view: Map, scene: 'FloatFromLeft'},
-  // home: { view: MapStart, scene: 'FloatFromLeft' },
-  home: { view: Settings, scene: 'FloatFromLeft' },
+  home: { view: MapStart, scene: 'FloatFromLeft' },
+  // home: { view: Settings, scene: 'FloatFromLeft' },
   settings: { view: Settings, scene: 'FloatFromLeft'}
 };
 

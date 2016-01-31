@@ -13,10 +13,8 @@ var AutoComplete = React.createClass({
         autoFocus={false}
         fetchDetails={true}
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-          // console.log(data);
           var coords = details.geometry.location;
           this.props.selectPoint({latitude: coords.lat,longitude: coords.lng});
-          // console.log(details);
         }}
         getDefaultValue={() => {
           return ''; // text input default value

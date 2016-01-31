@@ -25,7 +25,7 @@ var Login = React.createClass({
         if(response[0][1] !== null){
           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
           this.props.actions.login({name:response[0][1],id:response[1][1]});
-          this.props.navigator.push({name: 'home'})
+          this.props.navigator.replace({name: 'startLocation'});
         } else {
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
 
@@ -34,9 +34,7 @@ var Login = React.createClass({
       // console.log("STATE LOOKS LIKE THIS", this.props.state)
     });
   },
-  push: function(name, id) {
-    this.props.navigator.push({name: 'settings', userName: name, id: id});
-  },
+
   loggedIn: function() {
     //all of these vars are here to get this to bind correctly
     var name;
@@ -53,7 +51,7 @@ var Login = React.createClass({
         AsyncStorage.multiSet([['userID',id],['userName',name]]).then(() => {
           //pushing new navigation view
           this.props.actions.login({name:name,id:id});
-          this.props.navigator.push({name: 'startLocation'})
+          this.props.navigator.replace({name: 'startLocation'})
         // this.push(name,id);
         })
         // Data from request is in result
