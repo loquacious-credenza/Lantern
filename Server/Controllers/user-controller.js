@@ -68,7 +68,6 @@ module.exports = {
         console.log("Error updating user: ", err);
         res.sendStatus(500);
       } else {
-        console.log("THis should match", data, response);
         res.json(response.delay);
       }
     });
