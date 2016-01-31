@@ -63,12 +63,12 @@ module.exports = {
   update: function (id, prop, data, res) {
     var obj = {};
     obj[prop] = data
-    User.findByIdAndUpdate(id, obj, function (err, response) {
+    User.findByIdAndUpdate(id, obj, {new: true}, function (err, response) {
       if (err) {
         console.log("Error updating user: ", err);
         res.sendStatus(500);
       } else {
-        console.log("got here", response);
+        console.log("THis should match", data, response);
         res.json(response.delay);
       }
     });
