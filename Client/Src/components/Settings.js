@@ -7,6 +7,7 @@ import React, {
   View,
   Text,
   TextInput,
+  Image,
   SliderIOS,
   TouchableOpacity
 } from 'react-native';
@@ -82,7 +83,8 @@ export default class Settings extends Component {
       name: '',
       phone: '',
       email: '',
-      value: this.props.state.user.acceptableDelay
+      value: this.props.state.user.acceptableDelay,
+      description: 'Settings'
     }
   }
 
@@ -107,8 +109,6 @@ export default class Settings extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.heading}>Settings</Text>
-
         <Text style={styles.subHeading}>Emergency Contacts:</Text>
       {/*This will need to become a component that can be mapped*/}
         <TextInput
@@ -163,6 +163,14 @@ export default class Settings extends Component {
             step={1}
             style={styles.slider}
           />
+        </View>
+        <View style={{position: 'absolute', top: 0, alignItems: 'center', width: width, height: 60, backgroundColor: 'gray'}}>
+          <Text style={[styles.descriptionText, {fontWeight: 'bold', top: 25, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'gray'}]}>{this.state.description}</Text>
+          <TouchableOpacity
+            onPress={() => navigator.pop()}
+            style={[styles.saveButton, {marginTop: 20, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
+            <Image source={require('../assets/half-arrow-right-7.png')} />
+          </TouchableOpacity>
         </View>
 
         <Text>{JSON.stringify(user)/*used for debugging*/}</Text>
