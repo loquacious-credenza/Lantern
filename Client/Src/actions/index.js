@@ -58,6 +58,7 @@ export {
 
 //modifies `isOverdue`
 export {
+  setPassedTimeDelay,
   passedAcceptableDelay,
   passedEta
 } from './passed-time-actions';
@@ -75,6 +76,7 @@ export {
 
 // modifies `emergencyContacts`
 export {
+  addEmergencyContact,
   updateEmergencyContact,
   updateEmergencyContactSuccess,
   updateEmergencyContactFail

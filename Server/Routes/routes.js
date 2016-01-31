@@ -25,7 +25,7 @@ module.exports = function (app, express) {
 
 // UPDATES A TRIP'S GEOLOCATION DATA !OR! SOCKETS
 // PUT -USER/USER_ID:/TRIPS/TRIP_ID !OR! SOCKETS
-	app.put('/user/:user_id/:trip_id', function (req, res) {
+	app.put('/user/:user_id/trip/:trip_id', function (req, res) {
 		//res.send('Arrived at endpoint: ' + req.url);
 		TripMethods.addLocPoints(req.params.trip_id, req.body, res);
 	});
@@ -53,14 +53,15 @@ module.exports = function (app, express) {
 
 // UPDATES USER STATS
 // PUT -/ID:/SETTINGS
-	app.put('/user/:user_id/contacts', function (req, res) {
-		//res.send('Arrived at endpoint: ' + req.url);
-		UserMethods.updateContacts(req.params.user_id, req.body, res);
+	app.put('/user/:user_id', function (req, res) {
+    console.log('USERID',req.params.user_id);
+    UserMethods.update(req.params.user_id, req.body.prop, req.body.data, res);
 	});
+  app.put('/user/:user_id/contacts', function (req, res) {
+    //res.send('Arrived at endpoint: ' + req.url);
+    UserMethods.updateContacts(req.params.user_id, req.body, res);
+  });
 
-	app.put('/user/:user_id/delay', function () {
-
-	});
 /* ================ CONTACT ENDPOINTS ================= */
 	app.get('/userpath/:user_id/:trip_id', function (req, res) {
 		TripMethods.read(req, res);

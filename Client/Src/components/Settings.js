@@ -63,10 +63,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
-
   saveButtonText: {
     fontSize: 20,
     color: 'white'
+  },
+  slider: {
+    width: Math.floor(width * .9),
+    height: 30,
+    position: 'relative',
   }
 
 });
@@ -77,14 +81,25 @@ export default class Settings extends Component {
     this.state = {
       name: '',
       phone: '',
-      email: ''
+      email: '',
+      value: this.props.state.user.acceptableDelay
     }
+  }
+
+  getAndReset(prop, val){
+    let saved = this.state[prop];
+    this.setState({ [prop]: val});
+    return saved;
   }
 
   render() {
     const { state, actions, navigator } = this.props;
     const { user } = state; //destructure the parts of state that you need
-    const { updateEmergencyContact } = actions; // destructure the actions the components uses to update state.
+    const {
+      addEmergencyContact,
+      updateEmergencyContact,
+      setPassedTimeDelay
+     } = actions; // destructure the actions the components uses to update state.
 
     return (
       <View style={styles.container}>
@@ -115,35 +130,37 @@ export default class Settings extends Component {
         />
       {/*End of component*/}
         <TouchableOpacity
-          onPress={() => updateEmergencyContact({
+          onPress={() => addEmergencyContact({
             id: user.id,
-            name: this.state.name,
-            phone: this.state.phone,
-            email: this.state.email
+            existingContacts: user.emergencyContacts,
+            name: this.getAndReset('name', ''),
+            phone: this.getAndReset('phone', ''),
+            email: this.getAndReset('email', '')
           })}
           style={styles.saveButton}>
           <Text style={styles.saveButtonText}>Add</Text>
         </TouchableOpacity>
 
+        <View style={[styles.container, {width: width, flexDirection: 'column', justifyContent: 'space-around'}]}>
         <Text style={[styles.subHeading, {color: 'blue'}]}>
           {`Trip Delay: `}
-          <Text style={[styles.subHeading, {paddingLeft: 15}]}>{this.state.value}</Text>
+          <Text style={[styles.subHeading, {paddingLeft: 15}]}>{this.state.value === 1 ? `${this.state.value} min` : `${this.state.value} mins` }</Text>
           </Text>
-        <TextInput
-          style={[styles.nameInput, { width: width * 0.5, alignSelf: 'flex-start'}]}
-          placeholder='Enter delay (0 - 60min)'
-        />
-        <TouchableOpacity style={styles.saveButton}>
-          <Text style={styles.saveButtonText}>Set Delay</Text>
-        </TouchableOpacity>
-        {/*<SliderIOS
+        <SliderIOS
           disabled={false}
-          value={10}
-          onValueChange={this.state.value}
-          minimumValue={0}
+          value={this.state.value}
+          onValueChange={(value) => this.setState({value: value})}
+          onSlidingComplete={() => setPassedTimeDelay({
+            delay: this.state.value,
+            id: user.id
+          })}
+          minimumValue={5}
           maximumValue={60}
           step={1}
-        />*/}
+          style={styles.slider}
+        />
+        </View>
+
         <Text>{JSON.stringify(user)/*used for debugging*/}</Text>
 
       </View>

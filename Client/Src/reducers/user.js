@@ -9,6 +9,7 @@ const {
     UPDATE_ACCEPTABLE_DELAY,
     RESET_DELAY,
     PASSED_ETA,
+    SET_PASSED_TIME_DELAY,
     PASSED_ACCEPTABLE_DELAY,
     LOAD_DELAY,
     LOAD_EMERGENCY_CONTACT
@@ -18,7 +19,7 @@ const initialState = {
   id: null,
   name: null,
   isLoggedIn: false,
-  acceptableDelay: null,
+  acceptableDelay: 15,
   emergencyContacts: [],
   onTrip: false,
   isPastETA: false,
@@ -40,7 +41,6 @@ export default (state = initialState, {type, payload}) => {
         emergencyContacts: payload
       });
     case LOAD_DELAY:
-      console.log("payload",payload)
       return extend({}, state, {
         acceptableDelay: payload
       });
@@ -60,6 +60,11 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, {
         isPastETA: true
       });
+    case SET_PASSED_TIME_DELAY:
+    console.log("GOT HERE", payload);
+      return extend({}, state, {
+        acceptableDelay: payload
+      })
     case PASSED_ACCEPTABLE_DELAY:
       return extend({}, state, {
         isOverdue: true
