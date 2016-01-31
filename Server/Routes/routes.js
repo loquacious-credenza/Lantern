@@ -54,7 +54,6 @@ module.exports = function (app, express) {
 // UPDATES USER STATS
 // PUT -/ID:/SETTINGS
 	app.put('/user/:user_id', function (req, res) {
-    console.log('USERID',req.params.user_id);
     UserMethods.update(req.params.user_id, req.body.prop, req.body.data, res);
 	});
   app.put('/user/:user_id/contacts', function (req, res) {
