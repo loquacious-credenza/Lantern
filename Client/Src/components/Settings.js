@@ -86,6 +86,10 @@ export default class Settings extends Component {
     }
   }
 
+  componentDidMount(){
+    setTimeout(() => this.setState({value: this.props.state.user.acceptableDelay}), 50);
+  }
+
   getAndReset(prop, val){
     let saved = this.state[prop];
     this.setState({ [prop]: val});
@@ -141,24 +145,24 @@ export default class Settings extends Component {
           <Text style={styles.saveButtonText}>Add</Text>
         </TouchableOpacity>
 
-        <View style={[styles.container, {width: width, flexDirection: 'column', justifyContent: 'space-around'}]}>
-        <Text style={[styles.subHeading, {color: 'blue'}]}>
-          {`Trip Delay: `}
-          <Text style={[styles.subHeading, {paddingLeft: 15}]}>{this.state.value === 1 ? `${this.state.value} min` : `${this.state.value} mins` }</Text>
-          </Text>
-        <SliderIOS
-          disabled={false}
-          value={this.state.value}
-          onValueChange={(value) => this.setState({value: value})}
-          onSlidingComplete={() => setPassedTimeDelay({
-            delay: this.state.value,
-            id: user.id
-          })}
-          minimumValue={5}
-          maximumValue={60}
-          step={1}
-          style={styles.slider}
-        />
+        <View style={[styles.container, {marginTop: 20, flex: 0, width: width, height: 75, flexDirection: 'column', justifyContent: 'space-around'}]}>
+          <Text style={[styles.subHeading, {marginTop: 0, color: 'blue'}]}>
+            {`Trip Delay: `}
+            <Text style={[styles.subHeading, {paddingLeft: 15}]}>{this.state.value === 1 ? `${this.state.value} min` : `${this.state.value} mins` }</Text>
+            </Text>
+          <SliderIOS
+            disabled={false}
+            value={user.acceptableDelay || this.state.value}
+            onValueChange={(value) => this.setState({value: value})}
+            onSlidingComplete={() => setPassedTimeDelay({
+              delay: this.state.value,
+              id: user.id
+            })}
+            minimumValue={5}
+            maximumValue={60}
+            step={1}
+            style={styles.slider}
+          />
         </View>
 
         <Text>{JSON.stringify(user)/*used for debugging*/}</Text>
