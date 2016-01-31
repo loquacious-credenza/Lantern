@@ -27,23 +27,34 @@ export default class MapStart extends Component {
   constructor(props) {
     super(props);
   }
+  componentWillMount() {
+    console.log('PROPS',this.props.state)
+    this.setState({center: {
+        latitude: this.props.state.activeTrip.origin.latitude,
+        longitude: this.props.state.activeTrip.origin.longitude,
+        latitudeDelta: 0.0050,
+        longitudeDelta: 0.0050 * ASPECT_RATIO,
+      }
+    });
+  }
 
   focusIn = (location) => {
     this.props.actions.addDestination(location);
-    this.props.navigator.push({name: 'map'})
+    this.props.navigator.replace({name: 'map'})
   };
 
   render() {
+    console.log('THIS STATE', this.state)
     const { state, actions } = this.props;
-    const { currentLocation } = state; //destructure the parts of state that you need
-    const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
+    // const { activeTrip } = state; //destructure the parts of state that you need
+    // const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
 
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          Region={currentLocation}
-          showsUserLocation={true}
+          region={this.state.center}
+          showsUserLocation={false}
         >
         </MapView>
         <View style={styles.autoCompleteContainer}>

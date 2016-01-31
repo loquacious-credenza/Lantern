@@ -23,23 +23,25 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-let test = {
-  latitude: LATITUDE,
-  longitude: LONGITUDE,
-  latitudeDelta: LATITUDE_DELTA,
-  longitudeDelta: LONGITUDE_DELTA,
-}
 
 export default class MapStart extends Component {
   constructor(props) {
     super(props);
   }
-
+  componentWillMount() {
+    this.setState({
+      submit: 'start',
+      description: 'Select starting location',
+    });
+  }
   focusIn = (location) => {
-    this.props.actions.addStart(location);
-    test.latitude = location.latitude;
-    test.longitude = location.longitude;
-    this.props.navigator.push({name: 'endLocation'})
+    if(this.state.submit === 'start'){
+      this.props.actions.addStart(location);
+      this.setState({submit: 'end', description: 'Select destination'});
+    }else if(this.state.submit === 'end'){
+      this.props.actions.addDestination(location);
+      this.props.navigator.replace({name: 'map'});
+    }
   };
 
   render() {
@@ -51,14 +53,13 @@ export default class MapStart extends Component {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          region={test}
           showsUserLocation={true}
         >
         </MapView>
         <View style={styles.autoCompleteContainer}>
             <AutoComplete style={styles.autocomplete} selectPoint={this.focusIn} />
         </View>
-        <Text style={styles.descriptionText}>Select starting location {state.user.name}</Text>
+        <Text style={styles.descriptionText}>{this.state.description}{"\n"}{state.user.name}</Text>
       </View>
     );
   }
