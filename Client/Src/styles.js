@@ -68,17 +68,19 @@ module.exports = {
     alignItems: 'stretch',
   },
   button: {
-    width: 80,
     paddingHorizontal: 12,
     alignItems: 'center',
+    justifyContent: 'center',
     marginHorizontal: 10,
+    backgroundColor: 'rgba(0,255,255,1)',
+    borderRadius: 10,
   },
   autoCompleteContainer: {
     position: 'absolute',
-    top: 10,
+    top: 40,
     width: width,
     flexDirection: 'row',
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
   },
   descriptionText: {
     position: 'absolute',
@@ -88,5 +90,15 @@ module.exports = {
     width: width,
     flexDirection: 'row',
     backgroundColor: 'rgba(255,255,255,0.7)',
+  },
+    ButtonContainer: {
+    position: 'absolute',
+    bottom: 10,
+    width: 200,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255,255,255,0.7)',
+  },
+  buttonFont: {
+    fontSize: 20,
   }
 };
