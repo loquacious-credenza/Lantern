@@ -91,7 +91,7 @@ module.exports = {
     flexDirection: 'row',
     backgroundColor: 'rgba(255,255,255,0.7)',
   },
-    ButtonContainer: {
+  ButtonContainer: {
     position: 'absolute',
     bottom: 10,
     width: 200,
@@ -100,5 +100,9 @@ module.exports = {
   },
   buttonFont: {
     fontSize: 20,
+  },
+  timer: {
+    fontSize: 30,
+    backgroundColor: 'red'
   }
 };
