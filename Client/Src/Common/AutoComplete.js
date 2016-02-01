@@ -8,6 +8,7 @@ var AutoComplete = React.createClass({
   render() {
     return (
       <GooglePlacesAutocomplete
+        ref = 'Auto'
         placeholder='Search'
         minLength={2} // minimum length of text to search
         autoFocus={false}
@@ -15,6 +16,7 @@ var AutoComplete = React.createClass({
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
           var coords = details.geometry.location;
           this.props.selectPoint({latitude: coords.lat,longitude: coords.lng});
+          // this.refs.Auto.setState({text: ''});
         }}
         getDefaultValue={() => {
           return ''; // text input default value
@@ -34,8 +36,13 @@ var AutoComplete = React.createClass({
           },
         }}
 
+        clearText={() => {
+          this.refs.Auto.setState({text: ''});
+          console.log('CLEAR TEXT OUTSIDE');
+        }}
+
         currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-        currentLocationLabel="Current location"
+        currentLocationLabel="Near By"
         nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
         GoogleReverseGeocodingQuery={{
           // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
@@ -45,6 +52,7 @@ var AutoComplete = React.createClass({
           rankby: 'distance',
           types: 'food',
         }}
+        enablePoweredByContainer={false}
 
 
         filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
