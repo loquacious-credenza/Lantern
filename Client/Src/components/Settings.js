@@ -109,8 +109,10 @@ export default class Settings extends Component {
 
     return (
       <View style={styles.container}>
+
       <View style={{position: 'relative', flex: 0, top: -60, width: Math.floor(width * 0.9)}}>
         <Text style={[styles.subHeading, {marginLeft: 0, marginTop: 20, marginBottom: 5}]}>Emergency Contacts:</Text>
+
       {/*This will need to become a component that can be mapped*/}
         <TextInput
           style={styles.nameInput}

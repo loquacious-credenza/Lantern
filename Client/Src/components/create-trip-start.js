@@ -145,7 +145,6 @@ export default class MapStart extends Component {
     const {activeTrip} = this.props.state
     var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ? <Button ref='button' style={styles.ButtonContainer} text='CHECK IN YO'></Button> : null;
-    var text = this.state.show ?  <Text ref='description' style={styles.descriptionText}>{this.state.description}</Text> : null;
     var autocomplete = this.state.show ?  <AutoComplete ref='auto' style={styles.autocomplete} selectPoint={this.setMarker} /> : null;
 
 
