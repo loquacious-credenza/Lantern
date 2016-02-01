@@ -193,8 +193,8 @@ export default class MapStart extends Component {
         {checkIn}
         {checkedIn}
 
-        <View style={{position: 'absolute', top: 0, borderTopWidth: 20,borderTopColor:'#B5B5B5', alignItems: 'center', width: width, height: 60, backgroundColor: 'gray'}}>
-          <Text style={[styles.descriptionText, {fontWeight: 'bold', bottom: 10, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'white'}]}>{this.state.description}</Text>
+        <View style={{position: 'absolute', top: 0, borderTopWidth: 20,borderTopColor:'#B5B5B5', alignItems: 'center', width: width, height: 60, backgroundColor: '#eeeeee'}}>
+          <Text style={[styles.descriptionText, {fontWeight: 'bold', top: 30, alignSelf: 'center', marginTop: 0, fontSize: 18, backgroundColor: 'white'}]}>{this.state.description}</Text>
           <TouchableOpacity
             onPress={() => navigator.push({'name': 'settings', sceneConfig: 'FloatFromLeft'})}
             style={[stylesAlt.saveButton, {marginTop: 5, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>

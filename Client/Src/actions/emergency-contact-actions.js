@@ -68,6 +68,10 @@ export const addEmergencyContact = (payload) => {
   }
 }
 
+export const removeEmergencyContact = (payload) => {
+  console.log('Got to RemoveEmergencyContact Action', payload);// This needs to use the index to remove from state. Send the contact, with userId to server for removal
+}
+
 /**
  * Action that occurs when the server has updated contacts
  * A message can notify user that contact updates were saved.

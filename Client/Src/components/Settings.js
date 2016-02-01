@@ -9,6 +9,7 @@ import React, {
   TextInput,
   Image,
   SliderIOS,
+  ScrollView,
   TouchableOpacity
 } from 'react-native';
 
@@ -18,20 +19,29 @@ const { width, height } = Dimensions.get('window');
 
 // importing styles
 //const styles = StyleSheet.create(require('../styles.js'));
+import getAndReset from './mixins/getAndReset';
+//components
+import ContactListView from './contact-list-view';
+import EmergencyContactListItem from './emergency-contact-list-item';
+import AddEmergencyContactForm from './add-emergency-contact-form';
+import DelaySlider from './delay-slider';
+import NavBar from './nav-bar';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#e6e6e6',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: height
   },
   nameInput: {
     padding: 4,
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
+    backgroundColor: 'white',
     margin: 2,
     width: Math.floor(width * 0.9),
     alignSelf: 'center'
@@ -76,106 +86,61 @@ const styles = StyleSheet.create({
 
 });
 
+
+
 export default class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      phone: '',
-      email: '',
-      value: this.props.state.user.acceptableDelay,
-      description: 'Settings'
-    }
-  }
-
-  componentDidMount(){
-    setTimeout(() => this.setState({value: this.props.state.user.acceptableDelay}), 50);
-  }
-
-  getAndReset(prop, val){
-    let saved = this.state[prop];
-    this.setState({ [prop]: val});
-    return saved;
+      description: 'Settings',
+      value: this.props.delay
+    };
   }
 
   render() {
     const { state, actions, navigator } = this.props;
     const { user } = state; //destructure the parts of state that you need
     const {
+      removeEmergencyContact,
       addEmergencyContact,
       updateEmergencyContact,
       setPassedTimeDelay
      } = actions; // destructure the actions the components uses to update state.
 
+    const contactList = user.emergencyContacts.map((contact, index) => {
+      return (<EmergencyContactListItem
+          key={index}
+          contact={contact}
+          actions={{removeEmergencyContact}}
+          />);
+    });
+
     return (
       <View style={styles.container}>
+        <View style={{position: 'relative', flex: 0, top: 60, width: Math.floor(width * 0.9)}}>
+          <Text style={[styles.subHeading, {marginLeft: 0, marginTop: 80, marginBottom: 5}]}>Emergency Contacts:</Text>
 
-      <View style={{position: 'relative', flex: 0, top: -60, width: Math.floor(width * 0.9)}}>
-        <Text style={[styles.subHeading, {marginLeft: 0, marginTop: 20, marginBottom: 5}]}>Emergency Contacts:</Text>
+          <ScrollView contentContainStyle={[styles.container, { paddingVertical: 60}, {flex: 1, top: 100, height: 200, width: width}]}>
+            {contactList}
+          </ScrollView>
 
-      {/*This will need to become a component that can be mapped*/}
-        <TextInput
-          style={styles.nameInput}
-          placeholder='Contact Name'
-          ref='contactName'
-          onChangeText={(name) => {this.setState({name})}}
-          value={this.state.name}
+          <AddEmergencyContactForm
+            user={user}
+            emergencyContacts={user.emergencyContacts}
+            actions={{addEmergencyContact}}
+            />
+        </View>
+
+        <DelaySlider
+          delay={user.acceptableDelay}
+          user={user}
+          actions={{setPassedTimeDelay}}
           />
-        <TextInput
-          style={styles.nameInput}
-          placeholder='(xxx) xxx-xxxx'
-          ref='contactPhone'
-          onChangeText={(phone) => this.setState({phone})}
-          value={this.state.phone}
-        />
-        <TextInput
-          style={styles.nameInput}
-          placeholder='fake@email.com'
-          ref='contactEmail'
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email}
-        />
-      {/*End of component*/}
-        <TouchableOpacity
-          onPress={() => addEmergencyContact({
-            id: user.id,
-            existingContacts: user.emergencyContacts,
-            name: this.getAndReset('name', ''),
-            phone: this.getAndReset('phone', ''),
-            email: this.getAndReset('email', '')
-          })}
-          style={[styles.saveButton, {right: 0}]}>
-          <Text style={styles.saveButtonText}>Add</Text>
-        </TouchableOpacity>
-        </View>
-
-        <View style={[styles.container, {marginTop: 20, flex: 0, width: width, height: 75, flexDirection: 'column', justifyContent: 'space-around'}]}>
-          <Text style={[styles.subHeading, {marginTop: 0, color: 'blue'}]}>
-            {`Trip Delay: `}
-            <Text style={[styles.subHeading, {paddingLeft: 15}]}>{this.state.value === 1 ? `${this.state.value} min` : `${this.state.value} mins` }</Text>
-            </Text>
-          <SliderIOS
-            disabled={false}
-            value={user.acceptableDelay || this.state.value}
-            onValueChange={(value) => this.setState({value: value})}
-            onSlidingComplete={() => setPassedTimeDelay({
-              delay: this.state.value,
-              id: user.id
-            })}
-            minimumValue={5}
-            maximumValue={60}
-            step={1}
-            style={styles.slider}
+        <NavBar
+          navigator={navigator}
+          description='Settings'
+          right="rightArrow"
           />
-        </View>
-        <View style={{position: 'absolute', top: 0, alignItems: 'center', width: width, height: 60, backgroundColor: 'white', borderBottomWidth: 1, borderBottomColor: 'black'}}>
-          <Text style={[styles.descriptionText, {fontWeight: 'bold', top: 25, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'white'}]}>{this.state.description}</Text>
-          <TouchableOpacity
-            onPress={() => navigator.pop()}
-            style={[styles.saveButton, {marginTop: 25, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
-            <Image source={require('../assets/half-arrow-right-7.png')} />
-          </TouchableOpacity>
-        </View>
 
         <Text>{JSON.stringify(user)/*used for debugging*/}</Text>
 
