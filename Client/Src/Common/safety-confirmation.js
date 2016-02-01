@@ -34,7 +34,7 @@ import { Dimensions } from 'react-native';
 
 var componentStyles = StyleSheet.create({
   background: {
-    backgroundColor:'grey',
+    backgroundColor:'transparent',
     flex:1,
     alignItems:'center',
     justifyContent:'center'

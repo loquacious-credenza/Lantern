@@ -14,6 +14,7 @@ import React, {
 const MapView = require('react-native-maps');
 const AutoComplete = require('../Common/AutoComplete');
 const Button = require('../Common/Button');
+const SafetyButton = require('../Common/safety-confirmation');
 var calculateMidpoint = require('../helpers/calculate-midpoint');
 var calculateDistance = require('../helpers/calculate-distance');
 const styles = StyleSheet.create(require('../styles.js'));
@@ -85,6 +86,7 @@ export default class MapStart extends Component {
       region: null,
       show: true,
       inRange: false,
+      checkedIn: false,
     });
   }
   //snaps view to location sets markers on start and end also adjust for marker changes before submit.
@@ -110,6 +112,11 @@ export default class MapStart extends Component {
         this.setState({markers: this.state.markers.slice(0,1).concat([{key: 1, id:'desination',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
       }
     }
+  };
+
+  checkingIn = () => {
+    console.log('CHECKEDIN YO');
+    this.setState({checkedIn: true, inRange: false});
   };
 
 //handles the submit button being pressed and saves location as start then changes state to next save end
@@ -144,7 +151,8 @@ export default class MapStart extends Component {
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
     const {activeTrip} = this.props.state
     var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
-    var checkIn = this.state.inRange ? <Button ref='button' style={styles.ButtonContainer} text='CHECK IN YO'></Button> : null;
+    var checkIn = this.state.inRange ? <Button ref='button' style={styles.ButtonContainer} text='CHECK IN YO' onPress={this.checkingIn}></Button> : null;
+    var checkedIn = this.state.checkedIn ? <SafetyButton name={state.user.name} /> : null;
     var autocomplete = this.state.show ?  <AutoComplete ref='auto' style={styles.autocomplete} selectPoint={this.setMarker} /> : null;
 
 
@@ -170,6 +178,7 @@ export default class MapStart extends Component {
         </MapView>
         {button}
         {checkIn}
+        {checkedIn}
 
         <View style={{position: 'absolute', top: 0, borderTopWidth: 20,borderTopColor:'#B5B5B5', alignItems: 'center', width: width, height: 60, backgroundColor: 'gray'}}>
           <Text style={[styles.descriptionText, {fontWeight: 'bold', bottom: 10, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'gray'}]}>{this.state.description}</Text>
