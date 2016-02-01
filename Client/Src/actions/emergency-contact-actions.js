@@ -1,6 +1,9 @@
 'use strict';
 
 import {
+  ADD_EMERGENCY_CONTACT,
+  ADD_EMERGENCY_CONTACT_SUCCESS,
+  ADD_EMERGENCY_CONTACT_FAIL,
   UPDATE_EMERGENCY_CONTACT_SUCCESS,
   UPDATE_EMERGENCY_CONTACT_FAIL,
   UPDATE_EMERGENCY_CONTACT
@@ -12,15 +15,46 @@ import {
  * @param  {object} payload the new array of contacts
  * @return {object}         reducer will update state
  */
-export const updateEmergencyContact = (payload) => {
-  var requestBody = {
+// export const updateEmergencyContact = (payload) => {
+//   var requestBody = payload.existingContacts
+//     .slice(0, payload.index)
+//     .concat([{
+//       contact_name:payload.name,
+//       contact_phone:payload.phone,
+//       contact_email:payload.email
+//     }])
+//     .concat(payload.existingContacts.slice(payload.index + 1));
+
+//   return (dispatch) => {
+//     fetch('http://localhost:8000/user/' + payload.id + '/contact/' + payload.index, //new route
+//       {
+//       method: 'PUT',
+//       headers: {'Content-Type': 'application/json'},
+//       body: JSON.stringify(requestBody)
+//     })
+//     .then((response) => {
+//       dispatch(updateEmergencyContactSuccess(response))
+//     })
+//     .catch()//TODO: do error handling
+
+//   }
+// }
+
+/**
+ * Action that sends updated contacts back to server.
+ * This method sends the entire contacts array (5 items)
+ * @param  {object} payload the new array of contacts
+ * @return {object}         reducer will update state
+ */
+export const addEmergencyContact = (payload) => {
+  var requestBody = payload.existingContacts.concat([{
     contact_name:payload.name,
     contact_phone:payload.phone,
     contact_email:payload.email
-  };
+  }]);
 
   return (dispatch) => {
-    fetch('http://localhost:8000/user/' + payload.id,
+    fetch(`http://localhost:8000/user/${payload.id}/contacts`,
       {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},

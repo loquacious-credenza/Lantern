@@ -59,7 +59,19 @@ module.exports = {
 				res.json(response);
 			}
 		});
-	}
+	},
+  update: function (id, prop, data, res) {
+    var obj = {};
+    obj[prop] = data
+    User.findByIdAndUpdate(id, obj, {new: true}, function (err, response) {
+      if (err) {
+        console.log("Error updating user: ", err);
+        res.sendStatus(500);
+      } else {
+        res.json(response.delay);
+      }
+    });
+  }
 
 }
 

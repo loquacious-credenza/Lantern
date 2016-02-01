@@ -6,6 +6,7 @@ import React, {
   View,
   Dimensions,
   Text,
+  Image,
   TouchableOpacity
 } from 'react-native';
 
@@ -22,6 +23,32 @@ const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
+
+const stylesAlt = {
+  saveButton: {
+    flex:0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: 125,
+    marginTop: 25,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: 'teal'
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'lightBlue',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  saveButtonText: {
+    fontSize: 20,
+    color: 'white'
+  }
+};
 
 
 export default class MapStart extends Component {
@@ -50,16 +77,26 @@ export default class MapStart extends Component {
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
 
     return (
-      <View style={styles.container}>
+      <View style={stylesAlt.container}>
+
+
         <MapView
           style={styles.map}
           showsUserLocation={true}
         >
         </MapView>
-        <View style={styles.autoCompleteContainer}>
+        <View style={[styles.autoCompleteContainer, {top: 60, height: 30}]}>
             <AutoComplete style={styles.autocomplete} selectPoint={this.focusIn} />
         </View>
-        <Text style={styles.descriptionText}>{this.state.description}{"\n"}{state.user.name}</Text>
+        <View style={{position: 'absolute', top: 0, alignItems: 'center', width: width, height: 60, backgroundColor: 'gray'}}>
+          <Text style={[styles.descriptionText, {fontWeight: 'bold', bottom: 10, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'gray'}]}>{this.state.description}</Text>
+          <TouchableOpacity
+            onPress={() => navigator.push({'name': 'settings'})}
+            style={[stylesAlt.saveButton, {marginTop: 20, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
+            <Image source={require('../assets/gear-7.png')} />
+          </TouchableOpacity>
+
+        </View>
       </View>
     );
   }

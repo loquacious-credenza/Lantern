@@ -41,7 +41,7 @@ export const login = (payload) => {
       }
       //EXPECTED RESPONSE:
       //{_id , name: , activeTrip, contacts}
-      
+
     }).catch( (err) => {
       // loginFail(err);
     })
@@ -66,7 +66,7 @@ export const loginSuccess = (payload) => {
 // *
 //  * The action dispatched on logout
 //  * @return {object} Has the action type to modify `isLoggedIn` to false
- 
+
 // export const logout = () => {
 //   return {
 //     type: LOGOUT
