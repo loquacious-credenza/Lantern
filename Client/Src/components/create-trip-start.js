@@ -7,6 +7,7 @@ import React, {
   Dimensions,
   Text,
   Image,
+  Navigator,
   TouchableOpacity
 } from 'react-native';
 
@@ -46,6 +47,18 @@ const stylesAlt = {
   saveButtonText: {
     fontSize: 20,
     color: 'white'
+  },
+  triangle: {
+    width:0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 60,
+    borderRightWidth: 60,
+    borderBottomWidth: 20,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'lightGray'
   }
 };
 
@@ -181,9 +194,9 @@ export default class MapStart extends Component {
         {checkedIn}
 
         <View style={{position: 'absolute', top: 0, borderTopWidth: 20,borderTopColor:'#B5B5B5', alignItems: 'center', width: width, height: 60, backgroundColor: 'gray'}}>
-          <Text style={[styles.descriptionText, {fontWeight: 'bold', bottom: 10, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'gray'}]}>{this.state.description}</Text>
+          <Text style={[styles.descriptionText, {fontWeight: 'bold', bottom: 10, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'white'}]}>{this.state.description}</Text>
           <TouchableOpacity
-            onPress={() => navigator.push({'name': 'settings'})}
+            onPress={() => navigator.push({'name': 'settings', sceneConfig: 'FloatFromLeft'})}
             style={[stylesAlt.saveButton, {marginTop: 5, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
             <Image source={require('../assets/gear-7.png')} />
           </TouchableOpacity>
@@ -191,6 +204,15 @@ export default class MapStart extends Component {
             {autocomplete}
           </View>
 
+      {/*This is the bar on the bottom of the page to navigate to guardian view*/}
+        <View style={{justifyContent: 'center',position: 'absolute', bottom: 0, alignItems: 'center', width: width, height: 20, backgroundColor: 'lightGray'}}>
+          <View style={[{alignSelf: 'center', top: 0, width: 100, backgroundColor: 'gray'}, stylesAlt.triangle]}>
+          </View>
+          <Text style={[styles.descriptionText, {width: width, bottom: 3, marginTop: 0, fontSize: 16, backgroundColor: 'transparent'}]}>{'Guardian'}</Text>
+          <TouchableOpacity
+            onPress={() => navigator.push({'name': 'settings', sceneConfig: 'FloatFromBottom'})}
+            style={[{justifyContent: 'center', bottom: 20, height: 40, width: width * .3, borderWidth: 0, backgroundColor: 'transparent', opacity: 0.3}]}>
+          </TouchableOpacity>
         </View>
 
       </View>

@@ -22,7 +22,7 @@ const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightBlue',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -168,11 +168,11 @@ export default class Settings extends Component {
             style={styles.slider}
           />
         </View>
-        <View style={{position: 'absolute', top: 0, alignItems: 'center', width: width, height: 60, backgroundColor: 'gray'}}>
-          <Text style={[styles.descriptionText, {fontWeight: 'bold', top: 25, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'gray'}]}>{this.state.description}</Text>
+        <View style={{position: 'absolute', top: 0, alignItems: 'center', width: width, height: 60, backgroundColor: 'white', borderBottomWidth: 1, borderBottomColor: 'black'}}>
+          <Text style={[styles.descriptionText, {fontWeight: 'bold', top: 25, alignSelf: 'center', marginTop: 0, fontSize: 16, backgroundColor: 'white'}]}>{this.state.description}</Text>
           <TouchableOpacity
             onPress={() => navigator.pop()}
-            style={[styles.saveButton, {marginTop: 20, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
+            style={[styles.saveButton, {marginTop: 25, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
             <Image source={require('../assets/half-arrow-right-7.png')} />
           </TouchableOpacity>
         </View>
