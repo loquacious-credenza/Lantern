@@ -10,14 +10,68 @@ import React, {
   TouchableOpacity
 } from 'react-native';
 
-// importing styles
-const styles = StyleSheet.create(require('../styles.js'));
-const { width, height } = Dimensions.get('window');
+import IconButton from './icon-button';
 
-const icons = {
-  // rightArrow: '../assets/half-arrow-right-7.png'
-  rightArrow: require('../assets/half-arrow-right-7.png'),
-  gear: require('../assets/gear-7.png')
+class Right extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  render() {
+
+    const {
+      image,
+      actions,
+      navigator,
+      route,
+      label,
+      style
+    } = this.props;
+    const { onPress } = actions;
+
+    return (
+      <View style={style}>
+      <IconButton
+        image={image}
+        actions={{onPress}}
+        navigator={navigator}
+        route={route}
+        label={label}
+        />
+      </View>
+    );
+  }
+}
+
+class Left extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  render() {
+
+    const {
+      image,
+      actions,
+      navigator,
+      route,
+      label,
+      style
+    } = this.props;
+    const { onPress } = actions;
+
+    return (
+      <View style={style}>
+      <IconButton
+        image={image}
+        actions={{onPress}}
+        navigator={navigator}
+        route={route}
+        label={label}
+        />
+      </View>
+    );
+  }
 }
 
 export default class NavBar extends Component {
@@ -28,24 +82,87 @@ export default class NavBar extends Component {
   render() {
     let {
       navigator,
-      // actions,
       description,
-      right
+      right,
+      left,
+      route
     } = this.props;
-   // let rightAlt = '../assets/half-arrow-right-7.png';
 
+    const rightSide = right ?
+      <Right
+        style={[styles.navLinkStyle, styles.rightSide]}
+        navigator={navigator}
+        image={right && right.image}
+        actions={{onPress: right.action}}
+        route={route && route.next ? route.next : null}
+        label={right.label || null}
+        /> : null;
 
+    const leftSide = left ?
+      <Left
+        style={[styles.navLinkStyle, styles.leftSide]}
+        navigator={navigator}
+        image={left && left.image}
+        actions={{onPress: left.action}}
+        route={route && route.next ? route.next : null}
+        label={left.label || null}
+        /> : null;
 
-    // const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
     return (
-      <View style={{position: 'absolute', top: 0, alignItems: 'center', width: width, height: 60, backgroundColor: '#eeeeee', borderBottomWidth: 1, borderBottomColor: 'black'}}>
-        <Text style={[styles.descriptionText, {fontWeight: 'bold', top: 30, alignSelf: 'center', marginTop: 0, fontSize: 18, backgroundColor: '#eeeeee'}]}>{description}</Text>
-        <TouchableOpacity
-          onPress={() => navigator.pop()}
-          style={[styles.saveButton, {marginTop: 25, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
-          <Image source={icons[right]} />
-        </TouchableOpacity>
+      <View style={styles.navBarContainer}>
+        <Text
+          style={styles.navBarText}>
+          {description}
+        </Text>
+        {rightSide}
+        {leftSide}
       </View>
     );
   }
 }
+
+// Component Styles
+let styles = StyleSheet.create(require('../styles.js'));
+const { width, height } = Dimensions.get('window');
+const NAV_HEIGHT = 60;
+const LINK_WIDTH = 50;
+const NAV_BAR_PADDING = 5;
+styles = {
+  navBarContainer: {
+    flex: 0,
+    position: 'relative',
+    flexDirection: 'row',
+    width: width,
+    height: NAV_HEIGHT,
+    backgroundColor: '#eeeeee',
+    borderBottomWidth: 1,
+    borderBottomColor: 'black'
+  },
+  navLinkStyle: {
+    position: 'absolute',
+    flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: 'transparent',
+    bottom: 0,
+    width: LINK_WIDTH,
+    height: NAV_HEIGHT,
+    paddingBottom: NAV_BAR_PADDING
+  },
+  rightSide: {
+    right: 0
+  },
+  leftSide: {
+    left: 0
+  },
+  navBarText: {
+    flex: 0,
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    width: width,
+    alignSelf: 'flex-end',
+    fontSize: 18,
+    backgroundColor: 'transparent',
+    paddingBottom: NAV_BAR_PADDING
+  }
+};
