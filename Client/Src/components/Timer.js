@@ -10,18 +10,24 @@ import React, {
 
 // importing styles
 const styles = StyleSheet.create(require('../styles.js'));
+
+
 const timerMixin = require('react-timer-mixin');
+const moment = require('moment');
+
 
 export default class Timer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      timeRemaining: 0
+    }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       timeRemaining: (this.props.endTime - Date.now())
     });
-
     timerMixin.setInterval.call(this, function(){
       this.setState({timeRemaining: this.state.timeRemaining -= 1000});
     },1000)
@@ -29,14 +35,10 @@ export default class Timer extends Component {
 
   render() {
     const { endTime } = this.props;
-    //const { currentLocation } = state; //destructure the parts of state that you need
-    //const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
-    const timeRemaining = endTime - Date.now();
-
     return (
       <View style={styles.timerContainer}>
-        <Text style={styles.timerValue}>Expected time of arrival: { endTime }</Text>
-        <Text style={styles.timerValue}>Time remaining: { this.state.timeRemaining }</Text>
+        <Text style={styles.timerValue}>ETA: { moment(endTime).calendar() }</Text>
+        <Text style={styles.timerValue}>Time remaining: { moment.duration(this.state.timeRemaining).humanize() }</Text>
       </View>
     );
   }
