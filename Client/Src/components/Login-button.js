@@ -4,7 +4,7 @@ var React = require('react-native');
 var {
   AsyncStorage,
   StyleSheet,
-  View,
+  View
 } = React;
 /*facebook react native wrapper for SDK*/
 var FBSDKLogin = require('react-native-fbsdklogin');

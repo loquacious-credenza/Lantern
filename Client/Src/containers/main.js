@@ -1,10 +1,23 @@
 'use strict';
 
-import React, { Component, Navigator, StyleSheet, AsyncStorage } from 'react-native';
+import { extend, isNull } from 'lodash';
+var cssVar = require('cssVar');
+
+import React, {
+  Component,
+  Navigator,
+  StyleSheet,
+  AsyncStorage,
+  Text,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  View
+} from 'react-native';
 import * as actionCreators from '../actions';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+const { width, height } = Dimensions.get('window');
 
 // Components
 import CurrentLocation from '../components/get-location';
@@ -15,16 +28,20 @@ import MapEnd from '../components/create-trip-end';
 import Map from '../components/Map';
 import Settings from '../components/Settings';
 
-var ROUTES = {
-  signin: { view: SignIn, scene: 'FloatFromBottom' },
-  // home: { view: Home, scene: 'FloatFromBottom' },
-  getLocation: { view: CurrentLocation, scene: 'FloatFromLeft' },
-  startLocation: { view: MapStart, scene: 'FloatFromLeft' },
-  endLocation: { view: MapEnd, scene: 'FloatFromLeft' },
-  map: {view: Map, scene: 'FloatFromLeft'},
-  home: { view: MapStart, scene: 'FloatFromLeft' },
-  // home: { view: Settings, scene: 'FloatFromLeft' },
-  settings: { view: Settings, scene: 'FloatFromLeft'}
+// import * as ROUTES from '../constants/routes';
+
+// console.log("ROUTES", ROUTES);
+
+const ROUTES = {
+  signin: SignIn,
+  home: Home,
+  getLocation: CurrentLocation,
+  startLocation: MapStart,
+  endLocation: MapEnd,
+  map: Map,
+  home: MapStart,
+  home: Settings,
+  settings: Settings
 };
 
 const SCENE_CONFIGS = {
@@ -41,40 +58,64 @@ const SCENE_CONFIGS = {
   VerticalDownSwipeJump: (route, routeStack) => Navigator.SceneConfigs.VerticalDownSwipeJump
 }
 
-// var INITIALROUTE = {
-//   name: 'signin',
-//   scene: 'FloatFromRight'
-// }
+var NavigationBarRouteMapper = {
+
+  LeftButton: function(route, navigator, index, navState) {
+    if (index === 0) {
+      return null;
+    }
+
+    var previousRoute = navState.routeStack[index - 1];
+    return (
+      <TouchableOpacity
+        onPress={() => navigator.pop()}
+        style={styles.navBarLeftButton}>
+        <Text style={[styles.navBarText, styles.navBarButtonText]}>
+          {previousRoute.title || 'prev'}
+        </Text>
+      </TouchableOpacity>
+    );
+  },
+
+  RightButton: function(route, navigator, index, navState) {
+    console.log("ROUTE for NExT", route.name);
+    return (
+      <TouchableOpacity
+        onPress={() => navigator.push({name: route.name})}
+        style={styles.navBarRightButton}>
+
+        <Text style={[styles.navBarText, styles.navBarButtonText]}>
+          {route.nextTitle || 'Next'}
+        </Text>
+      </TouchableOpacity>
+    );
+  },
+
+  Title: function(route, navigator, index, navState) {
+    return (
+      <Text style={[styles.navBarText, styles.navBarTitleText]}>
+        {route.title} [{index}]
+      </Text>
+    );
+  },
+
+};
 
 class Main extends Component {
   constructor(props) {
     super(props);
   };
 
-//   componentWillMount(){
-//     AsyncStorage.multiGet(['userName','userID']).then((response) => {
-//       // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN
-//         if(response[0][1] !== null){
-//           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
-//           this.props.actions.login({name:response[0][1],id:response[1][1]});
-//           INITIALROUTE.name = 'home'
-//         } else {
-//           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
-
-//         }
-//   })
-// }
-
 
   renderScene(route, navigator){
-    let Component = ROUTES[route.name].view;
-    let sceneConfig = SCENE_CONFIGS[ROUTES[route.name].scene]
+    console.log('RENDERSCENE', route)
+    let Component = ROUTES[route.name];
     return <Component
       route={route}
       navigator={navigator}
       state={this.state}
       actions={this.actions}
-      configureScene={sceneConfig}/>;
+      />
   }
 
   render() {
@@ -82,14 +123,28 @@ class Main extends Component {
     const { state, actions } = this.props;
 
     return (
+      <View style={{flex:1}}>
       <Navigator
         style={styles.navigator}
-        initialRoute={{name: 'signin', scene: 'FloatFromRight'}}
+        initialRoute={{name: 'signin', sceneConfig: 'FloatFromBottom'}}
         state={state}
         actions={actions}
         renderScene={this.renderScene}
-        configureScene={SCENE_CONFIGS['FloatFromBottom'] || SCENE_CONFIGS.default}
+        configureScene={(route) => {
+          if (route.sceneConfig) {
+            return Navigator.SceneConfigs[route.sceneConfig];
+          }
+          return Navigator.SceneConfigs.PushFromRight;
+        }}
+        // navigationBar={
+        //   <Navigator.NavigationBar
+        //     routeMapper={NavigationBarRouteMapper}
+        //     style={styles.navBar}
+        //   />
+        // }
       />
+
+      </View>
     );
   }
 }
@@ -106,3 +161,49 @@ export default connect(state => ({
 
 // importing styles
 var styles = StyleSheet.create(require('../styles.js'));
+var styles = extend({}, styles, StyleSheet.create({
+  messageText: {
+    fontSize: 17,
+    fontWeight: '500',
+    padding: 15,
+    marginTop: 50,
+    marginLeft: 15,
+  },
+  button: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#CDCDCD',
+  },
+  buttonText: {
+    fontSize: 17,
+    fontWeight: '500',
+  },
+  navBar: {
+    backgroundColor: 'white',
+  },
+  navBarText: {
+    fontSize: 16,
+    marginVertical: 10,
+  },
+  navBarTitleText: {
+    color: cssVar('fbui-bluegray-60'),
+    fontWeight: '500',
+    marginVertical: 9,
+  },
+  navBarLeftButton: {
+    paddingLeft: 10,
+  },
+  navBarRightButton: {
+    paddingRight: 10,
+  },
+  navBarButtonText: {
+    color: cssVar('fbui-accent-blue'),
+  },
+  scene: {
+    flex: 1,
+    paddingTop: 20,
+    backgroundColor: '#EAEAEA',
+  },
+})
+);
