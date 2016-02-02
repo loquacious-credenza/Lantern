@@ -13,11 +13,11 @@ import React, {
 import { getCurrentPosition, watchPosition } from '../helpers/geolocation';
 import { submitStart, submitEnd } from '../helpers/submitStates';
 import { setMarkers } from '../helpers/setMarker';
-import MapView = from 'react-native-maps';
-import AutoComplete = from '../Common/AutoComplete';
-import Button = from '../Common/Button';
-import ETA = from '../Common/eta-confirmation';
-import SafetyButton = from '../Common/safety-confirmation';
+import MapView from 'react-native-maps';
+import AutoComplete from '../Common/AutoComplete';
+import Button from '../Common/Button';
+import ETA from '../Common/eta-confirmation';
+import SafetyButton from '../Common/safety-confirmation';
 import SlideUp from './slide-up';
 
 const styles = StyleSheet.create(require('../styles.js'));
