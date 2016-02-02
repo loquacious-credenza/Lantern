@@ -102,28 +102,32 @@ export default class MapStart extends Component {
       checkedIn: false,
     });
   }
+  changeRegion = (location) => {
+    this.setState({region: {
+      latitude: location.latitude,
+      longitude:location.longitude,
+      latitudeDelta: .005,
+      longitudeDelta: .005 / ASPECT_RATIO}});
+  };
   //snaps view to location sets markers on start and end also adjust for marker changes before submit.
   setMarker = (location) => {
-    this.setState({region: {
-          latitude: location.latitude,
-          longitude:location.longitude,
-          latitudeDelta: .005,
-          longitudeDelta: .005 / ASPECT_RATIO}});
     if(this.state.submit === 'start'){
       this.setState({start: location});
       if(this.state.markers.length === 0){
         this.setState({markers: this.state.markers.concat([{key: 0, id:'origin',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
       }else{
         this.setState({markers: [{key: 0, id:'origin',coordinate: {latitude: location.latitude, longitude: location.longitude}}]});
-
       }
+      setTimeout(()=>{this.refs.origin.showCallout();},200);
+
     }else if(this.state.submit === 'end'){
       this.setState({end: location});
       if(this.state.markers.length === 1){
-        this.setState({markers: this.state.markers.concat([{key: 1, id:'desination',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
+        this.setState({markers: this.state.markers.concat([{key: 1, id:'destination',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
       }else{
-        this.setState({markers: this.state.markers.slice(0,1).concat([{key: 1, id:'desination',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
+        this.setState({markers: this.state.markers.slice(0,1).concat([{key: 1, id:'destination',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
       }
+    setTimeout(()=>{this.refs.destination.showCallout();},200);
     }
   };
 
@@ -133,14 +137,19 @@ export default class MapStart extends Component {
 
 //handles the submit button being pressed and saves location as start then changes state to next save end
   submit = () => {
-    if(this.refs.auto.refs.Auto.state.text.length > 2){
+    if(this.state.markers.length > 0){
       if(this.state.submit === 'start'){
         this.props.actions.addStart(this.state.start);
         this.setState({submit: 'end', description: 'Confirm Destination'});
         this.refs.auto.refs.Auto.props.clearText();
+        this.refs.origin.hideCallout();
       }else if(this.state.submit === 'end'){
         this.props.actions.addDestination(this.state.end);
-        this.setState({show: false, submit: 'eta'});
+
+
+        this.setState({show: false, submit: 'eta',description: 'Set your ETA'});
+        this.refs.destination.hideCallout();
+
 
         const lat1 = this.state.start.latitude;
         const lat2 = this.state.end.latitude;
@@ -161,11 +170,13 @@ export default class MapStart extends Component {
     const { state, actions, navigator } = this.props;
     const { currentLocation } = state; //destructure the parts of state that you need
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
-    const {activeTrip} = this.props.state
-    var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
+    const { activeTrip } = this.props.state
+    // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ? <Button ref='button' style={styles.ButtonContainer} text='CHECK IN YO' onPress={this.checkingIn}></Button> : null;
+
     var checkedIn = this.state.checkedIn ? <SafetyButton elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name} buttonText={"Glad you're safe!"} /> : null;
-    var autocomplete = this.state.show ?  <AutoComplete ref='auto' style={styles.autocomplete} selectPoint={this.setMarker} /> : null;
+    var autocomplete = this.state.show ?  <AutoComplete ref='auto' style={styles.autocomplete} selectPoint={(input)=>{this.changeRegion(input); this.setMarker(input);}} /> : null;
+    var callout = this.state.show ?  <MapView.Callout><TouchableOpacity onPress={()=> {this.submit();}}><Text>Press to Confirm</Text></TouchableOpacity></MapView.Callout> : <MapView.Callout><Text>Why u Pressin me</Text></MapView.Callout>;
     var eta = this.state.submit === 'eta' ? <ETA startTrip={()=>{actions.startTrip; this.setState({submit:'tracking'})}} tripState={state.activeTrip} userId={state.user.id}></ETA> : null
 
     return (
@@ -177,18 +188,22 @@ export default class MapStart extends Component {
           showsUserLocation={true}
           region={this.state.region}
           onRegionChange={this.onRegionChange}
+          onLongPress={(e) => {this.setMarker(e.nativeEvent.coordinate)}}
           >
 
           {this.state.markers.map(marker => (
             <MapView.Marker
               key={marker.key}
               coordinate={marker.coordinate}
+              ref={marker.id}
               title={marker.id}
-            />
+              onDragEnd={(e) => {this.setMarker(e.nativeEvent.coordinate)}}
+              draggable>
+              {callout}
+            </MapView.Marker>
           ))}
 
         </MapView>
-        {button}
         {checkIn}
         {checkedIn}
         {eta}
