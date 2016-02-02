@@ -28,4 +28,4 @@ node_modules/
 bower_components/
 
 keys.sh
-# Client/ios/Lantern.xcodeproj/project.pbxproj
+Client/ios/Lantern.xcodeproj/project.pbxproj
