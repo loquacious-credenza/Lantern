@@ -34,15 +34,14 @@ function create(req, res){
         res.sendStatus(500);
       } else {
         console.log('WORKS!: ', response);
-        res.status(201).json(newTrip);
+        res.json(newTrip);
       }
     });
-    res.status(201).json(newTrip);
     },
     // onError handler
     function(err){ // if there is an error
       console.log('Error creating new trip: ', err);
-      res.status(500).send('The trip could not be created', err); //send appropriate response to client.
+      res.sendStatus(500); //send appropriate response to client.
     });
 }
 
@@ -54,10 +53,10 @@ function create(req, res){
  */
 function read(req, res){
   // trip id from req params
-  var id = req.params.trip_id;
+  var user_id = req.params.user_id;
 
   // uses the findOne method to return a single object found by ID
-  return Trip.findOne({ _id: id})
+  return Trip.findOne({ user_id: user_id, active:true})
     .then(
     // onSuccess handler
     function(record){ //the record is passed to callback
@@ -70,9 +69,9 @@ function read(req, res){
 }
 
 function update(req, res, data){
-  var id = req.params.trip_id;
+  var user_id = req.params.user_id;
 
-  return Trip.findByIdAndUpdate(id, { $set: req.body })
+  return Trip.findOneAndUpdate({user_id: user_id, active: true}, {$set: req.body}, {new: true})
     .then(
     // onSuccess handler
     function(trip){
@@ -84,15 +83,25 @@ function update(req, res, data){
     })
 }
 
-function addLocPoints(id, data, res) {
-  console.log('ID IS: ', id);
-  Trip.findByIdAndUpdate(id, { $pushAll: {path: data} }, function (err, response) {
+// FINDS AN ACTIVE TRIP BY THE PROVIDED 'user_id' AND PUSHES THE NEW LOCATION IN 'data' INTO THE TRIP'S 'path' ARRAY.
+// THE SERVER THEN RESPONDS WITH THE UPDATED TRIP OBJECT
+function addLocPoints(user_id, data, res) {
+  Trip.findOneAndUpdate({user_id: user_id, active: true}, {$pushAll: {path: data}}, {new:true}, function (err, response) {
     if (err) {
       console.log("Error pushing locpoint data to trip: ", err);
       res.sendStatus(500);
     } else {
-      //res.sendStatus(200);
       res.json(response);
+    }
+  });
+}
+// THIS METHOD FINDS THE ACTIVE TRIP ASSOCIATED WITH THE PROVIDED 'user_id' AND SWITCHES IT TO 'active:false'
+function renderInactive(user_id, res) {
+  Trip.findOneAndUpdate({user_id: user_id, active: true}, {active: false}, function (err, response) {
+    if (err) {
+      console.log("Error rendering trip inactive: ", err);
+    } else {
+      res.sendStatus(200);
     }
   });
 }
@@ -125,5 +134,6 @@ module.exports = {
   create: create,
   read: read,
   update: update,
-  delete: del
+  delete: del,
+  renderInactive: renderInactive
 };

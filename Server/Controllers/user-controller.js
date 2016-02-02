@@ -60,7 +60,9 @@ module.exports = {
 			}
 		});
 	},
-  update: function (id, prop, data, res) {
+	// SIMILAR TO 'updateContacts'. 'update' TAKES A USER'S ID AND UPDATES THE 'prop' FIELD WITH 'data'. THESE 
+	// ARGUMENTS ARE PROVIDED IN 'routes.js'. 'updateContacts' COULD PROBABLY BE REPLACED ALTOGETHER.
+	update: function (id, prop, data, res) {
     var obj = {};
     obj[prop] = data
     User.findByIdAndUpdate(id, obj, {new: true}, function (err, response) {

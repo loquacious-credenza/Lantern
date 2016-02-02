@@ -12,54 +12,44 @@ module.exports = function (app, express) {
 
 /* =========== TRIP ENDPOINTS =========== */
 // CREATES A TRIP
-// POST -USER/USER_ID:/TRIPS/TRIP_ID
-	app.post('/user/:user_id/trips', function (req, res) {
-		console.log('POST!');
+	app.post('/user/:user_id/trip', function (req, res) {
     	TripMethods.create(req, res);
 	});
 
 // GETS A TRIP
-// GET -USER/USER_ID:/TRIPS/TRIP_ID
-	app.get('/user/:user_id/:trip_id', function (req, res) {
-		res.send('Arrived at endpoint: ' + req.url);
+	app.get('/user/:user_id/trip', function (req, res) {
+		TripMethods.read(req, res);
 	});
 
-// UPDATES A TRIP'S GEOLOCATION DATA !OR! SOCKETS
-// PUT -USER/USER_ID:/TRIPS/TRIP_ID !OR! SOCKETS
-	app.put('/user/:user_id/trip/:trip_id', function (req, res) {
-		//res.send('Arrived at endpoint: ' + req.url);
-		TripMethods.addLocPoints(req.params.trip_id, req.body, res);
+// UPDATES A TRIP'S GEOLOCATION DATA
+	app.put('/user/:user_id/trip', function (req, res) {
+		TripMethods.addLocPoints(req.params.user_id, req.body, res);
 	});
 
 // MARKS A TRIP AS 'active: false'
-// DELETE -USER/USER_ID:/TRIPS/TRIP_ID
-	app.delete('/user/:user_id/:trip_id', function (req, res) {
-		res.send('Arrived at endpoint: ' + req.url);
+	app.delete('/user/:user_id/trip', function (req, res) {
+		TripMethods.renderInactive(req.params.user_id, res);
 	});
 
 /* ================ USER ENDPOINTS ================ */
 // GET USER STATS
-// GET -USER/USER_ID:
 	app.get('/user/:user_id', function (req, res) {
-		//res.send('Arrived at endpoint: ' + req.url);
 		UserMethods.findUser(req.params.user_id, res);
 	});
 
-// CREATE NEW CONTACTS
-// POST -USER/USER_ID:
+// CREATE NEW USER OR RESPOND WITH USER & TRIP DATA
 	app.post('/user/:user_id', function (req, res) {
-		//res.send('Arrived at endpoint: ' + req.url);
 		UserMethods.findOrCreateUser(req.body, res);
 	});
 
 // UPDATES USER STATS
-// PUT -/ID:/SETTINGS
 	app.put('/user/:user_id', function (req, res) {
-    UserMethods.update(req.params.user_id, req.body.prop, req.body.data, res);
+    	UserMethods.update(req.params.user_id, req.body.prop, req.body.data, res);
 	});
+
+// UPDATE USER CONTACTS
   app.put('/user/:user_id/contacts', function (req, res) {
-    //res.send('Arrived at endpoint: ' + req.url);
-    UserMethods.updateContacts(req.params.user_id, req.body, res);
+  		UserMethods.updateContacts(req.params.user_id, req.body, res);
   });
 
 /* ================ CONTACT ENDPOINTS ================= */
