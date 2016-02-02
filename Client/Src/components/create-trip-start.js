@@ -183,17 +183,40 @@ export default class MapStart extends Component {
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
-    var checkIn = this.state.inRange ? <Button ref='button' style={styles.ButtonContainer} text='CHECK IN YO' onPress={this.checkingIn}></Button> : null;
+    var checkIn = this.state.inRange ?
+      <Button ref='button' style={styles.ButtonContainer}
+        text='CHECK IN YO' onPress={this.checkingIn}>
+      </Button> : null;
 
-    var checkedIn = this.state.checkedIn ? <SafetyButton elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name} buttonText={"Glad you're safe!"} /> : null;
-    var autocomplete = this.state.show ?  <AutoComplete ref='auto' style={styles.autocomplete} selectPoint={(input)=>{this.changeRegion(input); this.setMarker(input);}} /> : null;
-    var callout = this.state.show ?  <MapView.Callout><TouchableOpacity onPress={()=> {this.submit();}}><Text>Press to Confirm</Text></TouchableOpacity></MapView.Callout> : <MapView.Callout><Text>Why u Pressin me</Text></MapView.Callout>;
-    var eta = this.state.submit === 'eta' ? <ETA startTrip={()=>{actions.startTrip; this.setState({submit:'tracking',description: 'Currently Tracking your Location'})}} tripState={state.activeTrip} userId={state.user.id}></ETA> : null
+    var checkedIn = this.state.checkedIn ?
+      <SafetyButton elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
+        buttonText={"Glad you're safe!"} /> : null;
+
+    var autocomplete = this.state.show ?
+      <AutoComplete ref='auto'
+        style={styles.autocomplete}
+        selectPoint={(input)=>{this.changeRegion(input);
+          this.setMarker(input);}}
+      /> : null;
+
+    var eta = this.state.submit === 'eta' ?
+      <ETA startTrip={()=>{actions.startTrip; this.setState({submit:'tracking',description: 'Currently Tracking your Location'})}}
+        tripState={state.activeTrip}
+        userId={state.user.id}>
+      </ETA> : null
+
+    var callout = this.state.show ?
+      <MapView.Callout>
+        <TouchableOpacity onPress={()=> {this.submit();}}>
+          <Text>Press to Confirm</Text>
+        </TouchableOpacity>
+      </MapView.Callout> :
+      <MapView.Callout>
+        <Text>Why u Pressin me</Text>
+      </MapView.Callout>;
 
     return (
       <View style={stylesAlt.container}>
-
-
         <MapView
           style={styles.map}
           showsUserLocation={true}
@@ -240,4 +263,5 @@ export default class MapStart extends Component {
       </View>
     );
   }
+
 };
