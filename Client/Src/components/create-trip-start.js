@@ -10,20 +10,17 @@ import React, {
   Navigator,
   TouchableOpacity
 } from 'react-native';
-
 import { getCurrentPosition, watchPosition } from '../helpers/geolocation';
 import { submitStart, submitEnd } from '../helpers/submitStates';
 import { setMarkers } from '../helpers/setMarker';
-const MapView = require('react-native-maps');
-const AutoComplete = require('../Common/AutoComplete');
-const Button = require('../Common/Button');
-const ETA = require('../Common/eta-confirmation');
-const SafetyButton = require('../Common/safety-confirmation');
-var calculateMidpoint = require('../helpers/calculate-midpoint');
-var calculateDistance = require('../helpers/calculate-distance');
-const styles = StyleSheet.create(require('../styles.js'));
+import MapView = from 'react-native-maps';
+import AutoComplete = from '../Common/AutoComplete';
+import Button = from '../Common/Button';
+import ETA = from '../Common/eta-confirmation';
+import SafetyButton = from '../Common/safety-confirmation';
 import SlideUp from './slide-up';
 
+const styles = StyleSheet.create(require('../styles.js'));
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 
@@ -65,10 +62,20 @@ const stylesAlt = {
   }
 };
 
-
 export default class MapStart extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      stage: 'setStart',
+      description: 'Confirm Start',
+      markers: [],
+      region: null,
+      show: true,
+      inRange: false,
+      checkedIn: false,
+      startPoint: null,
+      endPoint: null,
+    }
   }
   onRegionChange = (region) => {
     this.setState({ region: region });
@@ -76,35 +83,6 @@ export default class MapStart extends Component {
   componentWillMount() {
     getCurrentPosition(() => this.setState,() => alert);
     watchPosition(this);
-        // Get position once
-    // navigator.geolocation.getCurrentPosition(
-    //     (initialPosition) => this.setState({initialPosition}), // success callback
-    //     (error) => alert(error.message), // failure callback
-    //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
-    // );
-
-    // Repeatedly track position
-    // this.watchID = navigator.geolocation.watchPosition((lastPosition) => {
-    //   this.setState({lastPosition});
-    //   let coords = lastPosition.coords;
-    //   this.props.actions.getCurrentLocation({latitude: coords.latitude, longitude:coords.longitude, timestamp:lastPosition.timestamp});
-    //   if(this.state.submit === 'tracking'){
-    //     let distance = calculateDistance(this.state.end.latitude, this.state.end.longitude, lastPosition.coords.latitude, lastPosition.coords.longitude);
-    //     if(distance <= 0.2){
-    //       this.setState({inRange: true});
-    //     }
-    //   }
-    //   // console.log('waypoints',this.props.state.activeTrip.waypoints);
-    // });
-    this.setState({
-      submit: 'start',
-      description: 'Confirm Start',
-      markers: [],
-      region: null,
-      show: true,
-      inRange: false,
-      checkedIn: false,
-    });
   }
   changeRegion = (location) => {
     this.setState({region: {
@@ -115,26 +93,8 @@ export default class MapStart extends Component {
   };
   //snaps view to location sets markers on start and end also adjust for marker changes before submit.
   setMarker = (location) => {
+    console.log('SETING MARKER',this.state)
     setMarkers(location, this);
-
-    // if(this.state.submit === 'start'){
-    //   this.setState({start: location});
-    //   if(this.state.markers.length === 0){
-    //     this.setState({markers: this.state.markers.concat([{key: 0, id:'origin',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
-    //   }else{
-    //     this.setState({markers: [{key: 0, id:'origin',coordinate: {latitude: location.latitude, longitude: location.longitude}}]});
-    //   }
-    //   setTimeout(()=>{this.refs.origin.showCallout();},200);
-
-    // }else if(this.state.submit === 'end'){
-    //   this.setState({end: location});
-    //   if(this.state.markers.length === 1){
-    //     this.setState({markers: this.state.markers.concat([{key: 1, id:'destination',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
-    //   }else{
-    //     this.setState({markers: this.state.markers.slice(0,1).concat([{key: 1, id:'destination',coordinate: {latitude: location.latitude, longitude: location.longitude}}])});
-    //   }
-    // setTimeout(()=>{this.refs.destination.showCallout();},200);
-    // }
   };
 
   checkingIn = () => {
@@ -143,38 +103,11 @@ export default class MapStart extends Component {
 
 //handles the submit button being pressed and saves location as start then changes state to next save end
   submit = () => {
-    if(this.state.submit === 'start'){
+    if(this.state.stage === 'setStart'){
       submitStart(this);
-    }else if(this.state.submit === 'end'){
+    }else if(this.state.stage === 'setEnd'){
       submitEnd(this)
     }
-    // if(this.state.markers.length > 0){
-    //   if(this.state.submit === 'start'){
-    //     this.props.actions.addStart(this.state.start);
-    //     this.setState({submit: 'end', description: 'Confirm Destination'});
-    //     this.refs.auto.refs.Auto.props.clearText();
-    //     this.refs.origin.hideCallout();
-    //   }else if(this.state.submit === 'end'){
-    //     this.props.actions.addDestination(this.state.end);
-
-
-    //     this.setState({show: false, submit: 'eta',description: 'Set your ETA'});
-    //     this.refs.destination.hideCallout();
-
-
-    //     const lat1 = this.state.start.latitude;
-    //     const lat2 = this.state.end.latitude;
-    //     const lng1 = this.state.start.longitude;
-    //     const lng2 = this.state.end.longitude;
-    //     const midpoint = calculateMidpoint(lat1, lng1, lat2, lng2);
-    //     this.setState({region: {
-    //       latitude: midpoint.lat,
-    //       longitude:midpoint.lng,
-    //       latitudeDelta: midpoint.latDelta,
-    //       longitudeDelta:midpoint.lngDelta}});
-    //   }
-    //   // this.props.navigator.replace({name: 'map'});
-    // }
   };
 
   render() {
@@ -199,8 +132,8 @@ export default class MapStart extends Component {
           this.setMarker(input);}}
       /> : null;
 
-    var eta = this.state.submit === 'eta' ?
-      <ETA startTrip={()=>{actions.startTrip; this.setState({submit:'tracking',description: 'Currently Tracking your Location'})}}
+    var eta = this.state.stage === 'eta' ?
+      <ETA startTrip={()=>{actions.startTrip; this.setState({stage:'tracking',description: 'Currently Tracking your Location'})}}
         tripState={state.activeTrip}
         userId={state.user.id}>
       </ETA> : null
