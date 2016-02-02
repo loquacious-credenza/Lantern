@@ -14,7 +14,8 @@ module.exports = function (app, express) {
 // CREATES A TRIP
 // POST -USER/USER_ID:/TRIPS/TRIP_ID
 	app.post('/user/:user_id/trips', function (req, res) {
-    TripMethods.create(req, res);
+		console.log('POST!');
+    	TripMethods.create(req, res);
 	});
 
 // GETS A TRIP
