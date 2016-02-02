@@ -5,6 +5,7 @@ import React, {
   Component,
   View,
   Text,
+  Image,
   TouchableOpacity
 } from 'react-native';
 
@@ -12,26 +13,49 @@ import React, {
 const styles = StyleSheet.create(require('../styles.js'));
 
 const icons = {
-  // rightArrow: '../assets/half-arrow-right-7.png'
   rightArrow: require('../assets/half-arrow-right-7.png'),
-  gear: require('../assets/gear-7.png')
+  upArrow: 'later',
+  leftArrow: require('../assets/half-arrow-left-7.png'),
+
+  gear: require('../assets/gear-7.png'),
+  bike: "addlater",
+  walk: "addlater",
+  car: "addlater"
 }
 
-export default class CurrentLocation extends Component {
+export default class IconButton extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { image, actions, navigator, route } = this.props;
-    const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
+    const { image, actions, navigator, route, label } = this.props;
+    const { onPress } = actions; // destructure the actions the components uses to update state.
+
+    // if image is undefined check for text
+    // if label is undefined, hide element
+    let icon = icons[image] ? <Image source={icons[image]} /> : null;
+    let text = label ? <Text>{label.trim()}</Text> : null;
+
+    let show =
+      (text !== null || icon !== null) ?
+      <TouchableOpacity
+        style={{justifyContent: 'flex-end'}}
+        onPress={onPress}>
+        {icon}
+        {text}
+      </TouchableOpacity> :
+      null;
 
     return (
-      <TouchableOpacity
-        onPress={() => navigator.pop()}
-        style={[styles.saveButton, {marginTop: 25, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
-        <Image source={image} />
-      </TouchableOpacity>
+      <View style={style}>{show}</View>
     );
   }
 }
+
+const style={
+ flex: 1,
+ backgroundColor: 'transparent',
+ justifyContent: 'flex-end',
+ alignItems: 'center'
+};

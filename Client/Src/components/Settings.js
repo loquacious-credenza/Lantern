@@ -139,7 +139,8 @@ export default class Settings extends Component {
         <NavBar
           navigator={navigator}
           description='Settings'
-          right="rightArrow"
+          right={{image: 'gear', action: () => navigator.pop()}}
+          left={{image: 'leftArrow', action: () => navigator.pop()}}
           />
 
         <Text>{JSON.stringify(user)/*used for debugging*/}</Text>

@@ -78,7 +78,6 @@ var NavigationBarRouteMapper = {
   },
 
   RightButton: function(route, navigator, index, navState) {
-    console.log("ROUTE for NExT", route.name);
     return (
       <TouchableOpacity
         onPress={() => navigator.push({name: route.name})}
@@ -108,7 +107,6 @@ class Main extends Component {
 
 
   renderScene(route, navigator){
-    console.log('RENDERSCENE', route)
     let Component = ROUTES[route.name];
     return <Component
       route={route}
@@ -136,13 +134,7 @@ class Main extends Component {
           }
           return Navigator.SceneConfigs.PushFromRight;
         }}
-        // navigationBar={
-        //   <Navigator.NavigationBar
-        //     routeMapper={NavigationBarRouteMapper}
-        //     style={styles.navBar}
-        //   />
-        // }
-      />
+        />
 
       </View>
     );
