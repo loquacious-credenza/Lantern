@@ -177,7 +177,7 @@ export default class MapStart extends Component {
     var checkedIn = this.state.checkedIn ? <SafetyButton elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name} buttonText={"Glad you're safe!"} /> : null;
     var autocomplete = this.state.show ?  <AutoComplete ref='auto' style={styles.autocomplete} selectPoint={(input)=>{this.changeRegion(input); this.setMarker(input);}} /> : null;
     var callout = this.state.show ?  <MapView.Callout><TouchableOpacity onPress={()=> {this.submit();}}><Text>Press to Confirm</Text></TouchableOpacity></MapView.Callout> : <MapView.Callout><Text>Why u Pressin me</Text></MapView.Callout>;
-    var eta = this.state.submit === 'eta' ? <ETA startTrip={()=>{actions.startTrip; this.setState({submit:'tracking'})}} tripState={state.activeTrip} userId={state.user.id}></ETA> : null
+    var eta = this.state.submit === 'eta' ? <ETA startTrip={()=>{actions.startTrip; this.setState({submit:'tracking',description: 'Currently Tracking your Location'})}} tripState={state.activeTrip} userId={state.user.id}></ETA> : null
 
     return (
       <View style={stylesAlt.container}>
