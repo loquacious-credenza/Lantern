@@ -1,4 +1,6 @@
-'use strict';
+
+
+var moment = require('moment');
 
 import {addStart, addDestination, addEta} from './'
 
@@ -37,14 +39,16 @@ export const startTrip = (payload) => {
   responseBody.user_id = payload.id
   responseBody.origin = payload.origin
   responseBody.destination = payload.destination
+  responseBody.startTime = moment();
+  responseBody.overdueTime = responseBody.startTime.add(payload.eta, 'minutes') // CALCULATE DELAY HERE
   return (dispatch) => {
+    console.log("got here")
     fetch('http://localhost:8000/user/' + payload.id +'/trips',
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(responseBody)
     }).then( (response) => {
-
     })
   }
 }

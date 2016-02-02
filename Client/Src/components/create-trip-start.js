@@ -15,6 +15,7 @@ import React, {
 const MapView = require('react-native-maps');
 const AutoComplete = require('../Common/AutoComplete');
 const Button = require('../Common/Button');
+const ETA = require('../Common/eta-confirmation');
 const SafetyButton = require('../Common/safety-confirmation');
 var calculateMidpoint = require('../helpers/calculate-midpoint');
 var calculateDistance = require('../helpers/calculate-distance');
@@ -85,7 +86,6 @@ export default class MapStart extends Component {
       this.props.actions.getCurrentLocation({latitude: coords.latitude, longitude:coords.longitude, timestamp:lastPosition.timestamp});
       if(this.state.submit === 'tracking'){
         let distance = calculateDistance(this.state.end.latitude, this.state.end.longitude, lastPosition.coords.latitude, lastPosition.coords.longitude);
-        console.log('DISTANCE', distance)
         if(distance <= 0.2){
           this.setState({inRange: true});
         }
@@ -94,7 +94,7 @@ export default class MapStart extends Component {
     });
     this.setState({
       submit: 'start',
-      description: 'Select starting location',
+      description: 'Confirm Start',
       markers: [],
       region: null,
       show: true,
@@ -128,7 +128,6 @@ export default class MapStart extends Component {
   };
 
   checkingIn = () => {
-    console.log('CHECKEDIN YO');
     this.setState({checkedIn: true, inRange: false});
   };
 
@@ -137,17 +136,17 @@ export default class MapStart extends Component {
     if(this.refs.auto.refs.Auto.state.text.length > 2){
       if(this.state.submit === 'start'){
         this.props.actions.addStart(this.state.start);
-        this.setState({submit: 'end', description: 'Select destination'});
+        this.setState({submit: 'end', description: 'Confirm Destination'});
         this.refs.auto.refs.Auto.props.clearText();
       }else if(this.state.submit === 'end'){
         this.props.actions.addDestination(this.state.end);
-        this.setState({show: false, submit: 'tracking'});
+        this.setState({show: false, submit: 'eta'});
+
         const lat1 = this.state.start.latitude;
         const lat2 = this.state.end.latitude;
         const lng1 = this.state.start.longitude;
         const lng2 = this.state.end.longitude;
         const midpoint = calculateMidpoint(lat1, lng1, lat2, lng2);
-        console.log('MIDPOINT', midpoint)
         this.setState({region: {
           latitude: midpoint.lat,
           longitude:midpoint.lng,
@@ -165,9 +164,9 @@ export default class MapStart extends Component {
     const {activeTrip} = this.props.state
     var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ? <Button ref='button' style={styles.ButtonContainer} text='CHECK IN YO' onPress={this.checkingIn}></Button> : null;
-    var checkedIn = this.state.checkedIn ? <SafetyButton name={state.user.name} /> : null;
+    var checkedIn = this.state.checkedIn ? <SafetyButton elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name} buttonText={"Glad you're safe!"} /> : null;
     var autocomplete = this.state.show ?  <AutoComplete ref='auto' style={styles.autocomplete} selectPoint={this.setMarker} /> : null;
-
+    var eta = this.state.submit === 'eta' ? <ETA startTrip={()=>{actions.startTrip; this.setState({submit:'tracking'})}} tripState={state.activeTrip} userId={state.user.id}></ETA> : null
 
     return (
       <View style={stylesAlt.container}>
@@ -192,6 +191,7 @@ export default class MapStart extends Component {
         {button}
         {checkIn}
         {checkedIn}
+        {eta}
 
         <View style={{position: 'absolute', top: 0, borderTopWidth: 20,borderTopColor:'#B5B5B5', alignItems: 'center', width: width, height: 60, backgroundColor: '#eeeeee'}}>
           <Text style={[styles.descriptionText, {fontWeight: 'bold', bottom: 5, alignSelf: 'center', marginTop: 0, fontSize: 18, backgroundColor: '#eeeeee'}]}>{this.state.description}</Text>
