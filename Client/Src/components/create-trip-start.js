@@ -220,26 +220,7 @@ export default class MapStart extends Component {
           </View>
         </View>
 
-        {/*<View style={{justifyContent: 'center',position: 'absolute', bottom: 0, alignItems: 'center', width: width, height: 20, backgroundColor: 'transparent'}}>
-                  <TouchableOpacity
-                    onPress={() => navigator.push({'name': 'settings', sceneConfig: 'FloatFromBottom'})}
-                    activeOpacity={0.7}
-                    style={[{flex: 0, justifyContent: 'center', bottom: 0, height: 60, width: width, borderWidth: 0, backgroundColor: 'transparent', opacity: 0.9}]}>
-                    <View style={[{alignSelf: 'center', top: -10, width: 100, backgroundColor: 'gray'}, stylesAlt.triangle]}></View>
-                    <View style={{alignSelf: 'center', bottom: 10, height: 20, width: width, backgroundColor: 'lightGray'}}></View>
-                    <Text style={[styles.descriptionText, {position: 'absolute', width: width, left: 0, bottom: 25, fontSize: 16, backgroundColor: 'transparent', opacity: 1}]}>{'Guardian'}</Text>
-                  </TouchableOpacity>
-                </View>*/}
         <SlideUp
-          style={{
-            justifyContent: 'center',
-            position: 'absolute',
-            bottom: 0,
-            alignItems: 'center',
-            width: width,
-            height: 20,
-            backgroundColor: 'transparent'
-          }}
           navigator={navigator}
           nextScene='settings'
           label='Guardian'
