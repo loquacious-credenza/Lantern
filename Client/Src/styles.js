@@ -91,7 +91,7 @@ module.exports = {
     flexDirection: 'row',
     backgroundColor: 'rgba(255,255,255,0.7)',
   },
-    ButtonContainer: {
+  ButtonContainer: {
     position: 'absolute',
     bottom: 10,
     width: 200,
@@ -100,5 +100,19 @@ module.exports = {
   },
   buttonFont: {
     fontSize: 20,
+  },
+  timerContainer: {
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    paddingHorizontal:5,
+    paddingVertical:3,
+    shadowRadius: 2,
+    shadowColor: '#000000',
+    shadowOpacity: 1,
+    shadowOffset: {width: 0, height: 0},
+    borderRadius: 10
+  },
+  timerValue: {
+    fontSize: 20,
+    color: 'black'
   }
 };
