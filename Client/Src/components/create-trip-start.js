@@ -20,7 +20,7 @@ const SafetyButton = require('../Common/safety-confirmation');
 var calculateMidpoint = require('../helpers/calculate-midpoint');
 var calculateDistance = require('../helpers/calculate-distance');
 const styles = StyleSheet.create(require('../styles.js'));
-
+import SlideUp from './slide-up';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -220,18 +220,13 @@ export default class MapStart extends Component {
           </View>
         </View>
 
-      {/*This is the bar on the bottom of the page to navigate to guardian view*/}
-        <View style={{justifyContent: 'center',position: 'absolute', bottom: 0, alignItems: 'center', width: width, height: 20, backgroundColor: 'lightGray'}}>
-          <View style={[{alignSelf: 'center', top: 0, width: 100, backgroundColor: 'gray'}, stylesAlt.triangle]}></View>
-          <Text style={[styles.descriptionText, {width: width, bottom: 3, marginTop: 0, fontSize: 16, backgroundColor: 'transparent'}]}>{'Guardian'}</Text>
-          <TouchableOpacity
-            onPress={() => navigator.push({'name': 'settings', sceneConfig: 'FloatFromBottom'})}
-            style={[{justifyContent: 'center', bottom: 20, height: 40, width: width * .3, borderWidth: 0, backgroundColor: 'transparent', opacity: 0.3}]}>
-          </TouchableOpacity>
-        </View>
+        <SlideUp
+          navigator={navigator}
+          nextScene='settings'
+          label='Guardian'
+          />
 
       </View>
     );
   }
 };
-
