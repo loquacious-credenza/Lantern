@@ -31,9 +31,7 @@ export const login = (payload) => {
       body: JSON.stringify(responseBody)
     }).then( (response) => {
       var data = JSON.parse(response._bodyInit).user
-      console.log("DATA", data.delay)
       dispatch(loginSuccess(data));
-      console.log(loadDelay(data.delay));
       dispatch(loadDelay(data.delay));
       dispatch(loadEmergencyContact(data.contacts))
       if(data.activeTrip !== null){

@@ -13,7 +13,7 @@ module.exports = function (app, express) {
 /* =========== TRIP ENDPOINTS =========== */
 // CREATES A TRIP
 // POST -USER/USER_ID:/TRIPS/TRIP_ID
-	app.post('/users/:user_id/trips', function (req, res) {
+	app.post('/user/:user_id/trips', function (req, res) {
     TripMethods.create(req, res);
 	});
 

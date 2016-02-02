@@ -5,28 +5,38 @@ import React, {
   Component,
   View,
   Text,
+  TextInput,
   TouchableOpacity
 } from 'react-native';
 
 // importing styles
 const styles = StyleSheet.create(require('../styles.js'));
 
-var SafetyButton = React.createClass({
+var ETA = React.createClass({
 
   render: function() {
+    const {startTrip} = this.props
+    const state = this.props.tripState;
+    var payload = {}
+    payload.id = this.props.userId
+    payload.origin = state.origin
+    payload.destination = state.destination;
     return (
       <View style={componentStyles.background}>
         <View style={componentStyles.alertContainer}>
-        <Text style={componentStyles.text}>{this.props.elementText}</Text>
-        <TouchableOpacity style={componentStyles.button}><Text style={componentStyles.buttonText}>{this.props.buttonText}</Text></TouchableOpacity>
+        <Text style={componentStyles.text}>{"Please confirm your ETA"}</Text>
+        <TextInput style={componentStyles.input}></TextInput>
+        <TouchableOpacity style={componentStyles.button} onPress={()=>{startTrip(payload)}} ><Text style={componentStyles.buttonText}>{"Minutes"}</Text></TouchableOpacity>
         </View>
       </View>
     );
+
   }
+
 
 });
 
-module.exports = SafetyButton;
+module.exports = ETA;
 
 import { Dimensions } from 'react-native';
   var width = Dimensions.get('window').width; //full width
@@ -44,7 +54,7 @@ var componentStyles = StyleSheet.create({
     padding: 5,
   },
   alertContainer: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgba (255,255,255,0.8)',
     borderRadius: 10,
     padding: 5,
     height: height/5,
@@ -63,5 +73,12 @@ var componentStyles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     fontSize: 18
+  },
+  input: {
+    alignSelf:'center',
+    textAlign:'center',
+    borderWidth:1,
+    height: height/16,
+    width: width*.5
   }
 });

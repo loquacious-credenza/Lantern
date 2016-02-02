@@ -27,6 +27,7 @@ import MapStart from '../components/create-trip-start';
 import MapEnd from '../components/create-trip-end';
 import Map from '../components/Map';
 import Settings from '../components/Settings';
+import Trip from '../components/on-trip';
 
 // import * as ROUTES from '../constants/routes';
 
@@ -40,7 +41,6 @@ const ROUTES = {
   endLocation: MapEnd,
   map: Map,
   home: MapStart,
-  home: Settings,
   settings: Settings
 };
 

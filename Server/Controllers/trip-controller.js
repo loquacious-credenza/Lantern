@@ -11,15 +11,18 @@ var Trip = require('../Models/trip');
 function create(req, res){
   // Grab userId from the req params.
   var user = req.params.user_id;
+  var origin = {location:{coordinates:[req.body.origin.longitude,req.body.origin.latitude]}}
+  var destination = {location:{coordinates:[req.body.destination.longitude,req.body.destination.latitude]}}
 
+  console.log('origin is', origin)
   // Use the Trip models create method to create a new instance of trip
   // and write to Mongo.
   // Note that `path` and `videos` are empty at create time.
   return Trip.create({
     user_id: user,
     active: true,
-    origin: req.body.origin,
-    destination: req.body.destination,
+    origin: origin,
+    destination: destination,
     start_time: req.body.startTime,
     overdue_time: req.body.overdueTime
   }).then(
@@ -32,6 +35,7 @@ function create(req, res){
     // onError handler
     function(err){ // if there is an error
       // TODO: be sure that server logs errors with logger
+      console.log(err);
       res.status(500).send('The trip could not be created', err); //send appropriate response to client.
     });
 }

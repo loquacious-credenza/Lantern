@@ -17,8 +17,8 @@ var SafetyButton = React.createClass({
     return (
       <View style={componentStyles.background}>
         <View style={componentStyles.alertContainer}>
-        <Text style={componentStyles.text}>{this.props.elementText}</Text>
-        <TouchableOpacity style={componentStyles.button}><Text style={componentStyles.buttonText}>{this.props.buttonText}</Text></TouchableOpacity>
+        <Text style={componentStyles.text}>{"Thank you for letting us know that you've reached your destination, " + this.props.name +"."}</Text>
+        <TouchableOpacity style={componentStyles.button}><Text style={componentStyles.buttonText}>{"Glad you're safe!"}</Text></TouchableOpacity>
         </View>
       </View>
     );
