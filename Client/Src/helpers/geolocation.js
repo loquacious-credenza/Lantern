@@ -20,8 +20,8 @@ export function watchPosition (parent) {
     console.log('WATCHPOSITION HELPER',lastPosition)
       let coords = lastPosition.coords;
       parent.props.actions.getCurrentLocation({latitude: coords.latitude, longitude:coords.longitude, timestamp:lastPosition.timestamp});
-      if(parent.state.submit === 'tracking'){
-        let distance = calculateDistance(parent.state.end.latitude, parent.state.end.longitude, lastPosition.coords.latitude, lastPosition.coords.longitude);
+      if(parent.state.stage === 'tracking'){
+        let distance = calculateDistance(parent.state.endPoint.latitude, parent.state.endPoint.longitude, lastPosition.coords.latitude, lastPosition.coords.longitude);
         if(distance <= 0.2){
           parent.setState({inRange: true});
         }
