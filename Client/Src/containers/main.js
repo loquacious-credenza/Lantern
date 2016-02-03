@@ -20,12 +20,9 @@ import {bindActionCreators} from 'redux';
 const { width, height } = Dimensions.get('window');
 
 // Components
-import CurrentLocation from '../components/get-location';
 import SignIn from '../components/Signin'; // NOTE THIS SHOULD BE MOVED TO CONTAINERS - RY
 import Home from '../components/Home';
 import MapStart from '../components/create-trip-start';
-import MapEnd from '../components/create-trip-end';
-import Map from '../components/Map';
 import Settings from '../components/Settings';
 
 
@@ -36,10 +33,7 @@ import Settings from '../components/Settings';
 const ROUTES = {
   signin: SignIn,
   home: Home,
-  getLocation: CurrentLocation,
   startLocation: MapStart,
-  endLocation: MapEnd,
-  map: Map,
   home: MapStart,
   settings: Settings
 };

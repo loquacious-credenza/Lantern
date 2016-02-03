@@ -6,6 +6,7 @@ import React, {
   View,
   Dimensions,
   Text,
+  Alert,
   Image,
   Navigator,
   TouchableOpacity
@@ -156,6 +157,7 @@ export default class MapStart extends Component {
           region={this.state.region}
           onRegionChange={this.onRegionChange}
           onLongPress={(e) => {this.setMarker(e.nativeEvent.coordinate)}}
+          onPress={()=> {if(this.state.show){this.refs.auto.refs.Auto.setState({listViewDisplayed: false}); this.refs.auto.refs.Auto.triggerBlur();}}}
           >
 
           {this.state.markers.map(marker => (
