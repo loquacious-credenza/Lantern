@@ -83,15 +83,15 @@ export const addEmergencyContactSuccess = (payload) => {
 }
 
 export const removeEmergencyContact = (payload) => {
-  var requestBody = payload.splice(payload.key, 1);
   return (dispatch) => {
-    fetch('http://localhost:8000/user/${payload.id}/contacts',
+    fetch('http://localhost:8000/user/' + payload.user_id + '/contacts',
     {
-      method: 'PUT',
+      method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify(payload)
     })
     .then((response) => {
+      console.log("Server resonse: ", response);
       dispatch(updateEmergencyContactSuccess(response));
     })
   }

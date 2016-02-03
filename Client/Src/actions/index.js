@@ -80,7 +80,8 @@ export {
   addEmergencyContactSuccess,
   updateEmergencyContact,
   updateEmergencyContactSuccess,
-  updateEmergencyContactFail
+  updateEmergencyContactFail,
+  removeEmergencyContact
 } from './emergency-contact-actions';
 
 /*=============================================================*/

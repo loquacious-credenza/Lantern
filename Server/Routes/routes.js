@@ -49,7 +49,12 @@ module.exports = function (app, express) {
 
 // UPDATE USER CONTACTS
   app.put('/user/:user_id/contacts', function (req, res) {
+  		console.log('Added!');
   		UserMethods.updateContacts(req.params.user_id, req.body, res);
+  });
+
+  app.delete('/user/:user_id/contacts', function (req, res) {
+  		UserMethods.removeContact(req.params.user_id, req.body.id, res);
   });
 
 /* ================ CONTACT ENDPOINTS ================= */

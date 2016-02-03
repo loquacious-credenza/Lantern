@@ -121,9 +121,14 @@ module.exports = {
     borderRadius: 10,
     backgroundColor: 'rgba(255,255,255,0.4)',
     marginTop: 10,
-    width: Math.floor(width * 0.9)
+    width: Math.floor(width * 0.9),
+    alignSelf: 'center'
   },
   userContactDeleteButton: {
-    
+    marginTop: 10,
+    marginRight: 10,
+    position: 'absolute',
+    justifyContent: 'flex-end',
+    right: 0
   }
 };
