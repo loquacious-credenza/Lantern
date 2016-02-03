@@ -77,6 +77,7 @@ export {
 // modifies `emergencyContacts`
 export {
   addEmergencyContact,
+  addEmergencyContactSuccess,
   updateEmergencyContact,
   updateEmergencyContactSuccess,
   updateEmergencyContactFail

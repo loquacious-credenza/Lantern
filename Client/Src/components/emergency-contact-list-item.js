@@ -20,12 +20,13 @@ export default class EmergencyContactListItem extends Component {
     const { contact, key, actions } = this.props;
     const { contact_name, contact_phone, contact_email } = contact; //destructure the parts of state that you need
     const { removeEmergencyContact } = actions; // destructure the actions the components uses to update state.
-
+    console.log('WHAT IS ID', key);
     return (
-      <View key={key} style={{marginTop: 20}} >
+      <View style={{marginTop: 20}} >
         <Text>{`Name: ${contact_name}`}</Text>
         <Text>{`Phone ${contact_phone}`}</Text>
         <Text>{`Email ${contact_email}`}</Text>
+        <Text>{`Key ${key}`}</Text>
       </View>
     );
   }

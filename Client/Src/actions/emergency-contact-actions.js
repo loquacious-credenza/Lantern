@@ -54,6 +54,7 @@ export const addEmergencyContact = (payload) => {
   }]);
 
   return (dispatch) => {
+    dispatch(addEmergencyContactSuccess(payload));
     fetch(`http://localhost:8000/user/${payload.id}/contacts`,
       {
       method: 'PUT',
@@ -66,6 +67,13 @@ export const addEmergencyContact = (payload) => {
     .catch()//TODO: do error handling
 
   }
+}
+
+export const addEmergencyContactSuccess = (payload) => {
+  return {
+    type: ADD_EMERGENCY_CONTACT_SUCCESS,
+    payload
+  };
 }
 
 export const removeEmergencyContact = (payload) => {
