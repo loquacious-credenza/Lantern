@@ -54,7 +54,12 @@ export const addEmergencyContact = (payload) => {
   }]);
 
   return (dispatch) => {
-    dispatch(addEmergencyContactSuccess(payload));
+    dispatch(addEmergencyContactSuccess({
+      _id: 'New',
+      customer_name: payload.name,
+      contact_phone: payload.phone,
+      contact_email: payload.email
+    }));
     fetch(`http://localhost:8000/user/${payload.id}/contacts`,
       {
       method: 'PUT',
@@ -62,7 +67,8 @@ export const addEmergencyContact = (payload) => {
       body: JSON.stringify(requestBody)
     })
     .then((response) => {
-      dispatch(updateEmergencyContactSuccess(response))
+
+      dispatch(updateEmergencyContactSuccess(JSON.parse(response._bodyInit).contacts))
     })
     .catch()//TODO: do error handling
 
@@ -71,7 +77,7 @@ export const addEmergencyContact = (payload) => {
 
 export const addEmergencyContactSuccess = (payload) => {
   return {
-    type: ADD_EMERGENCY_CONTACT_SUCCESS,
+    type: ADD_EMERGENCY_CONTACT,
     payload
   };
 }

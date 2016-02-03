@@ -45,15 +45,13 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, {
         acceptableDelay: payload
       });
-    case ADD_EMERGENCY_CONTACT:
-      console.log('ADDING CONTACT', payload);
-      return extend({}, state, {
-        emergencyContacts: state.emergencyContacts
-          .slice(0, state.emergencyContacts.length - 1)
-          .concat([payload])
-      })
     case UPDATE_EMERGENCY_CONTACT_SUCCESS:
       console.log('UPDATING CONTACT', payload);
+      return extend({}, state, {
+        emergencyContacts: payload
+      })
+    case ADD_EMERGENCY_CONTACT:
+      console.log('ADDING CONTACT', payload);
       return extend({}, state, {
         emergencyContacts: state.emergencyContacts.concat([payload])
       });
