@@ -85,7 +85,7 @@ export default class NavBar extends Component {
       description,
       right,
       left,
-      route
+      style
     } = this.props;
 
     const rightSide = right ?
@@ -94,7 +94,6 @@ export default class NavBar extends Component {
         navigator={navigator}
         image={right && right.image}
         actions={{onPress: right.action}}
-        route={route && route.next ? route.next : null}
         label={right.label || null}
         /> : null;
 
@@ -104,12 +103,11 @@ export default class NavBar extends Component {
         navigator={navigator}
         image={left && left.image}
         actions={{onPress: left.action}}
-        route={route && route.next ? route.next : null}
         label={left.label || null}
         /> : null;
 
     return (
-      <View style={styles.navBarContainer}>
+      <View style={[styles.navBarContainer, style]}>
         <Text
           style={styles.navBarText}>
           {description}
