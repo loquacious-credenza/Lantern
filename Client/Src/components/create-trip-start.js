@@ -19,48 +19,50 @@ import Button from '../Common/Button';
 import ETA from '../Common/eta-confirmation';
 import SafetyButton from '../Common/safety-confirmation';
 import SlideUp from './slide-up';
+import NavBar from './nav-bar';
 
 const styles = StyleSheet.create(require('../styles.js'));
+import { baseStyles } from '../styles-base';
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 
-const stylesAlt = {
-  saveButton: {
-    flex:0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 40,
-    width: 125,
-    marginTop: 25,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: 'teal'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'lightBlue',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  saveButtonText: {
-    fontSize: 20,
-    color: 'white'
-  },
-  triangle: {
-    width:0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderLeftWidth: 60,
-    borderRightWidth: 60,
-    borderBottomWidth: 20,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'lightGray'
-  }
-};
+// const stylesAlt = {
+//   saveButton: {
+//     flex:0,
+//     flexDirection: 'row',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     height: 40,
+//     width: 125,
+//     marginTop: 25,
+//     borderColor: 'gray',
+//     borderWidth: 1,
+//     borderRadius: 5,
+//     backgroundColor: 'teal'
+//   },
+//   container: {
+//     flex: 1,
+//     backgroundColor: 'lightBlue',
+//     justifyContent: 'center',
+//     alignItems: 'center'
+//   },
+//   saveButtonText: {
+//     fontSize: 20,
+//     color: 'white'
+//   },
+//   triangle: {
+//     width:0,
+//     height: 0,
+//     backgroundColor: 'transparent',
+//     borderStyle: 'solid',
+//     borderLeftWidth: 60,
+//     borderRightWidth: 60,
+//     borderBottomWidth: 20,
+//     borderLeftColor: 'transparent',
+//     borderRightColor: 'transparent',
+//     borderBottomColor: 'lightGray'
+//   }
+// };
 
 export default class MapStart extends Component {
   constructor(props) {
@@ -149,7 +151,7 @@ export default class MapStart extends Component {
       </MapView.Callout>;
 
     return (
-      <View style={stylesAlt.container}>
+      <View style={[baseStyles.container, {top:0}]}>
         <MapView
           style={styles.map}
           showsUserLocation={true}
@@ -175,17 +177,15 @@ export default class MapStart extends Component {
         {checkedIn}
         {eta}
 
-        <View style={{position: 'absolute', top: 0, borderTopWidth: 20,borderTopColor:'#B5B5B5', alignItems: 'center', width: width, height: 60, backgroundColor: '#eeeeee'}}>
-          <Text style={[styles.descriptionText, {fontWeight: 'bold', bottom: 5, alignSelf: 'center', marginTop: 0, fontSize: 18, backgroundColor: '#eeeeee'}]}>{this.state.description}</Text>
-          <TouchableOpacity
-            onPress={() => navigator.push({'name': 'settings', sceneConfig: 'FloatFromLeft'})}
-            style={[stylesAlt.saveButton, {marginTop: 5, height: 40, width: 50, borderWidth: 0, backgroundColor: 'transparent', flex: 0, alignItems: 'flex-start', position: 'absolute', top: 0, right: 0}]}>
-            <Image source={require('../assets/gear-7.png')} />
-          </TouchableOpacity>
-          <View style={styles.autoCompleteContainer}>
-            {autocomplete}
-          </View>
+        <NavBar
+          navigator={navigator}
+          description={this.state.description}
+          right={{image: 'gear', action: () => navigator.push({name: 'settings'})}}
+          />
+        <View style={[baseStyles.component]}>
+          {autocomplete}
         </View>
+
 
         <SlideUp
           navigator={navigator}

@@ -27,15 +27,15 @@
  `menu` > 
  `settings` gear >
 
+![image]('/ui-mock-ups/walk-safe/')
 
-![image]('./ui-mock-ups/walk-safe/escort-confirmed.png')
+![image]('./ui-mock-ups/walk-safe/color-scheme.png')
 ![image]('./ui-mock-ups/walk-safe/escort-profile.png')
 ![image]('./ui-mock-ups/walk-safe/escort-select List.png')
 ![image]('./ui-mock-ups/walk-safe/escort-select Map.png')
 ![image]('./ui-mock-ups/walk-safe/getaway.png')
 ![image]('./ui-mock-ups/walk-safe/getaway-confirmed.png')
 ![image]('./ui-mock-ups/walk-safe/getaway-waiting')
-![image]('/ui-mock-ups/walk-safe/')
 ![image]('/ui-mock-ups/walk-safe/')
 ![image]('/ui-mock-ups/walk-safe/')
 ![image]('/ui-mock-ups/walk-safe/')
