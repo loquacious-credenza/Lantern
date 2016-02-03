@@ -133,7 +133,7 @@ export default class MapStart extends Component {
       /> : null;
 
     var eta = this.state.stage === 'eta' ?
-      <ETA startTrip={()=>{actions.startTrip; this.setState({stage:'tracking',description: 'Currently Tracking your Location'})}}
+      <ETA startTrip={(payload)=>{actions.startTrip(payload); this.setState({stage:'tracking',description: 'Currently Tracking your Location'})}}
         tripState={state.activeTrip}
         userId={state.user.id}>
       </ETA> : null
