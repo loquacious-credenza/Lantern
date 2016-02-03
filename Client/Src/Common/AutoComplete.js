@@ -1,5 +1,6 @@
 var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
 var React = require('react-native');
+import Keys from '../Keys'
 
 const homePlace = {description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 const workPlace = {description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
@@ -23,7 +24,7 @@ var AutoComplete = React.createClass({
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
-          key: 'AIzaSyDvkmaU0HBejMuyJ_ikyvcFyGT9reDGjb8',
+          key: Keys.AutoCompleteKey,
           language: 'en', // language of the results
           // types: '(establishment)', // default: 'geocode'
         }}
@@ -38,7 +39,6 @@ var AutoComplete = React.createClass({
 
         clearText={() => {
           this.refs.Auto.setState({text: ''});
-          console.log('CLEAR TEXT OUTSIDE');
         }}
 
         currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
