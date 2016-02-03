@@ -22,11 +22,11 @@ export default class EmergencyContactListItem extends Component {
     const { removeEmergencyContact } = actions; // destructure the actions the components uses to update state.
 
     return (
-      <View style={{marginTop: 20}} >
+      <View key={key} style={styles.userContacts} >
         <Text>{`Name: ${contact_name}`}</Text>
-        <Text>{`Phone ${contact_phone}`}</Text>
-        <Text>{`Email ${contact_email}`}</Text>
-        <Button>SomeText</Button>
+        <Text>{`Phone: ${contact_phone}`}</Text>
+        <Text>{`Email: ${contact_email}`}</Text>
+        <TouchableOpacity style={styles.userContactDeleteButton}><Image source={require('../assets/')}/></TouchableOpacity>
       </View>
     );
   }
