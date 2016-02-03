@@ -51,7 +51,7 @@ module.exports = {
 	// SEARCHES FOR USER BY 'id' AND UPDATES CONTACTS USING 'contactsArr'. 'contactsArr' MUST
 	// BE AN ARRAY OF VALUES MATCHING THE SCHEMA OUTLINED IN 'contact.js'.
 	updateContacts: function (id, contactsArr, res) {
-		User.findByIdAndUpdate(id, {$set: {contacts: contactsArr}}, function (err, response) {
+		User.findByIdAndUpdate(id, {$set: {contacts: contactsArr}}, {new: true}, function (err, response) {
 			if (err) {
 				console.log("Error updating user contacts: ", err);
 				res.sendStatus(500);

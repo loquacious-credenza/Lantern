@@ -5,7 +5,8 @@ const {extend} = require('lodash');
 const {
     LOGIN_SUCCESS,
     LOGOUT,
-    UPDATE_EMERGENCY_CONTACT,
+    ADD_EMERGENCY_CONTACT,
+    UPDATE_EMERGENCY_CONTACT_SUCCESS,
     UPDATE_ACCEPTABLE_DELAY,
     RESET_DELAY,
     PASSED_ETA,
@@ -44,7 +45,13 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, {
         acceptableDelay: payload
       });
-    case UPDATE_EMERGENCY_CONTACT:
+    case UPDATE_EMERGENCY_CONTACT_SUCCESS:
+      console.log('UPDATING CONTACT', payload);
+      return extend({}, state, {
+        emergencyContacts: payload
+      })
+    case ADD_EMERGENCY_CONTACT:
+      console.log('ADDING CONTACT', payload);
       return extend({}, state, {
         emergencyContacts: state.emergencyContacts.concat([payload])
       });
@@ -61,7 +68,6 @@ export default (state = initialState, {type, payload}) => {
         isPastETA: true
       });
     case SET_PASSED_TIME_DELAY:
-    console.log("GOT HERE", payload);
       return extend({}, state, {
         acceptableDelay: payload
       })

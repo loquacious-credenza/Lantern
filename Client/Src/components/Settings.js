@@ -6,11 +6,7 @@ import React, {
   Dimensions,
   View,
   Text,
-  TextInput,
-  Image,
-  SliderIOS,
-  ScrollView,
-  TouchableOpacity
+  ScrollView
 } from 'react-native';
 
 import { map } from 'lodash'
@@ -30,6 +26,7 @@ import NavBar from './nav-bar';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#e6e6e6',
     justifyContent: 'center',
     alignItems: 'center',
@@ -83,17 +80,15 @@ const styles = StyleSheet.create({
     height: 30,
     position: 'relative',
   }
-
 });
-
-
 
 export default class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
       description: 'Settings',
-      value: this.props.delay
+      value: this.props.delay,
+      contacts: this.props.state.user.emergencyContacts
     };
   }
 
@@ -107,44 +102,46 @@ export default class Settings extends Component {
       setPassedTimeDelay
      } = actions; // destructure the actions the components uses to update state.
 
-    const contactList = user.emergencyContacts.map((contact, index) => {
-      return (<EmergencyContactListItem
-          key={index}
-          contact={contact}
-          actions={{removeEmergencyContact}}
-          />);
-    });
+    const contactList = user.emergencyContacts.length > 0 ?
+      <ScrollView
+        contentContainStyle={[styles.container, { paddingVertical: 60}, {flex: 1, top: 100, height: 200, width: width}]}>
+        {map(user.emergencyContacts, (contact) => {
+          return (<EmergencyContactListItem
+              key={contact._id}
+              id={contact._id}
+              contact={contact}
+              actions={{removeEmergencyContact}}
+              />);
+          })
+        }
+      </ScrollView> : null;
+
+    const showInputForm = user.emergencyContacts.length < 5 ?
+      <AddEmergencyContactForm
+          user={user}
+          emergencyContacts={user.emergencyContacts}
+          actions={{addEmergencyContact}}
+          /> : null;
 
     return (
-      <View style={styles.container}>
-        <View style={{position: 'relative', flex: 0, top: 60, width: Math.floor(width * 0.9)}}>
-          <Text style={[styles.subHeading, {marginLeft: 0, marginTop: 80, marginBottom: 5}]}>Emergency Contacts:</Text>
-
-          <ScrollView contentContainStyle={[styles.container, { paddingVertical: 60}, {flex: 1, top: 100, height: 200, width: width}]}>
-            {contactList}
-          </ScrollView>
-
-          <AddEmergencyContactForm
-            user={user}
-            emergencyContacts={user.emergencyContacts}
-            actions={{addEmergencyContact}}
-            />
-        </View>
-
-        <DelaySlider
-          delay={user.acceptableDelay}
-          user={user}
-          actions={{setPassedTimeDelay}}
-          />
+      <View style={{flex: 1, backgroundColor: '#e6e6e6'}}>
         <NavBar
           navigator={navigator}
           description='Settings'
           right={{image: 'gear', action: () => navigator.pop()}}
           left={{image: 'leftArrow', action: () => navigator.pop()}}
           />
-
-        <Text>{JSON.stringify(user)/*used for debugging*/}</Text>
-
+        <DelaySlider
+          style={{marginTop: 20}}
+          delay={user.acceptableDelay}
+          user={user}
+          actions={{setPassedTimeDelay}}
+          />
+        <View>
+          <Text style={[{marginLeft: 0, marginBottom: 5}]}>Emergency Contacts:</Text>
+            {showInputForm}
+            {contactList}
+        </View>
       </View>
     );
   }

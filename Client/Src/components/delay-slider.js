@@ -28,15 +28,19 @@ export default class DelaySlider extends Component {
   }
 
   render() {
-    const { delay, user, actions } = this.props;
+    const { delay, user, actions, style } = this.props;
     const { setPassedTimeDelay } = actions; // destructure the actions the components uses to update state.
 
     return (
-      <View style={[styles.container, {marginTop: 20, flex: 0, width: width, height: 75, flexDirection: 'column', justifyContent: 'space-around'}]}>
+      <View style={[{flex: 0, width: width, height: 75, flexDirection: 'column', justifyContent: 'space-around'}, style]}>
         <Text style={[styles.subHeading, {marginTop: 0}]}>
           {`Trip Delay: `}
-          <Text style={[styles.subHeading, {paddingLeft: 15}]}>{this.state.value === 1 ? `${this.state.value} min` : `${this.state.value} mins` }</Text>
+          <Text style={[styles.subHeading, {paddingLeft: 15}]}>
+            {this.state.value === 1 ?
+              `${this.state.value} min` :
+              `${this.state.value} mins` }
           </Text>
+        </Text>
         <SliderIOS
           disabled={false}
           value={user.acceptableDelay || this.state.value}
