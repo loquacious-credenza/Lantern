@@ -1,6 +1,7 @@
 'use strict';
 
 var Trip = require('../Models/trip');
+var User = require('../Models/user.js');
 
 /**
  * Create a new trip with information from the response object.
@@ -8,16 +9,16 @@ var Trip = require('../Models/trip');
  * @param  {object} res  The response to client, either new record or error
  * @return {undefined}      The server responds from within the promise.
  */
+
+// THIS FUNCTION CREATES A NEW TRIP AND UPDATES THE USER ASSOCIATED WITH IT. IT CREATES A NEW TRIP USING THE DATA PROVIDED IN 'req.body'.
+// IT THEN FINDS A USER WITH THE ID PROVIDED BY 'req.params.user_id' AND PUSHES THE '_id' VALUE OF THE NEWLY CREATED TRIP INTO THE
+// USER'S 'trips' ARRAY. THIS WAY BOTH TRIPS AND USERS BOTH HAVE REFERENCES TO ONE ANOTHER. IT RESPONDS TO THE SERVER WITH A JSON OBJECT
+// CONTAINING THE NEWLY CREATED TRIP.
 function create(req, res){
-  // Grab userId from the req params.
   var user = req.params.user_id;
   var origin = {location:{coordinates:[req.body.origin.longitude,req.body.origin.latitude]}}
   var destination = {location:{coordinates:[req.body.destination.longitude,req.body.destination.latitude]}}
-
-  console.log('origin is', origin)
-  // Use the Trip models create method to create a new instance of trip
-  // and write to Mongo.
-  // Note that `path` and `videos` are empty at create time.
+  console.log('Creating trip: ', user);
   return Trip.create({
     user_id: user,
     active: true,
@@ -25,18 +26,22 @@ function create(req, res){
     destination: destination,
     start_time: req.body.startTime,
     overdue_time: req.body.overdueTime
-  }).then(
-    // onSuccess handler
-    function(newTrip){ //Once the new trip is created
-      console.log(newTrip); // console.log for debugging  REMOVE
-      res.status(201).json(newTrip); //send the object back to client with status 201
-      return newTrip;
+  })
+  .then(function(newTrip){
+    User.findByIdAndUpdate(newTrip.user_id, {$push: {trips: newTrip._id}}, function (err, response) {
+      if (err) {
+        console.log('Error pushing trip ID into user trip array: ', err);
+        res.sendStatus(500);
+      } else {
+        console.log('WORKS!: ', response);
+        res.json(newTrip);
+      }
+    });
     },
     // onError handler
     function(err){ // if there is an error
-      // TODO: be sure that server logs errors with logger
-      console.log(err);
-      res.status(500).send('The trip could not be created', err); //send appropriate response to client.
+      console.log('Error creating new trip: ', err);
+      res.sendStatus(500); //send appropriate response to client.
     });
 }
 
@@ -48,10 +53,10 @@ function create(req, res){
  */
 function read(req, res){
   // trip id from req params
-  var id = req.params.trip_id;
+  var user_id = req.params.user_id;
 
   // uses the findOne method to return a single object found by ID
-  return Trip.findOne({ _id: id})
+  return Trip.findOne({ user_id: user_id, active:true})
     .then(
     // onSuccess handler
     function(record){ //the record is passed to callback
@@ -64,9 +69,9 @@ function read(req, res){
 }
 
 function update(req, res, data){
-  var id = req.params.trip_id;
+  var user_id = req.params.user_id;
 
-  return Trip.findByIdAndUpdate(id, { $set: req.body })
+  return Trip.findOneAndUpdate({user_id: user_id, active: true}, {$set: req.body}, {new: true})
     .then(
     // onSuccess handler
     function(trip){
@@ -78,15 +83,25 @@ function update(req, res, data){
     })
 }
 
-function addLocPoints(id, data, res) {
-  console.log('ID IS: ', id);
-  Trip.findByIdAndUpdate(id, { $pushAll: {path: data} }, function (err, response) {
+// FINDS AN ACTIVE TRIP BY THE PROVIDED 'user_id' AND PUSHES THE NEW LOCATION IN 'data' INTO THE TRIP'S 'path' ARRAY.
+// THE SERVER THEN RESPONDS WITH THE UPDATED TRIP OBJECT
+function addLocPoints(user_id, data, res) {
+  Trip.findOneAndUpdate({user_id: user_id, active: true}, {$pushAll: {path: data}}, {new:true}, function (err, response) {
     if (err) {
       console.log("Error pushing locpoint data to trip: ", err);
       res.sendStatus(500);
     } else {
-      //res.sendStatus(200);
       res.json(response);
+    }
+  });
+}
+// THIS METHOD FINDS THE ACTIVE TRIP ASSOCIATED WITH THE PROVIDED 'user_id' AND SWITCHES IT TO 'active:false'
+function renderInactive(user_id, res) {
+  Trip.findOneAndUpdate({user_id: user_id, active: true}, {active: false}, function (err, response) {
+    if (err) {
+      console.log("Error rendering trip inactive: ", err);
+    } else {
+      res.sendStatus(200);
     }
   });
 }
@@ -119,5 +134,6 @@ module.exports = {
   create: create,
   read: read,
   update: update,
-  delete: del
+  delete: del,
+  renderInactive: renderInactive
 };
