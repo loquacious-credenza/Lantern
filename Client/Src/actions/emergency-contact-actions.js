@@ -83,7 +83,19 @@ export const addEmergencyContactSuccess = (payload) => {
 }
 
 export const removeEmergencyContact = (payload) => {
-  console.log('Got to RemoveEmergencyContact Action', payload);// This needs to use the index to remove from state. Send the contact, with userId to server for removal
+  var requestBody = payload.splice(payload.key, 1);
+  return (dispatch) => {
+    fetch('http://localhost:8000/user/${payload.id}/contacts',
+    {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(requestBody)
+    })
+    .then((response) => {
+      dispatch(updateEmergencyContactSuccess(response));
+    })
+  }
+  // This needs to use the index to remove from state. Send the contact, with userId to server for removal
 }
 
 /**

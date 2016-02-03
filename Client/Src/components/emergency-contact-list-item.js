@@ -26,6 +26,7 @@ export default class EmergencyContactListItem extends Component {
         <Text>{`Name: ${contact_name}`}</Text>
         <Text>{`Phone ${contact_phone}`}</Text>
         <Text>{`Email ${contact_email}`}</Text>
+        <Button>SomeText</Button>
       </View>
     );
   }
