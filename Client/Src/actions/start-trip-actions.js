@@ -39,8 +39,9 @@ export const startTrip = (payload) => {
   responseBody.user_id = payload.id
   responseBody.origin = payload.origin
   responseBody.destination = payload.destination
-  responseBody.startTime = moment();
-  responseBody.overdueTime = responseBody.startTime.add(payload.eta, 'minutes') // CALCULATE DELAY HERE
+  responseBody.startTime = moment().format();
+  responseBody.eta = moment(responseBody.startTime).add(parseInt(payload.etaValue), 'minutes').format()
+  responseBody.overdueTime = moment(responseBody.eta).add(parseInt(payload.acceptableDelay), 'minutes').format() // CALCULATE DELAY HERE
   return (dispatch) => {
     console.log("got here")
     fetch('http://localhost:8000/user/' + payload.id +'/trips',
@@ -49,6 +50,15 @@ export const startTrip = (payload) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(responseBody)
     }).then( (response) => {
+      dispatch(startTripSuccess({
+          id: JSON.parse(response._bodyInit)._id,
+          startTime: responseBody.startTime,
+          eta: responseBody.eta,
+          overdueTime: responseBody.overdueTime,
+          origin: payload.origin,
+          destination: payload.destination,
+          waypoints: []
+        }));
     })
   }
 }
@@ -60,6 +70,19 @@ export const startTrip = (payload) => {
  * @param  {object} payload response object from server
  * @return {object}         actions taken after server response
  */
+
+
+ //PAYLOAD LOOKS LIKE THIS 
+ //  {
+ //    id: null,
+ //    startTime: null,
+ //    eta: null,
+ //    overdueTime: null,
+ //    origin: {},
+ //    destination: {},
+ //    waypoints: []
+ //  };
+
 export const startTripSuccess = (payload) => {
   // on successful response from server
   return {

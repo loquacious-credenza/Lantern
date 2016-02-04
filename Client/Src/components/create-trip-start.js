@@ -21,49 +21,13 @@ import ETA from '../Common/eta-confirmation';
 import SafetyButton from '../Common/safety-confirmation';
 import SlideUp from './slide-up';
 import NavBar from './nav-bar';
+import Timer from '../Common/timer-overlay';
+import handleEta from '../Common/handle-eta';
 
 const styles = StyleSheet.create(require('../styles.js'));
 import { baseStyles } from '../styles-base';
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-
-// const stylesAlt = {
-//   saveButton: {
-//     flex:0,
-//     flexDirection: 'row',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     height: 40,
-//     width: 125,
-//     marginTop: 25,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     borderRadius: 5,
-//     backgroundColor: 'teal'
-//   },
-//   container: {
-//     flex: 1,
-//     backgroundColor: 'lightBlue',
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   },
-//   saveButtonText: {
-//     fontSize: 20,
-//     color: 'white'
-//   },
-//   triangle: {
-//     width:0,
-//     height: 0,
-//     backgroundColor: 'transparent',
-//     borderStyle: 'solid',
-//     borderLeftWidth: 60,
-//     borderRightWidth: 60,
-//     borderBottomWidth: 20,
-//     borderLeftColor: 'transparent',
-//     borderRightColor: 'transparent',
-//     borderBottomColor: 'lightGray'
-//   }
-// };
 
 export default class MapStart extends Component {
   constructor(props) {
@@ -84,7 +48,7 @@ export default class MapStart extends Component {
     this.setState({ region: region });
   };
   componentWillMount() {
-    getCurrentPosition(() => this.setState,() => alert);
+    getCurrentPosition(() => this.setState, () => alert);
     watchPosition(this);
   }
   changeRegion = (location) => {
@@ -96,7 +60,6 @@ export default class MapStart extends Component {
   };
   //snaps view to location sets markers on start and end also adjust for marker changes before submit.
   setMarker = (location) => {
-    console.log('SETING MARKER',this.state)
     setMarkers(location, this);
   };
 
@@ -121,7 +84,7 @@ export default class MapStart extends Component {
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ?
       <Button ref='button' style={styles.ButtonContainer}
-        text='CHECK IN YO' onPress={this.checkingIn}>
+        text='Arrived Safely' onPress={this.checkingIn}>
       </Button> : null;
 
     var checkedIn = this.state.checkedIn ?
@@ -136,10 +99,18 @@ export default class MapStart extends Component {
       /> : null;
 
     var eta = this.state.stage === 'eta' ?
-      <ETA startTrip={(payload)=>{actions.startTrip(payload); this.setState({stage:'tracking',description: 'Currently Tracking your Location'})}}
+      <ETA startTrip={(payload)=> {
+          actions.startTrip(payload); 
+          this.setState({
+            stage:'tracking',
+            description: 'Currently Tracking your Location'
+          });
+        }}
         tripState={state.activeTrip}
-        userId={state.user.id}>
-      </ETA> : null
+        userId={state.user.id}
+        acceptableDelay={state.user.acceptableDelay}
+        >
+      </ETA> : null;
 
     var callout = this.state.show ?
       <MapView.Callout>
@@ -148,8 +119,13 @@ export default class MapStart extends Component {
         </TouchableOpacity>
       </MapView.Callout> :
       <MapView.Callout>
-        <Text>Why u Pressin me</Text>
+        <Text></Text>
       </MapView.Callout>;
+
+    var timer = this.state.stage === 'tracking' ?
+    <Timer 
+      eta = {state.activeTrip.eta}>
+    </Timer> : null;
 
     return (
       <View style={[baseStyles.container, {top:0}]}>
@@ -178,6 +154,7 @@ export default class MapStart extends Component {
         {checkIn}
         {checkedIn}
         {eta}
+        {timer}
 
         <NavBar
           navigator={navigator}

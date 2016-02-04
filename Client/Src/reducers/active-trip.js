@@ -1,7 +1,7 @@
 const {extend} = require('lodash');
 
 const {
-    START_TRIP,
+    START_TRIP_SUCCESS,
     CHECK_IN,
     ADD_WAYPOINT,
     LOAD_TRIP,
@@ -13,18 +13,16 @@ const {
 const initialState = {
     id: null,
     startTime: null,
-    endTime: null,
-    origin: {
-    },
+    eta: null,
+    overdueTime: null,
+    origin: {},
     destination: {},
-    waypoints: [],
-    created_at: null
-
+    waypoints: []
   };
 
 export default (state = initialState, {type, payload}) => {
     switch(type) {
-        case START_TRIP:
+        case START_TRIP_SUCCESS:
             return extend({}, state, payload);
         case CHECK_IN:
             return null;

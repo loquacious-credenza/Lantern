@@ -13,21 +13,18 @@ const styles = StyleSheet.create(require('../styles.js'));
 const timerMixin = require('react-timer-mixin');
 const Timer = require('../components/Timer')
 var moment = require('moment');
-var endTime = moment().add(11,'seconds')
+var endTime;
 
 var TimerOverlay = React.createClass({
   getInitialState: function(){
    return {
-      timeRemaining: 0
+      timeRemaining:5000
     } 
   },
   componentDidMount: function() {
-    this.setState({
-      timeRemaining: (endTime - Date.now())-(endTime - Date.now())%1000
-    });
+    // WHAT WE HAVE: ETA + ACCEPTABLE DELAY
     timerMixin.setInterval.call(this, function(){
       this.setState({timeRemaining: this.state.timeRemaining -= 1000});
-      console.log(this.state.timeRemaining)
     },1000);
   },
   renderOverlay:function(){
@@ -80,7 +77,7 @@ var componentStyles = StyleSheet.create({
     justifyContent:'flex-start'
   },
   overTime: {
-    backgroundColor:'rgba (255, 0, 0, .5)',
+    backgroundColor:'rgba (255, 0, 0, .3)',
     flex: 1,
     height:height,
     width:width,
