@@ -12,7 +12,21 @@ import NavBar from './nav-bar';
 // importing styles
 const styles = StyleSheet.create(require('../styles.js'));
 const localStyles = StyleSheet.create({
-
+  guardianContainer: {
+    position: 'absolute',
+    flex: 1,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'lightGray'
+  },
+  circle: {
+    width: 175,
+    height: 175,
+    borderRadius: 175/2,
+    backgroundColor: 'red'
+  }
 });
 
 export default class Guardian extends Component {
@@ -26,12 +40,14 @@ export default class Guardian extends Component {
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
 
     return (
-      <View style={[styles.container, {backgroundColor: 'lightGray'}, {top:20}]}>
+      <View style={localStyles.guardianContainer}>
         <NavBar
-          style={{marginTop: 20}}
           navigator={navigator}
           description='Guardian'
         />
+        <TouchableOpacity>
+          <View style={localStyles.circle} />
+        </TouchableOpacity>
       </View>
     );
   }
