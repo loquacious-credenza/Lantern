@@ -92,7 +92,7 @@ export const removeEmergencyContact = (payload) => {
     })
     .then((response) => {
       console.log("Server resonse: ", response);
-      dispatch(updateEmergencyContactSuccess(response));
+      dispatch(updateEmergencyContactSuccess(JSON.parse(response._bodyInit).contacts));
     })
   }
   // This needs to use the index to remove from state. Send the contact, with userId to server for removal

@@ -126,9 +126,13 @@ module.exports = {
   },
   userContactDeleteButton: {
     marginTop: 10,
-    marginRight: 10,
     position: 'absolute',
-    justifyContent: 'flex-end',
-    right: 0
+    width: 20,
+    right: 20,
+    justifyContent: 'flex-end'
+  },
+  userContactsText: {
+    justifyContent: 'flex-start',
+    width: Math.floor(width * 0.8)
   }
 };

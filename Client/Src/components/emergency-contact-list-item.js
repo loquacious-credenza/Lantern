@@ -25,6 +25,7 @@ export default class EmergencyContactListItem extends Component {
     return (
       <View style={styles.userContacts} >
         <TouchableOpacity
+          style={styles.userContactDeleteButton}
           onPress={() => removeEmergencyContact({
             user_id: user_id,
             id: id
@@ -32,9 +33,9 @@ export default class EmergencyContactListItem extends Component {
         >
           <Image source={require('../assets/circle-x-7.png')}/>
         </TouchableOpacity>
-        <Text>{`Name: ${contact_name}`}</Text>
-        <Text>{`Phone: ${contact_phone}`}</Text>
-        <Text>{`Email: ${contact_email}`}</Text>
+        <Text style={styles.userContactsText}>{`Name: ${contact_name}`}</Text>
+        <Text style={styles.userContactsText}>{`Phone: ${contact_phone}`}</Text>
+        <Text style={styles.userContactsText}>{`Email: ${contact_email}`}</Text>
       </View>
     );
   }
