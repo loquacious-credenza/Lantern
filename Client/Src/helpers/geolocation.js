@@ -6,7 +6,6 @@ const calculateDistance = require('./calculate-distance');
 
 
 export function getCurrentPosition (successCallback, errorCallback) {
-  console.log('GETCURRENTPOSITION HELPER');
     navigator.geolocation.getCurrentPosition(
       (initialPosition) => successCallback({initialPosition}), // success callback
       (error) => errorCallback(error.message), // failure callback
@@ -17,11 +16,9 @@ export function getCurrentPosition (successCallback, errorCallback) {
     // Repeatedly track position
 export function watchPosition (parent) {
     var watchID = navigator.geolocation.watchPosition((lastPosition) => {
-    console.log('WATCHPOSITION HELPER',lastPosition)
       let coords = lastPosition.coords;
       parent.props.actions.getCurrentLocation({latitude: coords.latitude, longitude:coords.longitude, timestamp:lastPosition.timestamp});
       if(parent.state.stage === 'tracking'){
-        console.log(parent)
         let distance = calculateDistance(parent.state.endPoint.latitude, parent.state.endPoint.longitude, lastPosition.coords.latitude, lastPosition.coords.longitude);
         if(distance <= 0.2){
           parent.setState({inRange: true});

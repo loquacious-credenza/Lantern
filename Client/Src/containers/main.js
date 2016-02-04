@@ -1,7 +1,6 @@
 'use strict';
 
 import { extend, isNull } from 'lodash';
-var cssVar = require('cssVar');
 
 import React, {
   Component,
@@ -17,8 +16,10 @@ import React, {
 import * as actionCreators from '../actions';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-const { width, height } = Dimensions.get('window');
 
+// importing styles
+var styles = StyleSheet.create(require('../styles.js'));
+import { baseStyles } from '../styles-base';
 // Components
 import SignIn from '../components/Signin'; // NOTE THIS SHOULD BE MOVED TO CONTAINERS - RY
 import Home from '../components/Home';
@@ -54,48 +55,6 @@ const SCENE_CONFIGS = {
   VerticalDownSwipeJump: (route, routeStack) => Navigator.SceneConfigs.VerticalDownSwipeJump
 }
 
-var NavigationBarRouteMapper = {
-
-  LeftButton: function(route, navigator, index, navState) {
-    if (index === 0) {
-      return null;
-    }
-
-    var previousRoute = navState.routeStack[index - 1];
-    return (
-      <TouchableOpacity
-        onPress={() => navigator.pop()}
-        style={styles.navBarLeftButton}>
-        <Text style={[styles.navBarText, styles.navBarButtonText]}>
-          {previousRoute.title || 'prev'}
-        </Text>
-      </TouchableOpacity>
-    );
-  },
-
-  RightButton: function(route, navigator, index, navState) {
-    return (
-      <TouchableOpacity
-        onPress={() => navigator.push({name: route.name})}
-        style={styles.navBarRightButton}>
-
-        <Text style={[styles.navBarText, styles.navBarButtonText]}>
-          {route.nextTitle || 'Next'}
-        </Text>
-      </TouchableOpacity>
-    );
-  },
-
-  Title: function(route, navigator, index, navState) {
-    return (
-      <Text style={[styles.navBarText, styles.navBarTitleText]}>
-        {route.title} [{index}]
-      </Text>
-    );
-  },
-
-};
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -117,9 +76,8 @@ class Main extends Component {
     const { state, actions } = this.props;
 
     return (
-      <View style={{flex:1}}>
-      <Navigator
-        style={styles.navigator}
+      <View style={baseStyles.FullScreen}>
+      <Navigator style={baseStyles.navContainer}
         initialRoute={{name: 'signin', sceneConfig: 'FloatFromBottom'}}
         state={state}
         actions={actions}
@@ -137,7 +95,6 @@ class Main extends Component {
   }
 }
 
-/// UNCOMMENT ABOVE TO CHECK LOGIN COMPONENT -------------------------------------------------------------------
 
 export default connect(state => ({
     state: state
@@ -147,51 +104,4 @@ export default connect(state => ({
   })
 )(Main);
 
-// importing styles
-var styles = StyleSheet.create(require('../styles.js'));
-var styles = extend({}, styles, StyleSheet.create({
-  messageText: {
-    fontSize: 17,
-    fontWeight: '500',
-    padding: 15,
-    marginTop: 50,
-    marginLeft: 15,
-  },
-  button: {
-    backgroundColor: 'white',
-    padding: 15,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#CDCDCD',
-  },
-  buttonText: {
-    fontSize: 17,
-    fontWeight: '500',
-  },
-  navBar: {
-    backgroundColor: 'white',
-  },
-  navBarText: {
-    fontSize: 16,
-    marginVertical: 10,
-  },
-  navBarTitleText: {
-    color: cssVar('fbui-bluegray-60'),
-    fontWeight: '500',
-    marginVertical: 9,
-  },
-  navBarLeftButton: {
-    paddingLeft: 10,
-  },
-  navBarRightButton: {
-    paddingRight: 10,
-  },
-  navBarButtonText: {
-    color: cssVar('fbui-accent-blue'),
-  },
-  scene: {
-    flex: 1,
-    paddingTop: 20,
-    backgroundColor: '#EAEAEA',
-  },
-})
-);
+

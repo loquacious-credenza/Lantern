@@ -25,7 +25,7 @@ var Login = React.createClass({
         if(response[0][1] !== null){
           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
           this.props.actions.login({name:response[0][1],id:response[1][1]});
-          this.props.navigator.replace({name: 'startLocation'});
+          this.props.navigator.replace({name: 'startLocation', sceneConfig: 'FloatFromBottom'});
         } else {
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
 
@@ -51,7 +51,7 @@ var Login = React.createClass({
         AsyncStorage.multiSet([['userID',id],['userName',name]]).then(() => {
           //pushing new navigation view
           this.props.actions.login({name:name,id:id});
-          this.props.navigator.replace({name: 'startLocation'})
+          this.props.navigator.replace({name: 'startLocation', sceneConfig: 'FloatFromBottom'})
         // this.push(name,id);
         })
         // Data from request is in result
@@ -98,6 +98,16 @@ var Login = React.createClass({
 
 //importing styles
 
-var styles = StyleSheet.create(require('../styles.js'));
+var styles = StyleSheet.create({
+  loginButton: {
+    width: 200,
+    height: 50,
+    shadowRadius: 5,
+    shadowColor: '#000000',
+    shadowOpacity: 1,
+    shadowOffset: {width: 0, height: 0},
+    borderRadius: 10
+  },
+});
 
 module.exports = Login;

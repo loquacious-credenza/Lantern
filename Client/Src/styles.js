@@ -1,95 +1,69 @@
 'use strict';
 
 import { Dimensions } from 'react-native';
-  var width = Dimensions.get('window').width; //full width
-  var height = Dimensions.get('window').height; //full height
-
+import * as base from './styles-base';
+const { width, height } = Dimensions.get('window');
 
 module.exports = {
-  navigator: {
-    flex: 1
-  },
 
-  textContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
+  autoComplete: {
+    backgroundColor: base.GrayLight,
   },
-
-  loginContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+  slider: {
+    width: Math.floor(width * .9),
+    height: 30,
+    position: 'relative',
+    alignSelf: 'center',
+    padding: 5,
   },
-
-  loginButton: {
-    width: 200,
-    height: 50,
-    shadowRadius: 5,
-    shadowColor: '#000000',
-    shadowOpacity: 1,
-    shadowOffset: {width: 0, height: 0},
-    borderRadius: 10
+  subHeading: {
+    fontSize: 16,
+    textAlign: 'center',
+    padding: 5,
   },
-
-  text: {
-    color: 'blue',
-    fontSize: 20,
-    textAlign: 'center'
-  },
-  container: {
-    position: 'absolute',
-    top: 10,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  map: {
-    position: 'absolute',
-    top: 10,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  autocomplete: {
-    flex: 1,
-  },
-  bubble: {
-    flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-  latlng: {
-    width: 200,
-    alignItems: 'stretch',
+  emergencyInput: {
+    padding: 4,
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: 'white',
+    margin: 2,
+    width: Math.floor(width * 0.9),
+    alignSelf: 'center'
   },
   button: {
-    paddingHorizontal: 12,
-    alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'center',
-    marginHorizontal: 10,
-    backgroundColor: 'rgba(0,255,255,1)',
-    borderRadius: 10,
+    alignItems: 'center',
+    height: 40,
+    width: width*.4,
+    margin: 5,
+    alignSelf: 'center',
+    padding: 5,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: base.Primary1,
   },
-  autoCompleteContainer: {
-    position: 'absolute',
-    top: 40,
-    width: width,
-    flexDirection: 'row',
-    backgroundColor: 'rgba(255,255,255,0.9)',
+
+  contactListItem: {
+    marginTop: 5,
+    padding: 5,
+    alignSelf: 'center',
+    width: width * 0.95,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: base.GrayLight,
   },
-  descriptionText: {
-    position: 'absolute',
-    fontSize: 30,
+  buttonText: {
     textAlign: 'center',
     bottom: 0,
     width: width,
     flexDirection: 'row',
     backgroundColor: 'rgba(255,255,255,0.7)',
+    fontSize: 14,
   },
   ButtonContainer: {
     position: 'absolute',
@@ -135,4 +109,37 @@ module.exports = {
     justifyContent: 'flex-start',
     width: Math.floor(width * 0.8)
   }
+  // descriptionText: {
+  //   position: 'absolute',
+  //   fontSize: 30,
+  //   textAlign: 'center',
+  //   bottom: 0,
+  //   width: width,
+  //   flexDirection: 'row',
+  //   backgroundColor: 'rgba(255,255,255,0.7)',
+  // },
+  // ButtonContainer: {
+  //   position: 'absolute',
+  //   bottom: 10,
+  //   width: 200,
+  //   flexDirection: 'row',
+  //   backgroundColor: 'rgba(255,255,255,0.7)',
+  // },
+  // buttonFont: {
+  //   fontSize: 20,
+  // },
+  // timerContainer: {
+  //   backgroundColor: 'rgba(255,255,255,0.7)',
+  //   paddingHorizontal:5,
+  //   paddingVertical:3,
+  //   shadowRadius: 2,
+  //   shadowColor: '#000000',
+  //   shadowOpacity: 1,
+  //   shadowOffset: {width: 0, height: 0},
+  //   borderRadius: 10
+  // },
+  // timerValue: {
+  //   fontSize: 20,
+  //   color: 'black'
+  // }
 };

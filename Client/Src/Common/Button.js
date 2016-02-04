@@ -19,28 +19,11 @@ var Button = React.createClass ({
   render() {
 
     return (
-        <TouchableHighlight style={componentStyles.button} underlayColor='rgb(255, 255, 255)' onPress={this.props.onPress}>
-          <Text style={styles.buttonFont}>{this.props.text}</Text>
+        <TouchableHighlight style={styles.button} underlayColor='rgb(255, 255, 255)' onPress={this.props.onPress}>
+          <Text style={styles.buttonText}>{this.props.text}</Text>
         </TouchableHighlight>
     );
   }
 });
 
 module.exports = Button;
-
-var componentStyles = StyleSheet.create({
-    button: {
-    backgroundColor:'#78ABDD',
-    borderRadius: 5,
-    padding: 5,
-    alignSelf:'center',
-    alignItems:'center',
-    width: width*.4,
-    height: height/13,
-    justifyContent:'center'
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontSize: 14
-  }
-})

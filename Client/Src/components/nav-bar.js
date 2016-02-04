@@ -122,7 +122,7 @@ export default class NavBar extends Component {
 // Component Styles
 let styles = StyleSheet.create(require('../styles.js'));
 const { width, height } = Dimensions.get('window');
-const NAV_HEIGHT = 60;
+const NAV_HEIGHT = 40;
 const LINK_WIDTH = 50;
 const NAV_BAR_PADDING = 5;
 styles = {
@@ -161,6 +161,6 @@ styles = {
     alignSelf: 'flex-end',
     fontSize: 18,
     backgroundColor: 'transparent',
-    paddingBottom: NAV_BAR_PADDING
+    paddingBottom: NAV_BAR_PADDING * 2
   }
 };
