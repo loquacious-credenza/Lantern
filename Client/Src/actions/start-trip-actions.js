@@ -6,6 +6,7 @@ import {addStart, addDestination, addEta} from './'
 
 import {
   START_TRIP_SUCCESS,
+  START_TRIP_ID,
   START_TRIP_FAIL,
 
 } from '../constants/action-types';
@@ -42,16 +43,9 @@ export const startTrip = (payload) => {
   responseBody.startTime = moment().format();
   responseBody.eta = moment(responseBody.startTime).add(parseInt(payload.etaValue), 'minutes').format()
   responseBody.overdueTime = moment(responseBody.eta).add(parseInt(payload.acceptableDelay), 'minutes').format() // CALCULATE DELAY HERE
+  
   return (dispatch) => {
-    console.log("got here")
-    fetch('http://localhost:8000/user/' + payload.id +'/trips',
-    {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(responseBody)
-    }).then( (response) => {
-      dispatch(startTripSuccess({
-          id: JSON.parse(response._bodyInit)._id,
+    dispatch(startTripSuccess({
           startTime: responseBody.startTime,
           eta: responseBody.eta,
           overdueTime: responseBody.overdueTime,
@@ -59,6 +53,13 @@ export const startTrip = (payload) => {
           destination: payload.destination,
           waypoints: []
         }));
+    fetch('http://4af2f5ca.ngrok.io/user/' + payload.id +'/trip',
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(responseBody)
+    }).then( (response) => {
+      dispatch(startTripId(JSON.parse(response._bodyInit)._id));
     })
   }
 }
@@ -82,6 +83,12 @@ export const startTrip = (payload) => {
  //    destination: {},
  //    waypoints: []
  //  };
+export const startTripId = (payload) => {
+  return {
+    type: START_TRIP_ID,
+    payload: {id:payload}
+  }
+}
 
 export const startTripSuccess = (payload) => {
   // on successful response from server

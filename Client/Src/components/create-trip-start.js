@@ -76,6 +76,7 @@ export default class MapStart extends Component {
     }
   };
 
+
   render() {
     const { state, actions, navigator } = this.props;
     const { currentLocation } = state; //destructure the parts of state that you need
@@ -124,7 +125,7 @@ export default class MapStart extends Component {
 
     var timer = this.state.stage === 'tracking' ?
     <Timer 
-      eta = {state.activeTrip.eta}>
+      state = {activeTrip}>
     </Timer> : null;
 
     return (
@@ -151,20 +152,20 @@ export default class MapStart extends Component {
           ))}
 
         </MapView>
-        {checkIn}
-        {checkedIn}
-        {eta}
-        {timer}
 
         <NavBar
           navigator={navigator}
           description={this.state.description}
           right={{image: 'gear', action: () => navigator.push({name: 'settings'})}}
           />
+          
         <View style={[baseStyles.component]}>
           {autocomplete}
         </View>
-
+        {checkIn}
+        {checkedIn}
+        {eta}
+        {timer}
 
         <SlideUp
           navigator={navigator}
