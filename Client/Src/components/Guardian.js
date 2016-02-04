@@ -22,10 +22,22 @@ const localStyles = StyleSheet.create({
     backgroundColor: 'lightGray'
   },
   circle: {
-    width: 175,
-    height: 175,
-    borderRadius: 175/2,
-    backgroundColor: 'red'
+    width: 200,
+    height: 200,
+    borderRadius: 200/2,
+    backgroundColor: '#833',
+    alignSelf: 'center',
+    top: 200,
+    borderWidth: 1,
+    borderColor: '#222'
+  },
+  square: {
+    width: 75,
+    height: 75,
+    borderRadius: 3,
+    backgroundColor: '#000',
+    alignSelf: 'center',
+    top: 62.5
   }
 });
 
@@ -46,7 +58,8 @@ export default class Guardian extends Component {
           description='Guardian'
         />
         <TouchableOpacity>
-          <View style={localStyles.circle} />
+          <View style={localStyles.circle}>
+          </View>
         </TouchableOpacity>
       </View>
     );
