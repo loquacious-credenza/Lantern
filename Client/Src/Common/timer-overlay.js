@@ -18,11 +18,16 @@ var endTime;
 var TimerOverlay = React.createClass({
   getInitialState: function(){
    return {
-      timeRemaining:5000
+      timeRemaining: 1000,
+      timeToEmail: 1000
     } 
   },
   componentDidMount: function() {
+    var {eta, startTime, overdueTime} = this.props.state;
     // WHAT WE HAVE: ETA + ACCEPTABLE DELAY
+    var now = moment()
+    var timeRemaining = (moment(eta)-now) - (moment(eta)-now)%1000;
+    this.setState({timeRemaining: timeRemaining});
     timerMixin.setInterval.call(this, function(){
       this.setState({timeRemaining: this.state.timeRemaining -= 1000});
     },1000);
