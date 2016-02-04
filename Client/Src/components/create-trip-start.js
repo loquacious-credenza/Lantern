@@ -156,11 +156,26 @@ export default class MapStart extends Component {
         <NavBar
           navigator={navigator}
           description={this.state.description}
-          right={{image: 'gear', action: () => navigator.push({name: 'settings'})}}
-        />
+          right={{
+            image: 'gear',
+            action: () => navigator.push({
+              name: 'settings'
+            })
+          }}
+          left={{
+            image: 'shield',
+            action: () => navigator.push({
+              name: 'settings',
+              sceneConfig: 'FloatFromLeft'
+            })
+          }}
+          />
 
-        {autocomplete}
-
+        <View style={[baseStyles.component]}>
+          {autocomplete}
+        </View>
+        {checkIn}
+        {checkedIn}
         {eta}
 
         {timer}
