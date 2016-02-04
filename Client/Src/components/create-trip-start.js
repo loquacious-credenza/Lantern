@@ -169,7 +169,7 @@ export default class MapStart extends Component {
 
         <SlideUp
           navigator={navigator}
-          nextScene='settings'
+          nextScene='guardian'
           label='Guardian'
           />
 
