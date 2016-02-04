@@ -13,20 +13,45 @@ import React, {
 const styles = StyleSheet.create(require('../styles.js'));
 
 var ETA = React.createClass({
+  getInitialState: function(){
+    return {
+      etaValue: ""
+    };
+  },
+  handleSubmit: function(){
+    const {startTrip, acceptableDelay} = this.props;
+    const state = this.props.tripState;
+    var payload = {};
+    payload.id = this.props.userId;
+    payload.origin = state.origin;
+    payload.destination = state.destination;
+    payload.etaValue = this.state.etaValue;
+    payload.acceptableDelay = acceptableDelay;
+    startTrip(payload);
+  },
 
   render: function() {
-    const {startTrip} = this.props
-    const state = this.props.tripState;
-    var payload = {}
-    payload.id = this.props.userId
-    payload.origin = state.origin
-    payload.destination = state.destination;
+    
     return (
       <View style={componentStyles.background}>
         <View style={componentStyles.alertContainer}>
         <Text style={componentStyles.text}>{"Please confirm your ETA"}</Text>
-        <TextInput style={componentStyles.input}></TextInput>
-        <TouchableOpacity style={componentStyles.button} onPress={()=>{startTrip(payload)}} ><Text style={componentStyles.buttonText}>{"Minutes"}</Text></TouchableOpacity>
+        <TextInput 
+          style={componentStyles.input}
+          onChangeText={(etaValue) => this.setState({etaValue})}
+          value={this.state.etaValue}
+          keyboardType='numeric'>
+        </TextInput>
+        <TouchableOpacity 
+          style={componentStyles.button} 
+          onPress={()=>{
+            this.handleSubmit();
+          }
+        }>
+         <Text style={componentStyles.buttonText}>
+          {"Minutes"}
+         </Text>
+         </TouchableOpacity>
         </View>
       </View>
     );

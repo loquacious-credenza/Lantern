@@ -18,14 +18,14 @@ function create(req, res){
   var user = req.params.user_id;
   var origin = {location:{coordinates:[req.body.origin.longitude,req.body.origin.latitude]}}
   var destination = {location:{coordinates:[req.body.destination.longitude,req.body.destination.latitude]}}
-  console.log('Creating trip: ', user);
   return Trip.create({
     user_id: user,
     active: true,
     origin: origin,
+    eta: new Date(req.body.eta),
     destination: destination,
-    start_time: req.body.startTime,
-    overdue_time: req.body.overdueTime
+    start_time: new Date(req.body.startTime),
+    overdue_time: new Date(req.body.overdueTime)
   })
   .then(function(newTrip){
     User.findByIdAndUpdate(newTrip.user_id, {$push: {trips: newTrip._id}}, function (err, response) {
@@ -33,7 +33,6 @@ function create(req, res){
         console.log('Error pushing trip ID into user trip array: ', err);
         res.sendStatus(500);
       } else {
-        console.log('WORKS!: ', response);
         res.json(newTrip);
       }
     });

@@ -18,7 +18,7 @@ export const ADD_ETA = 'ADD_ETA';
 
 
 //ASSOCIATED WITH BEING ENROUTE
-export const START_TRIP = 'START_TRIP';
+export const START_TRIP_SUCCESS = 'START_TRIP_SUCCESS';
 export const CHECK_IN = 'CHECK_IN';
 export const ADD_WAYPOINT = 'ADD_WAYPOINT';
 export const LOAD_TRIP = 'LOAD_TRIP';

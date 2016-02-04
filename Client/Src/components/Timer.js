@@ -16,30 +16,58 @@ const timerMixin = require('react-timer-mixin');
 const moment = require('moment');
 
 
-export default class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      timeRemaining: 0
+module.exports = React.createClass({
+  getTimeRemaining: function() {
+    var timeRemaining = moment.duration(this.props.timeRemaining)
+    var minutes;
+    var seconds;
+    if(timeRemaining >= 0){
+      minutes = Math.floor(timeRemaining.asMinutes())
+      seconds = timeRemaining.seconds()
+      if(seconds < 10 && seconds >= 0){
+        seconds = '0' + seconds;
+      }
+      return minutes + ':' + seconds;
+    } else if (timeRemaining < 0) {
+      minutes = -1*Math.ceil(timeRemaining.asMinutes())
+      seconds = -1*timeRemaining.seconds()
+      if(seconds < 10 && seconds > 0){
+        seconds = '0' + seconds;
+      }
+      return '-' + minutes + ':' + seconds
     }
-  }
-
-  componentDidMount() {
-    this.setState({
-      timeRemaining: (this.props.endTime - Date.now())
-    });
-    timerMixin.setInterval.call(this, function(){
-      this.setState({timeRemaining: this.state.timeRemaining -= 1000});
-    },1000)
-  }
-
-  render() {
-    const { endTime } = this.props;
+    
+    
+  },
+  determineStyle: function(){
+    var timeRemaining = moment.duration(this.props.timeRemaining)
+    if(timeRemaining < -1){
+      return componentStyle.redText
+    } else {
+      return componentStyle.blackText
+    }
+  },
+  render: function () {
+    const { timeRemaining } = this.props;
     return (
       <View style={styles.timerContainer}>
-        <Text style={styles.timerValue}>ETA: { moment(endTime).calendar() }</Text>
-        <Text style={styles.timerValue}>Time remaining: { moment.duration(this.state.timeRemaining).humanize() }</Text>
+        <Text style={this.determineStyle()}>
+          {this.getTimeRemaining()}
+        </Text>
       </View>
     );
   }
-};
+});
+
+var componentStyle = StyleSheet.create({
+  blackText: {
+    textAlign:'center',
+    fontSize:20
+  },
+  redText: {
+    textAlign:'center',
+    fontSize:20,
+    color:'red'
+  }
+})
+// <Text style={styles.timerValue}>ETA: { moment(endTime).calendar() }</Text>

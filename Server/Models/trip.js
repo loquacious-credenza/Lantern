@@ -12,7 +12,8 @@ var tripSchema = new Schema({
   origin: LocPointModel,
   destination: LocPointModel, //"destination": { "location": { "coordinates": [ -122.40906260000001(longitude), 37.783750399999995(latitude)] } }
   start_time: { type: Date, default: Date.now },
-  overdue_time: Date,
+  overdue_time: {type: Date, default: Date.now },
+  eta: {type:Date, default: Date.now },
   path: [ LocPointModel ],
   videos: [ VideoModel ]
 });
