@@ -24,6 +24,7 @@ import SignIn from '../components/Signin'; // NOTE THIS SHOULD BE MOVED TO CONTA
 import Home from '../components/Home';
 import MapStart from '../components/create-trip-start';
 import Settings from '../components/Settings';
+import Guardian from '../components/Guardian';
 
 
 // import * as ROUTES from '../constants/routes';
@@ -35,7 +36,8 @@ const ROUTES = {
   home: Home,
   startLocation: MapStart,
   home: MapStart,
-  settings: Settings
+  settings: Settings,
+  guardian: Guardian
 };
 
 const SCENE_CONFIGS = {

@@ -7,6 +7,7 @@ import MapStart from '../components/create-trip-start';
 import MapEnd from '../components/create-trip-end';
 import Map from '../components/Map';
 import Settings from '../components/Settings';
+import Guardian from '../components/Guardian';
 
 
 export const signin = { name: 'signin', component: SignIn, sceneConfig: 'FloatFromRight', next: 'startLocation' };
@@ -18,4 +19,5 @@ export const map = {name:  'map', component: Map, sceneConfig: 'FloatFromLeft'};
 export const home = { name: 'home',  component: MapStart, sceneConfig: 'FloatFromLeft' };
 // export const home = { name: 'home', component: Settings, sceneConfig: 'FloatFromLeft' };
 export const settings = { name: 'settings', component: Settings, sceneConfig: 'FloatFromLeft'};
+export const guardian = { name: 'guardian', component: Guardian, sceneConfig: 'FloatFromBottom'};
 
