@@ -13,6 +13,7 @@ const {
     SET_PASSED_TIME_DELAY,
     PASSED_ACCEPTABLE_DELAY,
     LOAD_DELAY,
+    SET_ON_TRIP,
     LOAD_EMERGENCY_CONTACT
 } = require('../constants/action-types');
 
@@ -46,12 +47,10 @@ export default (state = initialState, {type, payload}) => {
         acceptableDelay: payload
       });
     case UPDATE_EMERGENCY_CONTACT_SUCCESS:
-      console.log('UPDATING CONTACT', payload);
       return extend({}, state, {
         emergencyContacts: payload
       })
     case ADD_EMERGENCY_CONTACT:
-      console.log('ADDING CONTACT', payload);
       return extend({}, state, {
         emergencyContacts: state.emergencyContacts.concat([payload])
       });
@@ -70,7 +69,11 @@ export default (state = initialState, {type, payload}) => {
     case SET_PASSED_TIME_DELAY:
       return extend({}, state, {
         acceptableDelay: payload
-      })
+      });
+    case SET_ON_TRIP:
+      return extend({}, state, {
+        onTrip: payload
+      });
     case PASSED_ACCEPTABLE_DELAY:
       return extend({}, state, {
         isOverdue: true

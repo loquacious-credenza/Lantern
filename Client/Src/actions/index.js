@@ -42,7 +42,8 @@ export {
 export {
   startTrip,
   startTripSuccess,
-  startTripError
+  startTripError,
+  setOnTrip
 } from './start-trip-actions'
 
 /*=============================================================*/

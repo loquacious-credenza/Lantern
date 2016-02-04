@@ -23,6 +23,7 @@ export const START_TRIP_ID = 'START_TRIP_ID';
 export const CHECK_IN = 'CHECK_IN';
 export const ADD_WAYPOINT = 'ADD_WAYPOINT';
 export const LOAD_TRIP = 'LOAD_TRIP';
+export const SET_ON_TRIP = 'SET_ON_TRIP';
 
 
 //ASSOCIATED WITH TIMELINESS

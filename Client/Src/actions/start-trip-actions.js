@@ -1,5 +1,9 @@
-
-
+'use strict';
+var React = require('react-native');
+var {
+  AsyncStorage
+} = React;
+// import { AsyncStorage } from 'react-native';
 var moment = require('moment');
 
 import {addStart, addDestination, addEta} from './'
@@ -8,7 +12,7 @@ import {
   START_TRIP_SUCCESS,
   START_TRIP_ID,
   START_TRIP_FAIL,
-
+  SET_ON_TRIP
 } from '../constants/action-types';
 
 /**
@@ -43,7 +47,7 @@ export const startTrip = (payload) => {
   responseBody.startTime = moment().format();
   responseBody.eta = moment(responseBody.startTime).add(parseInt(payload.etaValue), 'minutes').format()
   responseBody.overdueTime = moment(responseBody.eta).add(parseInt(payload.acceptableDelay), 'minutes').format() // CALCULATE DELAY HERE
-  
+
   return (dispatch) => {
     dispatch(startTripSuccess({
           startTime: responseBody.startTime,
@@ -53,12 +57,14 @@ export const startTrip = (payload) => {
           destination: payload.destination,
           waypoints: []
         }));
-    fetch('http://4af2f5ca.ngrok.io/user/' + payload.id +'/trip',
+
+    fetch('http://localhost:8000/user/' + payload.id +'/trips',
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(responseBody)
     }).then( (response) => {
+      dispatch(setOnTrip(true));
       dispatch(startTripId(JSON.parse(response._bodyInit)._id));
     })
   }
@@ -73,7 +79,7 @@ export const startTrip = (payload) => {
  */
 
 
- //PAYLOAD LOOKS LIKE THIS 
+ //PAYLOAD LOOKS LIKE THIS
  //  {
  //    id: null,
  //    startTime: null,
@@ -111,3 +117,15 @@ export const startTripError = (payload) => {
     payload
   };
 }
+
+export const setOnTrip = (payload) => {
+  return (dispatch) => {
+    AsyncStorage.setItem('onTrip', JSON.stringify(payload))
+      .then((response) => {
+        dispatch({
+          type: SET_ON_TRIP,
+          payload
+        });
+      })
+  }
+};

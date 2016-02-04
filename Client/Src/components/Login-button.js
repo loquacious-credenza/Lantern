@@ -30,7 +30,7 @@ var Login = React.createClass({
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
 
         }
-    }).done(()=>{
+    }).done(() => {
       // console.log("STATE LOOKS LIKE THIS", this.props.state)
     });
   },
