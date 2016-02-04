@@ -60,6 +60,17 @@ module.exports = {
 			}
 		});
 	},
+	// SEARCHES FOR USER BY 'id' AND REMOVES THE CONTACT SPECIFIED BY 'contactId'. RETURNS THE MODIFIED USER OBJECT.
+	removeContact: function (id, contactId, res) {
+		User.findByIdAndUpdate(id, {$pull: {contacts: {_id: contactId}}}, {new: true}, function (err, response) {
+			if (err) {
+				console.log("Error deleting user contact: ", err);
+				res.sendStatus(500);
+			} else {
+				res.json(response);
+			}
+		});
+	},
 	// SIMILAR TO 'updateContacts'. 'update' TAKES A USER'S ID AND UPDATES THE 'prop' FIELD WITH 'data'. THESE 
 	// ARGUMENTS ARE PROVIDED IN 'routes.js'. 'updateContacts' COULD PROBABLY BE REPLACED ALTOGETHER.
 	update: function (id, prop, data, res) {

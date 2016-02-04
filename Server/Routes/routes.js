@@ -52,6 +52,10 @@ module.exports = function (app, express) {
   		UserMethods.updateContacts(req.params.user_id, req.body, res);
   });
 
+  app.delete('/user/:user_id/contacts', function (req, res) {
+  		UserMethods.removeContact(req.params.user_id, req.body.id, res);
+  });
+
 /* ================ CONTACT ENDPOINTS ================= */
 	app.get('/userpath/:user_id/:trip_id', function (req, res) {
 		TripMethods.read(req, res);

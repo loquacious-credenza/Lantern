@@ -101,14 +101,14 @@ export default class Settings extends Component {
       updateEmergencyContact,
       setPassedTimeDelay
      } = actions; // destructure the actions the components uses to update state.
-
-    const contactList = user.emergencyContacts.length > 0 ?
+      const contactList = user.emergencyContacts.length > 0 ?
       <ScrollView
         contentContainStyle={[styles.container, { paddingVertical: 60}, {flex: 1, top: 100, height: 200, width: width}]}>
-        {map(user.emergencyContacts, (contact) => {
+        {map(user.emergencyContacts, (contact, index) => {
           return (<EmergencyContactListItem
               key={contact._id}
               id={contact._id}
+              user_id={user.id}
               contact={contact}
               actions={{removeEmergencyContact}}
               />);

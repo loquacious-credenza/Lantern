@@ -114,5 +114,25 @@ module.exports = {
   timerValue: {
     fontSize: 20,
     color: 'black'
+  },
+  userContacts: {
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+    marginTop: 10,
+    width: Math.floor(width * 0.9),
+    alignSelf: 'center'
+  },
+  userContactDeleteButton: {
+    marginTop: 10,
+    position: 'absolute',
+    width: 20,
+    right: 20,
+    justifyContent: 'flex-end'
+  },
+  userContactsText: {
+    justifyContent: 'flex-start',
+    width: Math.floor(width * 0.8)
   }
 };
