@@ -20,12 +20,12 @@ var {
 var Login = React.createClass({
 
   componentDidMount: function() {
-    AsyncStorage.multiGet(['userName','userID']).then((response) => {
+    AsyncStorage.multiGet(['userName','userID', 'onTrip']).then((response) => {
       // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN
         if(response[0][1] !== null){
           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
-          this.props.actions.login({name:response[0][1],id:response[1][1]});
-          this.props.navigator.replace({name: 'startLocation', sceneConfig: 'FloatFromBottom'});
+          this.props.actions.login({name:response[0][1],id:response[1][1], onTrip:response[2][1]});
+          this.props.navigator.replace({name: 'startLocation'});
         } else {
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
 

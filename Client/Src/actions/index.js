@@ -107,5 +107,6 @@ export {
 
 export {
   loadDelay,
-  loadEmergencyContact
+  loadEmergencyContact,
+  loadActiveTrip
 } from './loading-actions';
