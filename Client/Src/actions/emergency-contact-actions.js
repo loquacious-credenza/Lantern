@@ -91,7 +91,6 @@ export const removeEmergencyContact = (payload) => {
       body: JSON.stringify(payload)
     })
     .then((response) => {
-      console.log("Server resonse: ", response);
       dispatch(updateEmergencyContactSuccess(JSON.parse(response._bodyInit).contacts));
     })
   }
