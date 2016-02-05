@@ -2,6 +2,8 @@
 
 
 const calculateDistance = require('./calculate-distance');
+const {throttle} = require('lodash');
+
 
 
 
@@ -14,16 +16,26 @@ export function getCurrentPosition (successCallback, errorCallback) {
   };
 
     // Repeatedly track position
-export function watchPosition (parent) {
+// var throttledLocationSend = throttle(function(){
+//     addWaypoint.call(null,arguments);
+//   },1000);
+
+export function watchPosition (parent, user) {
+    const addWaypoint = parent.props.actions.addWaypoint;
     var watchID = navigator.geolocation.watchPosition((lastPosition) => {
       let coords = lastPosition.coords;
       parent.props.actions.getCurrentLocation({latitude: coords.latitude, longitude:coords.longitude, timestamp:lastPosition.timestamp});
-      if(parent.state.stage === 'tracking'){
-        let distance = calculateDistance(parent.state.endPoint.latitude, parent.state.endPoint.longitude, lastPosition.coords.latitude, lastPosition.coords.longitude);
-        if(distance <= 0.2){
+      addWaypoint(coords, parent.props.state.user.id);
+      let distance = calculateDistance(parent.state.endPoint.latitude, 
+                                         parent.state.endPoint.longitude, 
+                                         lastPosition.coords.latitude, 
+                                         lastPosition.coords.longitude);
+        if(distance <= 0.25){
           parent.setState({inRange: true});
         }
-      }
     });
+    if(parent.state.stage === 'setStart'){
+      navigator.geolocation.clearWatch(watchID);
+    }
   };
 

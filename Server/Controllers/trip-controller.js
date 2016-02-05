@@ -85,11 +85,12 @@ function update(req, res, data){
 // FINDS AN ACTIVE TRIP BY THE PROVIDED 'user_id' AND PUSHES THE NEW LOCATION IN 'data' INTO THE TRIP'S 'path' ARRAY.
 // THE SERVER THEN RESPONDS WITH THE UPDATED TRIP OBJECT
 function addLocPoints(user_id, data, res) {
-  Trip.findOneAndUpdate({user_id: user_id, active: true}, {$pushAll: {path: data}}, {new:true}, function (err, response) {
+  Trip.findOneAndUpdate({user_id: user_id, active: true}, {$push: {path: data}}, {new:true}, function (err, response) {
     if (err) {
       console.log("Error pushing locpoint data to trip: ", err);
       res.sendStatus(500);
     } else {
+      console.log("Successfully added LocPoint To Trip")
       res.json(response);
     }
   });
