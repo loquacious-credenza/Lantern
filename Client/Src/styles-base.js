@@ -107,9 +107,6 @@ export const baseStyles = StyleSheet.create({
     // justifyContent: 'center',
     alignItems: 'center',
   },
-  innerContainer: {
-    flex: 1
-  },
   FullScreen: {
     flex: 1,
     backgroundColor: Primary1,

@@ -65,7 +65,7 @@ export default class AddEmergencyContactForm extends Component {
               email: getAndReset.call(this,'email', '')
             })}
             style={[styles.button]}>
-            <Text style={styles.saveButtonText}>Add</Text>
+            <Text style={styles.buttonText}>Add</Text>
           </TouchableOpacity>
         </View>
     );

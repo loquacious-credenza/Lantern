@@ -18,11 +18,10 @@ import MapView from 'react-native-maps';
 import AutoComplete from '../Common/AutoComplete';
 import Button from '../Common/Button';
 import ETA from '../Common/eta-confirmation';
-import SafetyButton from '../Common/safety-confirmation';
+import PopUpAlert from '../Common/popUp-confirmation';
 import SlideUp from './slide-up';
 import NavBar from './nav-bar';
 import Timer from '../Common/timer-overlay';
-import handleEta from '../Common/handle-eta';
 
 const styles = StyleSheet.create(require('../styles.js'));
 import { baseStyles } from '../styles-base';
@@ -84,13 +83,12 @@ export default class MapStart extends Component {
     const { activeTrip } = this.props.state
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ?
-
-      <View style={[baseStyles.container, baseStyles.absoluteCenter]}><Button ref='button' style={[styles.button, baseStyles.absoluteCenter]}
-        text='Arrived Safely' onPress={this.checkingIn}>
-      </Button></View> : null;
+      <View style={[baseStyles.container, baseStyles.absoluteCenter]}>
+        <Button text='Arrived Safely' onPress={this.checkingIn} />
+      </View> : null;
 
     var checkedIn = this.state.checkedIn ?
-      <SafetyButton elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
+      <PopUpAlert elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
         buttonText={"Glad you're safe!"} /> : null;
 
     var autocomplete = this.state.show ?
@@ -159,14 +157,17 @@ export default class MapStart extends Component {
           navigator={navigator}
           description={this.state.description}
           right={{image: 'gear', action: () => navigator.push({name: 'settings'})}}
-          />
+        />
 
         {autocomplete}
 
-        {checkIn}
-        {checkedIn}
         {eta}
+
         {timer}
+
+        {checkIn}
+
+        {checkedIn}
 
 
         <SlideUp

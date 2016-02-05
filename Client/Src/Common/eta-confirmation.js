@@ -11,6 +11,9 @@ import React, {
 
 // importing styles
 const styles = StyleSheet.create(require('../styles.js'));
+import Button from './Button';
+import PopUpAlert from './popUp-confirmation';
+
 
 var ETA = React.createClass({
   getInitialState: function(){
@@ -30,35 +33,21 @@ var ETA = React.createClass({
     startTrip(payload);
   },
 
+
   render: function() {
-    
+
     return (
-      <View style={componentStyles.background}>
-        <View style={componentStyles.alertContainer}>
-        <Text style={componentStyles.text}>{"Please confirm your ETA"}</Text>
-        <TextInput 
+      <PopUpAlert elementText={"Please confirm your ETA"}
+        extra={<TextInput
+          autoFocus={true}
           style={componentStyles.input}
           onChangeText={(etaValue) => this.setState({etaValue})}
           value={this.state.etaValue}
           keyboardType='numeric'>
-        </TextInput>
-        <TouchableOpacity 
-          style={componentStyles.button} 
-          onPress={()=>{
-            this.handleSubmit();
-          }
-        }>
-         <Text style={componentStyles.buttonText}>
-          {"Minutes"}
-         </Text>
-         </TouchableOpacity>
-        </View>
-      </View>
+        </TextInput>}
+        buttonText={"Minutes"} onPress={this.handleSubmit}/>
     );
-
   }
-
-
 });
 
 module.exports = ETA;
@@ -68,37 +57,6 @@ import { Dimensions } from 'react-native';
   var height = Dimensions.get('window').height; //full height
 
 var componentStyles = StyleSheet.create({
-  background: {
-    backgroundColor:'transparent',
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  },
-  text: {
-    textAlign: 'center',
-    padding: 5,
-  },
-  alertContainer: {
-    backgroundColor: 'rgba (255,255,255,0.8)',
-    borderRadius: 10,
-    padding: 5,
-    height: height/5,
-    width: width*.8,
-    justifyContent:'space-around',
-  },
-  button: {
-    backgroundColor:'#78ABDD',
-    borderRadius: 5,
-    padding: 5,
-    alignSelf:'center',
-    width: width*.4,
-    height: height/17,
-    justifyContent:'center'
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontSize: 18
-  },
   input: {
     alignSelf:'center',
     textAlign:'center',

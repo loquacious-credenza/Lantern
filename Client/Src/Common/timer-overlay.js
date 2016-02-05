@@ -20,7 +20,7 @@ var TimerOverlay = React.createClass({
    return {
       timeRemaining: 1000,
       timeToEmail: 1000
-    } 
+    }
   },
   componentDidMount: function() {
     var {eta, startTime, overdueTime} = this.props.state;
@@ -34,17 +34,15 @@ var TimerOverlay = React.createClass({
   },
   renderOverlay:function(){
     if(this.state.timeRemaining < 0){
-      return componentStyles.overTime
+      return styles.overTime;
     } else {
-      return componentStyles.background
+      return null;
     }
   },
   render: function() {
     return (
       <View style={this.renderOverlay()}>
-        <View style={componentStyles.alertContainer}>
         <Timer timeRemaining={this.state.timeRemaining} />
-        </View>
       </View>
     );
   }
@@ -53,40 +51,3 @@ var TimerOverlay = React.createClass({
 
 module.exports = TimerOverlay;
 
-import { Dimensions } from 'react-native';
-  var width = Dimensions.get('window').width; //full width
-  var height = Dimensions.get('window').height; //full height
-
-var componentStyles = StyleSheet.create({
-  text: {
-    textAlign: 'right',
-    padding: 5,
-  },
-  alertContainer: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    padding: 5,
-    height: height/10,
-    width: width*.8,
-    alignItems:'flex-end',
-    justifyContent:'flex-end',
-    marginTop: 6,
-    marginRight: 4
-  },
-  background: {
-    backgroundColor:'transparent',
-    flex:1,
-    height:height,
-    width:width,
-    alignItems:'flex-end',
-    justifyContent:'flex-start'
-  },
-  overTime: {
-    backgroundColor:'rgba (255, 0, 0, .3)',
-    flex: 1,
-    height:height,
-    width:width,
-    alignItems:'flex-end',
-    justifyContent:'flex-start'
-  }
-});

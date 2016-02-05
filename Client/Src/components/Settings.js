@@ -11,15 +11,11 @@ import React, {
 
 import { map } from 'lodash'
 
-const { width, height } = Dimensions.get('window');
-
 // importing styles
 import { baseStyles } from '../styles-base';
 import styles from '../styles';
-//const styles = StyleSheet.create(require('../styles.js'));
 import getAndReset from './mixins/getAndReset';
 //components
-import ContactListView from './contact-list-view';
 import EmergencyContactListItem from './emergency-contact-list-item';
 import AddEmergencyContactForm from './add-emergency-contact-form';
 import DelaySlider from './delay-slider';
@@ -76,8 +72,7 @@ export default class Settings extends Component {
         <NavBar
           navigator={navigator}
           description='Settings'
-          right={{image: 'gear', action: () => navigator.pop()}}
-          left={{image: 'leftArrow', action: () => navigator.pop()}}
+          right={{image: 'rightArrow', action: () => navigator.pop()}}
           />
         <DelaySlider
           style={baseStyles.container}
