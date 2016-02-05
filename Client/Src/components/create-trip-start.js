@@ -48,8 +48,8 @@ export default class MapStart extends Component {
   };
   componentWillMount() {
     getCurrentPosition(() => this.setState, () => alert);
-    watchPosition(this);
-  }
+
+  };
   changeRegion = (location) => {
     this.setState({region: {
       latitude: location.latitude,
@@ -74,7 +74,6 @@ export default class MapStart extends Component {
       submitEnd(this)
     }
   };
-
 
   render() {
     const { state, actions, navigator } = this.props;
@@ -106,6 +105,7 @@ export default class MapStart extends Component {
             stage:'tracking',
             description: 'Currently Tracking your Location'
           });
+          watchPosition(this, this.props.state.user);
         }}
         tripState={state.activeTrip}
         userId={state.user.id}

@@ -19,7 +19,6 @@ import {addWaypoint} from './';
 export const getCurrentLocation = (payload) => {
   return (dispatch) => {
       dispatch(getCurrentLocationSuccess(payload));
-      dispatch(addWaypoint(payload))
   };
 }
 
