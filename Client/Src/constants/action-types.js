@@ -24,7 +24,7 @@ export const ADD_MARKER = 'ADD_MARKER';
 //ASSOCIATED WITH BEING ENROUTE
 export const START_TRIP_SUCCESS = 'START_TRIP_SUCCESS';
 export const START_TRIP_ID = 'START_TRIP_ID';
-export const CHECK_IN = 'CHECK_IN';
+export const CHECK_IN_SUCCESS = 'CHECK_IN_SUCCESS';
 export const ADD_WAYPOINT = 'ADD_WAYPOINT';
 export const LOAD_TRIP = 'LOAD_TRIP';
 export const SET_ON_TRIP = 'SET_ON_TRIP';

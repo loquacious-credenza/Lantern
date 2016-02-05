@@ -98,13 +98,14 @@ export default class MapStart extends Component {
     var checkIn = this.state.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
-        onPress={this.checkingIn}
+        onPress={()=>{
+          this.checkingIn();
+          actions.checkIn(state.user.id)
+        }}
     />
       : null;
 
-    var checkedIn = this.state.checkedIn ?
-      <PopUpAlert elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
-        buttonText={"End Trip"} /> : null;
+   
 
     var autocomplete = this.state.show ?
       <View style={[baseStyles.component, styles.autoComplete]}>
@@ -211,3 +212,7 @@ export default class MapStart extends Component {
   }
 
 };
+
+// var checkedIn = this.state.checkedIn ?
+//   <PopUpAlert elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
+//     buttonText={"End Trip"} /> : null;
