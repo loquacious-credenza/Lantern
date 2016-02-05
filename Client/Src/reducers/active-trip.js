@@ -4,7 +4,7 @@ const {extend} = require('lodash');
 const {
   START_TRIP_SUCCESS,
   START_TRIP_ID,
-  CHECK_IN,
+  CHECK_IN_SUCCESS,
   ADD_WAYPOINT,
   LOAD_TRIP,
   LOAD_ACTIVE_TRIP,

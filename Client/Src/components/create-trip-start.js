@@ -95,6 +95,7 @@ export default class MapStart extends Component {
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
+<<<<<<< 4e3d3fa169226066039115595159a87adf129bb5
     var checkIn = this.state.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
@@ -104,6 +105,12 @@ export default class MapStart extends Component {
         }}
     />
       : null;
+=======
+    var checkIn = state.user.onTrip ?
+      <Button ref='button' style={[baseStyles.container, baseStyles.absoluteCenter]}
+        text={'Press to check in'} onPress={()=> {actions.checkIn(state.user.id)}}>
+      </Button> : null;
+>>>>>>> Refactored after merge
 
    
 
