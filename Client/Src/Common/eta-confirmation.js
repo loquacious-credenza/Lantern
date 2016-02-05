@@ -38,27 +38,17 @@ var ETA = React.createClass({
   render: function() {
 
     return (
-      <View style={componentStyles.background}>
-        <View style={componentStyles.alertContainer}>
-        <Text style={componentStyles.text}>{"Please confirm your ETA"}</Text>
-        <TextInput
+      <PopUpAlert elementText={"Please confirm your ETA"}
+        extra={<TextInput
           style={componentStyles.input}
           onChangeText={(etaValue) => this.setState({etaValue})}
           value={this.state.etaValue}
+          autoFocus={true}
           keyboardType='numeric'>
-        </TextInput>
-        <TouchableOpacity
-          style={componentStyles.button}
-          onPress={()=>{
-            this.handleSubmit();
-          }
-        }>
-         <Text style={componentStyles.buttonText}>
-          {"Minutes"}
-         </Text>
-         </TouchableOpacity>
-        </View>
-      </View>
+        </TextInput>}
+      buttonText={'Minutes'}
+      onPress={this.handleSubmit} />
+         
     );
   }
 });

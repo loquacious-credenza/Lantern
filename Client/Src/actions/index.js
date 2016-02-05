@@ -33,7 +33,8 @@ export {
 
 //modifies `waypoints`
 export {
-  addWaypoint
+  addWaypoint,
+  addWaypointSuccess
 } from './waypoint-actions'
 
 /*=============================================================*/
@@ -112,3 +113,7 @@ export {
   loadEmergencyContact,
   loadActiveTrip
 } from './loading-actions';
+
+/*=============================================================*/
+
+

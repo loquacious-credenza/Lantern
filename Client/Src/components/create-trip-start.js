@@ -96,13 +96,15 @@ export default class MapStart extends Component {
     const { activeTrip } = this.props.state
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ?
-      <View style={[baseStyles.container, baseStyles.absoluteCenter]}>
-        <Button text='Arrived Safely' onPress={this.checkingIn} />
-      </View> : null;
+    <PopUpAlert elementText={"We have detected that you are close to your destination"}
+        buttonText={"I'm safe!"}
+        onPress={this.checkingIn}
+    />
+      : null;
 
     var checkedIn = this.state.checkedIn ?
       <PopUpAlert elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
-        buttonText={"Glad you're safe!"} /> : null;
+        buttonText={"End Trip"} /> : null;
 
     var autocomplete = this.state.show ?
       <View style={[baseStyles.component, styles.autoComplete]}>
@@ -188,8 +190,7 @@ export default class MapStart extends Component {
         <View style={[baseStyles.component]}>
           {autocomplete}
         </View>
-        {checkIn}
-        {checkedIn}
+
         {eta}
 
         {timer}
