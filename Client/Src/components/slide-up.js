@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   sliderBody: {
     alignSelf: 'center',
     bottom: 10,
-    height: 20,
+    height: 40,
     width: width,
     backgroundColor: 'lightGray'
   },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     width: width,
-    height: 20,
+    height: 30,
     backgroundColor: 'transparent'
   },
   slider: {

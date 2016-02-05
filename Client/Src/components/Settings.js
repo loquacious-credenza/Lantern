@@ -11,76 +11,17 @@ import React, {
 
 import { map } from 'lodash'
 
-const { width, height } = Dimensions.get('window');
-
 // importing styles
-//const styles = StyleSheet.create(require('../styles.js'));
+import { baseStyles } from '../styles-base';
+import styles from '../styles';
 import getAndReset from './mixins/getAndReset';
 //components
-import ContactListView from './contact-list-view';
 import EmergencyContactListItem from './emergency-contact-list-item';
 import AddEmergencyContactForm from './add-emergency-contact-form';
 import DelaySlider from './delay-slider';
 import NavBar from './nav-bar';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#e6e6e6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: height
-  },
-  nameInput: {
-    padding: 4,
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: 'white',
-    margin: 2,
-    width: Math.floor(width * 0.9),
-    alignSelf: 'center'
-  },
-  saveButton: {
-    flex:0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 40,
-    width: 125,
-    marginTop: 25,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: 'teal'
-  },
-  heading: {
-    position: 'absolute',
-    alignSelf: 'center',
-    top: 15,
-    fontSize: 40
-  },
-  subHeading: {
-    position: 'relative',
-    alignSelf: 'flex-start',
-    marginTop: 50,
-    marginLeft: width - (width - 10),
-    top: 0,
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  saveButtonText: {
-    fontSize: 20,
-    color: 'white'
-  },
-  slider: {
-    width: Math.floor(width * .9),
-    height: 30,
-    position: 'relative',
-  }
-});
+
 
 export default class Settings extends Component {
   constructor(props) {
@@ -103,14 +44,16 @@ export default class Settings extends Component {
      } = actions; // destructure the actions the components uses to update state.
       const contactList = user.emergencyContacts.length > 0 ?
       <ScrollView
-        contentContainStyle={[styles.container, { paddingVertical: 60}, {flex: 1, top: 100, height: 200, width: width}]}>
+        contentContainStyle={[baseStyles.container]}>
         {map(user.emergencyContacts, (contact, index) => {
+
           return (<EmergencyContactListItem
               key={contact._id}
               id={contact._id}
               user_id={user.id}
               contact={contact}
               actions={{removeEmergencyContact}}
+              style={[styles.contactListItem]}
               />);
           })
         }
@@ -118,27 +61,27 @@ export default class Settings extends Component {
 
     const showInputForm = user.emergencyContacts.length < 5 ?
       <AddEmergencyContactForm
+          style={baseStyles.container}
           user={user}
           emergencyContacts={user.emergencyContacts}
           actions={{addEmergencyContact}}
           /> : null;
 
     return (
-      <View style={{flex: 1, backgroundColor: '#e6e6e6'}}>
+      <View style={[baseStyles.container, baseStyles.bgGray1]}>
         <NavBar
           navigator={navigator}
           description='Settings'
-          right={{image: 'gear', action: () => navigator.pop()}}
-          left={{image: 'leftArrow', action: () => navigator.pop()}}
+          right={{image: 'rightArrow', action: () => navigator.pop()}}
           />
         <DelaySlider
-          style={{marginTop: 20}}
+          style={baseStyles.container}
           delay={user.acceptableDelay}
           user={user}
           actions={{setPassedTimeDelay}}
           />
         <View>
-          <Text style={[{marginLeft: 0, marginBottom: 5}]}>Emergency Contacts:</Text>
+          <Text style={[styles.subHeading]}>Emergency Contacts:</Text>
             {showInputForm}
             {contactList}
         </View>

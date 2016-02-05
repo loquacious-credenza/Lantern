@@ -18,11 +18,10 @@ import MapView from 'react-native-maps';
 import AutoComplete from '../Common/AutoComplete';
 import Button from '../Common/Button';
 import ETA from '../Common/eta-confirmation';
-import SafetyButton from '../Common/safety-confirmation';
+import PopUpAlert from '../Common/popUp-confirmation';
 import SlideUp from './slide-up';
 import NavBar from './nav-bar';
 import Timer from '../Common/timer-overlay';
-import handleEta from '../Common/handle-eta';
 
 const styles = StyleSheet.create(require('../styles.js'));
 import { baseStyles } from '../styles-base';
@@ -84,24 +83,25 @@ export default class MapStart extends Component {
     const { activeTrip } = this.props.state
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ?
-      <Button ref='button' style={styles.ButtonContainer}
-        text='Arrived Safely' onPress={this.checkingIn}>
-      </Button> : null;
+      <View style={[baseStyles.container, baseStyles.absoluteCenter]}>
+        <Button text='Arrived Safely' onPress={this.checkingIn} />
+      </View> : null;
 
     var checkedIn = this.state.checkedIn ?
-      <SafetyButton elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
+      <PopUpAlert elementText={"Thanks for letting us know that you've made it to your destination, " + state.user.name}
         buttonText={"Glad you're safe!"} /> : null;
 
     var autocomplete = this.state.show ?
-      <AutoComplete ref='auto'
-        style={styles.autocomplete}
-        selectPoint={(input)=>{this.changeRegion(input);
-          this.setMarker(input);}}
-      /> : null;
+      <View style={[baseStyles.component, styles.autoComplete]}>
+        <AutoComplete ref='auto'
+          selectPoint={(input)=>{this.changeRegion(input);
+            this.setMarker(input);}}
+        />
+      </View> : null;
 
     var eta = this.state.stage === 'eta' ?
       <ETA startTrip={(payload)=> {
-          actions.startTrip(payload); 
+          actions.startTrip(payload);
           this.setState({
             stage:'tracking',
             description: 'Currently Tracking your Location'
@@ -124,14 +124,14 @@ export default class MapStart extends Component {
       </MapView.Callout>;
 
     var timer = this.state.stage === 'tracking' ?
-    <Timer 
+    <Timer
       state = {activeTrip}>
     </Timer> : null;
 
     return (
-      <View style={[baseStyles.container, {top:0}]}>
+      <View style={[baseStyles.container]}>
         <MapView
-          style={styles.map}
+          style={baseStyles.container}
           showsUserLocation={true}
           region={this.state.region}
           onRegionChange={this.onRegionChange}
@@ -157,15 +157,18 @@ export default class MapStart extends Component {
           navigator={navigator}
           description={this.state.description}
           right={{image: 'gear', action: () => navigator.push({name: 'settings'})}}
-          />
-          
-        <View style={[baseStyles.component]}>
-          {autocomplete}
-        </View>
-        {checkIn}
-        {checkedIn}
+        />
+
+        {autocomplete}
+
         {eta}
+
         {timer}
+
+        {checkIn}
+
+        {checkedIn}
+
 
         <SlideUp
           navigator={navigator}

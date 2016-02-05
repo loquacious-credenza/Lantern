@@ -90,7 +90,7 @@ export default class NavBar extends Component {
 
     const rightSide = right ?
       <Right
-        style={[styles.navLinkStyle, styles.rightSide]}
+        style={[styles.navLinkStyle, internalStyle.rightSide]}
         navigator={navigator}
         image={right && right.image}
         actions={{onPress: right.action}}
@@ -99,7 +99,7 @@ export default class NavBar extends Component {
 
     const leftSide = left ?
       <Left
-        style={[styles.navLinkStyle, styles.leftSide]}
+        style={[styles.navLinkStyle, internalStyle.leftSide]}
         navigator={navigator}
         image={left && left.image}
         actions={{onPress: left.action}}
@@ -121,46 +121,13 @@ export default class NavBar extends Component {
 
 // Component Styles
 let styles = StyleSheet.create(require('../styles.js'));
-const { width, height } = Dimensions.get('window');
-const NAV_HEIGHT = 60;
-const LINK_WIDTH = 50;
-const NAV_BAR_PADDING = 5;
-styles = {
-  navBarContainer: {
-    flex: 0,
-    position: 'relative',
-    flexDirection: 'row',
-    width: width,
-    height: NAV_HEIGHT,
-    backgroundColor: '#eeeeee',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black'
-  },
-  navLinkStyle: {
-    position: 'absolute',
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: 'transparent',
-    bottom: 0,
-    width: LINK_WIDTH,
-    height: NAV_HEIGHT,
-    paddingBottom: NAV_BAR_PADDING
-  },
+const internalStyle = StyleSheet.create({
+
   rightSide: {
     right: 0
   },
   leftSide: {
     left: 0
   },
-  navBarText: {
-    flex: 0,
-    justifyContent: 'center',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    width: width,
-    alignSelf: 'flex-end',
-    fontSize: 18,
-    backgroundColor: 'transparent',
-    paddingBottom: NAV_BAR_PADDING
-  }
-};
+
+});

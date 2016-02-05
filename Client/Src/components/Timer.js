@@ -36,8 +36,6 @@ module.exports = React.createClass({
       }
       return '-' + minutes + ':' + seconds
     }
-    
-    
   },
   determineStyle: function(){
     var timeRemaining = moment.duration(this.props.timeRemaining)
