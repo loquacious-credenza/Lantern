@@ -58,7 +58,7 @@ module.exports = function (app, express) {
 
 /* ================ CONTACT ENDPOINTS ================= */
 	app.get('/userpath/:user_id/:trip_id', function (req, res) {
-		TripMethods.read(req, res);
+		TripMethods.readContactPage(req, res);
 	});
 
 	app.get('/userpath/:user_id/:trip_id/user', function (req, res) {

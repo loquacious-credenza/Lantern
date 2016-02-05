@@ -19,11 +19,12 @@ var renderLocationsToMap = function (map, data) {
 	var destination;
 	console.log(data);
 	for (var i = 0; i < data.path.length; i++) {
-		points.push(new google.maps.LatLng(data.path[i].location.coordinates[0], data.path[i].location.coordinates[1]));
+		console.log('Longitude:', data.path[i].location.coordinates[0])
+		points.push(new google.maps.LatLng(data.path[i].location.coordinates[1], data.path[i].location.coordinates[0]));
 	};
 
 	destination = new google.maps.Marker({
-		position: new google.maps.LatLng(data.destination.location.coordinates[0], data.destination.location.coordinates[1])
+		position: new google.maps.LatLng(data.destination.location.coordinates[1], data.destination.location.coordinates[0])
 	});
 
 	path = new google.maps.Polyline({
