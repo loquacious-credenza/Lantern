@@ -40,18 +40,18 @@ export const login = (payload) => {
       dispatch(loginSuccess(data.user));
       dispatch(loadDelay(data.user.delay));
       dispatch(loadEmergencyContact(data.user.contacts))
-      if(payload.onTrip && data.activeTrip !== null){
-        dispatch(loadActiveTrip({
-          id: data.activeTrip._id,
-          startTime: data.activeTrip.start_time,
-          eta: data.activeTrip.eta,
-          overdueTime: data.activeTrip.overdue_time,
-          origin: data.activeTrip.origin,
-          destination: data.activeTrip.destination,
-          waypoints: data.activeTrip.path,
-          videos: data.activeTrip.videos
-        }));
-      }
+      // if(payload.onTrip && data.activeTrip !== null){
+      //   dispatch(loadActiveTrip({
+      //     id: data.activeTrip._id,
+      //     startTime: data.activeTrip.start_time,
+      //     eta: data.activeTrip.eta,
+      //     overdueTime: data.activeTrip.overdue_time,
+      //     origin: data.activeTrip.origin,
+      //     destination: data.activeTrip.destination,
+      //     waypoints: data.activeTrip.path,
+      //     videos: data.activeTrip.videos
+      //   }));
+      // }
       //EXPECTED RESPONSE:
       //{_id , name: , activeTrip, contacts}
 

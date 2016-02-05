@@ -4,6 +4,8 @@ var calculateMidpoint = require('./calculate-midpoint');
 export function  submitStart (parent) {
   if(parent.state.markers.length > 0){
     parent.props.actions.addStart(parent.state.startPoint);
+    console.log("PARENT STATE", parent.state.startPoint, parent.state.markers);
+    parent.props.actions.addMarker(parent.state.markers[0]);
     parent.setState({stage: 'setEnd', description: 'Confirm Destination'});
     parent.refs.auto.refs.Auto.props.clearText();
     parent.refs.origin.hideCallout();
@@ -14,6 +16,7 @@ export function  submitStart (parent) {
 export function submitEnd (parent) {
   if(parent.state.markers.length > 1){
     parent.props.actions.addDestination(parent.state.endPoint);
+    parent.props.actions.addMarker(parent.state.markers[1]);
     parent.setState({show: false, stage: 'eta',description: 'Set your ETA'});
     parent.refs.destination.hideCallout();
 

@@ -10,12 +10,16 @@ const {
   LOAD_ACTIVE_TRIP,
   RESET_DELAY,
   ADD_DESTINATION,
+  CLEAR_ON_TRIP,
+  ADD_MARKER,
   ADD_START
 } = require('../constants/action-types');
 
 const initialState = {
   id: null,
+  stage: 'setStart',
   startTime: null,
+  markers: [],
   eta: null,
   overdueTime: null,
   origin: {},
@@ -35,17 +39,29 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, {waypoints:state.waypoints.concat([payload])});
       // return waypointReducer(state, {type, action});
     case LOAD_ACTIVE_TRIP:
-      const nstate = extend({}, state, {
+      console.log('GOT TO LOAD ACTIVE TRIP REDUCER', payload)
+      const nstate =  extend({}, state, {
         id: payload.id,
         startTime: payload.startTime,
         eta: payload.eta,
+        stage: payload.stage,
+        markers: state.markers.concat(payload.markers),
         overdueTime: payload.overdueTime,
-        origin: payload.origin,
-        destination: payload.destination,
+        origin: extend({}, state.origin, payload.origin),
+        destination: extend({}, state.destination, payload.destination),
         waypoints: state.waypoints.concat(payload.waypoints)
       });
-      console.log('IN THE REDUCER ACTIVE TRIP LOAD ACTIVE TRIP', nstate);
+      console.log('STATE BEFORE',nstate);
       return nstate;
+    case CLEAR_ON_TRIP:
+      return initialState;
+    case ADD_MARKER:
+      console.log('ADD_MARKER', payload , state);
+      var another =  extend({}, state, {
+        markers: state.markers.concat([payload])
+      });
+      console.log('AFTER', another);
+      return another;
     case RESET_DELAY:
       return extend({}, state, {endTime:new Date});
       // TO DO: DOUBLE CHECK THIS LOGIC

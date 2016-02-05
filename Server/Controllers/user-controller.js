@@ -1,3 +1,7 @@
+'use strict';
+
+var _ = require('lodash');
+
 var User = require('../Models/user.js');
 var Trip = require('../Models/trip.js');
 
@@ -30,18 +34,18 @@ module.exports = {
 						console.log("Error finding trip associated with user: ", err);
 						res.sendStatus(500);
 					} else {
-						combinedData.activeTrip = response[0] || null;
-						res.json(combinedData);
-					}
-				});
-			} else {
-				User.create(userObj, function (err, response) {
-					if (err) {
-						console.log("Error creating user: ", err);
-						res.sendStatus(500);
-					} else {
-						combinedData.user = response;
-						combinedData.activeTrip = null;
+            combinedData.activeTrip = _.last(response) || null;
+            res.json(combinedData);
+          }
+        });
+      } else {
+        User.create(userObj, function (err, response) {
+          if (err) {
+            console.log("Error creating user: ", err);
+            res.sendStatus(500);
+          } else {
+            combinedData.user = response;
+            combinedData.activeTrip = null;
 						res.json(combinedData);
 					}
 				});
@@ -71,7 +75,7 @@ module.exports = {
 			}
 		});
 	},
-	// SIMILAR TO 'updateContacts'. 'update' TAKES A USER'S ID AND UPDATES THE 'prop' FIELD WITH 'data'. THESE 
+	// SIMILAR TO 'updateContacts'. 'update' TAKES A USER'S ID AND UPDATES THE 'prop' FIELD WITH 'data'. THESE
 	// ARGUMENTS ARE PROVIDED IN 'routes.js'. 'updateContacts' COULD PROBABLY BE REPLACED ALTOGETHER.
 	update: function (id, prop, data, res) {
     var obj = {};

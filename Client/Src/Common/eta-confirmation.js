@@ -22,7 +22,7 @@ var ETA = React.createClass({
     };
   },
   handleSubmit: function(){
-    const {startTrip, acceptableDelay} = this.props;
+    const {startTrip, acceptableDelay, markers} = this.props;
     const state = this.props.tripState;
     var payload = {};
     payload.id = this.props.userId;
@@ -30,6 +30,7 @@ var ETA = React.createClass({
     payload.destination = state.destination;
     payload.etaValue = this.state.etaValue;
     payload.acceptableDelay = acceptableDelay;
+    payload.markers = state.markers;
     startTrip(payload);
   },
 
@@ -37,15 +38,27 @@ var ETA = React.createClass({
   render: function() {
 
     return (
-      <PopUpAlert elementText={"Please confirm your ETA"}
-        extra={<TextInput
-          autoFocus={true}
+      <View style={componentStyles.background}>
+        <View style={componentStyles.alertContainer}>
+        <Text style={componentStyles.text}>{"Please confirm your ETA"}</Text>
+        <TextInput
           style={componentStyles.input}
           onChangeText={(etaValue) => this.setState({etaValue})}
           value={this.state.etaValue}
           keyboardType='numeric'>
-        </TextInput>}
-        buttonText={"Minutes"} onPress={this.handleSubmit}/>
+        </TextInput>
+        <TouchableOpacity
+          style={componentStyles.button}
+          onPress={()=>{
+            this.handleSubmit();
+          }
+        }>
+         <Text style={componentStyles.buttonText}>
+          {"Minutes"}
+         </Text>
+         </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 });

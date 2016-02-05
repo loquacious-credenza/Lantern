@@ -1,5 +1,7 @@
 'use strict';
 
+var moment = require('moment');
+
 var React = require('react-native');
 var {
   AsyncStorage,
@@ -20,11 +22,46 @@ var {
 var Login = React.createClass({
 
   componentDidMount: function() {
-    AsyncStorage.multiGet(['userName','userID', 'onTrip']).then((response) => {
+    AsyncStorage.multiGet(['userName','userID', 'onTrip', 'activeTrip']).then((response) => {
       // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN
         if(response[0][1] !== null){
           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
-          this.props.actions.login({name:response[0][1],id:response[1][1], onTrip:response[2][1]});
+          //
+          const name = response[0][1];
+          const id = response[1][1];
+          const onTrip = response[2][1];
+          const activeTrip = JSON.parse(response[3][1]);
+          console.log("FROM AsyncStorage", name, id, onTrip, activeTrip);
+
+          // if there is an activeTrip and it is not expired
+          const overdueTime = (activeTrip && activeTrip.overdueTime) || (moment().valueOf());
+          const timeDifference = moment
+            .duration(moment(overdueTime) - moment().valueOf())
+            .as('seconds');
+          const isValid = timeDifference > 0;
+
+          if (isValid && activeTrip){
+            // dispatch loadActiveTrip with activeTrip
+            // navigate to the startLocation
+            this.props.actions.loadActiveTrip(activeTrip);
+          } else {
+            // if there is an activeTrip and it is expired
+            this.props.actions.clearOnTrip({
+              onTrip: false,
+              activeTrip: null
+            });
+          }
+            // set activeTrip in AsyncStorage to null
+            // set onTrip in AsyncStorage to false
+            // set onTrip in redux state to false
+            // navigate to `startLocation` for new trip
+          //
+          this.props.actions.login({
+            name,
+            id,
+            onTrip
+          });
+
           this.props.navigator.replace({name: 'startLocation'});
         } else {
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK

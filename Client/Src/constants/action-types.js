@@ -18,6 +18,7 @@ export const GET_CURRENT_LOCATION_FAIL = 'GET_CURRENT_LOCATION_FAIL'
 export const ADD_START = 'ADD_START';
 export const ADD_DESTINATION = 'ADD_DESTINATION';
 export const ADD_ETA = 'ADD_ETA';
+export const ADD_MARKER = 'ADD_MARKER';
 
 
 //ASSOCIATED WITH BEING ENROUTE
@@ -27,6 +28,7 @@ export const CHECK_IN = 'CHECK_IN';
 export const ADD_WAYPOINT = 'ADD_WAYPOINT';
 export const LOAD_TRIP = 'LOAD_TRIP';
 export const SET_ON_TRIP = 'SET_ON_TRIP';
+export const CLEAR_ON_TRIP = 'CLEAR_ON_TRIP';
 
 
 //ASSOCIATED WITH TIMELINESS

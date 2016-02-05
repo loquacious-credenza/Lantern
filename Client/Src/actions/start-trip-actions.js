@@ -6,6 +6,8 @@ var {
 // import { AsyncStorage } from 'react-native';
 var moment = require('moment');
 
+import { extend } from 'lodash';
+
 import {addStart, addDestination, addEta} from './'
 
 import {
@@ -40,32 +42,33 @@ import {
 
 export const startTrip = (payload) => {
   // do send message to server.  Need to do action with thunk.
-  var responseBody = {}
-  responseBody.user_id = payload.id
-  responseBody.origin = payload.origin
-  responseBody.destination = payload.destination
-  responseBody.startTime = moment().format();
-  responseBody.eta = moment(responseBody.startTime).add(parseInt(payload.etaValue), 'minutes').format()
-  responseBody.overdueTime = moment(responseBody.eta).add(parseInt(payload.acceptableDelay), 'minutes').format() // CALCULATE DELAY HERE
+  let activeTrip = {};
+  activeTrip.user_id = payload.id;
+  activeTrip.stage = 'tracking';
+  activeTrip.origin = payload.origin;
+  activeTrip.markers = payload.markers;
+  activeTrip.destination = payload.destination;
+  activeTrip.startTime = moment().format();
+  activeTrip.eta = moment(activeTrip.startTime).add(parseInt(payload.etaValue), 'minutes').format();
+  activeTrip.overdueTime = moment(activeTrip.eta).add(parseInt(payload.acceptableDelay), 'minutes').format(); // CALCULATE DELAY HERE
 
   return (dispatch) => {
-    dispatch(startTripSuccess({
-          startTime: responseBody.startTime,
-          eta: responseBody.eta,
-          overdueTime: responseBody.overdueTime,
-          origin: payload.origin,
-          destination: payload.destination,
-          waypoints: []
-        }));
-
-    fetch('http://localhost:8000/user/' + payload.id +'/trips',
+    dispatch(startTripSuccess(activeTrip));
+    fetch('http://localhost:8000/user/' + payload.id +'/trip',
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(responseBody)
+      body: JSON.stringify(activeTrip)
     }).then( (response) => {
-      dispatch(setOnTrip(true));
-      dispatch(startTripId(JSON.parse(response._bodyInit)._id));
+      activeTrip = extend({}, activeTrip, {
+        id: JSON.parse(response._bodyInit)._id,
+        waypoints: []
+      });
+      dispatch(setOnTrip({
+        onTrip: true,
+        activeTrip
+      }));
+      dispatch(startTripId(activeTrip._id));
     })
   }
 }
@@ -120,12 +123,35 @@ export const startTripError = (payload) => {
 
 export const setOnTrip = (payload) => {
   return (dispatch) => {
-    AsyncStorage.setItem('onTrip', JSON.stringify(payload))
-      .then((response) => {
+    AsyncStorage.multiSet([
+      ['onTrip', JSON.stringify(payload.onTrip)],
+      ['activeTrip', JSON.stringify(payload.activeTrip)]
+    ]).then((response) => {
         dispatch({
           type: SET_ON_TRIP,
           payload
         });
-      })
+      });
   }
 };
+
+export const clearOnTrip = (payload) => {
+  return (dispatch) => {
+    AsyncStorage.multiSet([
+      ['onTrip', JSON.stringify(payload.onTrip)],
+      ['activeTrip', JSON.stringify(payload.activeTrip)]
+    ]).then((response) => {
+        dispatch({
+          type: CLEAR_ON_TRIP,
+          payload
+        });
+      });
+  }
+};
+
+export const addMarker = (payload) => {
+  return {
+    type: 'ADD_MARKER',
+    payload
+  }
+}

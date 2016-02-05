@@ -14,6 +14,7 @@ const {
     PASSED_ACCEPTABLE_DELAY,
     LOAD_DELAY,
     SET_ON_TRIP,
+    CLEAR_ON_TRIP,
     LOAD_EMERGENCY_CONTACT
 } = require('../constants/action-types');
 
@@ -71,8 +72,9 @@ export default (state = initialState, {type, payload}) => {
         acceptableDelay: payload
       });
     case SET_ON_TRIP:
+    case CLEAR_ON_TRIP:
       return extend({}, state, {
-        onTrip: payload
+        onTrip: payload.onTrip
       });
     case PASSED_ACCEPTABLE_DELAY:
       return extend({}, state, {
