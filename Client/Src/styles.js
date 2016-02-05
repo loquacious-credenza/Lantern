@@ -46,7 +46,7 @@ module.exports = {
     flexDirection: 'row',
     width: width,
     height: 40,
-    backgroundColor: '#eeeeee',
+    backgroundColor: base.GrayLight,
     borderBottomWidth: 1,
     borderBottomColor: 'black'
   },
@@ -86,11 +86,14 @@ module.exports = {
     alignSelf: 'flex-end',
     paddingHorizontal:5,
     paddingVertical:3,
-    shadowRadius: 2,
+    shadowRadius: 1,
+    height: 40,
+    width: width/3,
     shadowColor: '#000000',
     shadowOpacity: 1,
     shadowOffset: {width: 0, height: 0},
-    borderRadius: 10
+    alignItems:'center',
+    justifyContent:'center'
   },
   timerValue: {
     fontSize: 20,

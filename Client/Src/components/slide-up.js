@@ -9,6 +9,8 @@ import React, {
   TouchableOpacity
 } from 'react-native';
 
+import * as base from '../styles-base';
+
 import { extend } from 'lodash';
 
 const { width, height } = Dimensions.get('window');
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 20,
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderBottomColor: 'lightGray'
+    borderBottomColor: base.Primary2
   },
   sliderTip: {
     alignSelf: 'center',
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     height: 40,
     width: width,
-    backgroundColor: 'lightGray'
+    backgroundColor: base.Primary2
   },
   sliderText: {
     position: 'absolute',
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
     width: width,
     bottom: 25,
     fontSize: 16,
+    color:'white',
     backgroundColor: 'transparent'
   },
   sliderContainer: {

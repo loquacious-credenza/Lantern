@@ -109,7 +109,7 @@ export const baseStyles = StyleSheet.create({
   },
   FullScreen: {
     flex: 1,
-    backgroundColor: Primary1,
+    backgroundColor: GrayLight,
   },
   component: {
     flex: 0,
