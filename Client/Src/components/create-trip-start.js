@@ -9,6 +9,7 @@ import React, {
   Alert,
   Image,
   Navigator,
+  // AsyncStorage,
   TouchableOpacity
 } from 'react-native';
 import { getCurrentPosition, watchPosition } from '../helpers/geolocation';
@@ -48,8 +49,21 @@ export default class MapStart extends Component {
   };
   componentWillMount() {
     getCurrentPosition(() => this.setState, () => alert);
-
-  };
+  }
+  componentDidMount() {
+    // AsyncStorage.clear();
+    if (this.props.state.activeTrip.stage === 'tracking'){
+      const { stage, markers, origin, destination} = this.props.state.activeTrip;
+      this.setState({
+        stage,
+        markers,
+        startPoint: origin,
+        endPoint: destination,
+        show: false,
+        description: 'Tracking'
+      });
+    }
+  }
   changeRegion = (location) => {
     this.setState({region: {
       latitude: location.latitude,
@@ -156,11 +170,26 @@ export default class MapStart extends Component {
         <NavBar
           navigator={navigator}
           description={this.state.description}
-          right={{image: 'gear', action: () => navigator.push({name: 'settings'})}}
-        />
+          right={{
+            image: 'gear',
+            action: () => navigator.push({
+              name: 'settings'
+            })
+          }}
+          left={{
+            image: 'shield',
+            action: () => navigator.push({
+              name: 'settings',
+              sceneConfig: 'FloatFromLeft'
+            })
+          }}
+          />
 
-        {autocomplete}
-
+        <View style={[baseStyles.component]}>
+          {autocomplete}
+        </View>
+        {checkIn}
+        {checkedIn}
         {eta}
 
         {timer}

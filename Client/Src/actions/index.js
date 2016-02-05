@@ -42,7 +42,10 @@ export {
 export {
   startTrip,
   startTripSuccess,
-  startTripError
+  startTripError,
+  setOnTrip,
+  clearOnTrip,
+  addMarker
 } from './start-trip-actions'
 
 /*=============================================================*/
@@ -106,5 +109,6 @@ export {
 
 export {
   loadDelay,
-  loadEmergencyContact
+  loadEmergencyContact,
+  loadActiveTrip
 } from './loading-actions';

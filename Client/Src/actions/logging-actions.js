@@ -2,7 +2,11 @@
 
 import {extend} from 'lodash';
 
-import {loadDelay, loadEmergencyContact} from './loading-actions';
+import {
+  loadDelay,
+  loadEmergencyContact,
+  loadActiveTrip
+} from './loading-actions';
 
 
 import {
@@ -23,6 +27,8 @@ export const login = (payload) => {
   var responseBody = {}
   responseBody._id = payload.id;
   responseBody.name = payload.name;
+  responseBody.onTrip = payload.onTrip;
+
   return (dispatch) => {
     fetch('http://localhost:8000/user/' + payload.id,
     {
@@ -30,13 +36,22 @@ export const login = (payload) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(responseBody)
     }).then( (response) => {
-      var data = JSON.parse(response._bodyInit).user
-      dispatch(loginSuccess(data));
-      dispatch(loadDelay(data.delay));
-      dispatch(loadEmergencyContact(data.contacts))
-      if(data.activeTrip !== null){
-        loadActiveTrip(true);
-      }
+      var data = JSON.parse(response._bodyInit)
+      dispatch(loginSuccess(data.user));
+      dispatch(loadDelay(data.user.delay));
+      dispatch(loadEmergencyContact(data.user.contacts))
+      // if(payload.onTrip && data.activeTrip !== null){
+      //   dispatch(loadActiveTrip({
+      //     id: data.activeTrip._id,
+      //     startTime: data.activeTrip.start_time,
+      //     eta: data.activeTrip.eta,
+      //     overdueTime: data.activeTrip.overdue_time,
+      //     origin: data.activeTrip.origin,
+      //     destination: data.activeTrip.destination,
+      //     waypoints: data.activeTrip.path,
+      //     videos: data.activeTrip.videos
+      //   }));
+      // }
       //EXPECTED RESPONSE:
       //{_id , name: , activeTrip, contacts}
 
