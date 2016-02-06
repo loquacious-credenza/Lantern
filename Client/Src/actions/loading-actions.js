@@ -21,7 +21,6 @@ export const loadEmergencyContact = (payload) => {
 };
 
 export const loadActiveTrip = (payload) => {
-  console.log('GOT TO THE LOAD_ACTIVE_TRIP action', payload);
   return {
     type: LOAD_ACTIVE_TRIP,
     payload

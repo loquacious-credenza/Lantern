@@ -6,6 +6,7 @@ import {
   CHECK_IN_FAIL
 } from '../constants/action-types';
 
+import { clearOnTrip } from './'
 /**
  * Action that fires when user clicks `check-in`.
  * Initiates an authenticate process.
@@ -23,7 +24,7 @@ export const checkIn = (payload) => {
   	})
   	.then((response) => {
   		if (response.status >= 200 && response.status < 300) {
-  			dispatch(checkInSuccess());
+        dispatch(clearOnTrip());
   		} else {
   			dispatch(checkInFail());
   		}

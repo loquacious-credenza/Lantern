@@ -74,7 +74,7 @@ export default (state = initialState, {type, payload}) => {
     case SET_ON_TRIP:
     case CLEAR_ON_TRIP:
       return extend({}, state, {
-        onTrip: payload.onTrip
+        onTrip: false
       });
     case PASSED_ACCEPTABLE_DELAY:
       return extend({}, state, {
