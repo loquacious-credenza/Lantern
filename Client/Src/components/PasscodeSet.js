@@ -31,7 +31,10 @@ export default class Passcode extends Component {
                   status: 'right',
                   message: 'Thank You your password is now set'
               });
-              this.props.actions.setPassword(password);
+              this.props.actions.setPassword({
+                id: this.props.state.user.id,
+                password
+              });
               this.props.navigator.pop();
               // your codes to close this view
           } else {

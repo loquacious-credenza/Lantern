@@ -28,9 +28,9 @@ export const login = (payload) => {
   responseBody._id = payload.id;
   responseBody.name = payload.name;
   responseBody.onTrip = payload.onTrip;
+  responseBody.password = payload.password;
 
   return (dispatch) => {
-    console.log('LOGIN ACTION')
     fetch('http://localhost:8000/user/' + payload.id,
     {
       method: 'POST',
@@ -38,7 +38,6 @@ export const login = (payload) => {
       body: JSON.stringify(responseBody)
     }).then( (response) => {
       var data = JSON.parse(response._bodyInit);
-      console.log('IN RESPONSE', data);
       dispatch(loginSuccess(data.user));
       dispatch(loadDelay(data.user.delay));
       dispatch(loadEmergencyContact(data.user.contacts))

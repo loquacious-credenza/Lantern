@@ -52,22 +52,21 @@ export default class MapStart extends Component {
     getCurrentPosition(() => this.setState, () => alert);
   }
   componentDidMount() {
-    // AsyncStorage.clear();
-    //   setTimeout(()=>{
-    //     console.log('REDUX.USER' ,this.props.state.user);
-    //   },1000);
-    // AsyncStorage.getItem('password',(result)=>{
-
     setTimeout(() => {
       console.log("HERE IS yOUr USER", this.props.state.user);
       if(this.props.state.user.password === ''){
         this.props.navigator.push({name: 'passcodeSet', setPassword: this.props.actions.setPassword});
       }
     }, 300);
+    ///////////////////////////////////////////////////////
+    // THIS CALL TO ASYNC STORAGE NEEDS TO BE DELETED
+    // IT IS BEING USED FOR CLEARING AN ACTIVE TRIP WHILE TESTING PASSCODE.
     AsyncStorage.multiSet([
       ['onTrip', JSON.stringify('false')],
       ['activeTrip', JSON.stringify(null)]
+      // ['password', JSON.stringify('')]
       ]);
+    ///////////////////////////////////////////////////////
     if (this.props.state.activeTrip.stage === 'tracking'){
       const { stage, markers, origin, destination} = this.props.state.activeTrip;
       this.setState({

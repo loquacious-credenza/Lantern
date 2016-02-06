@@ -35,16 +35,29 @@ export const authError = (payload) => {
 
 export const setPassword = (payload) => {
   return (dispatch) => {
-    AsyncStorage.setItem('password', JSON.stringify(payload))
-      .then((result) =>{
-        return AsyncStorage.getItem('password');
+    dispatch({
+        type: SET_PASSWORD,
+        payload
+    });
+    // turn on spinner for network activity if implemented (NEED TO CREATE ACTION and State for this)
+    fetch(`http://localhost:8000/user/${payload.id}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        prop: 'password',
+        data: payload.password
       })
-      .then((result) => {
-        console.log('THE ASYNC STORED PASSWORD', result);
-        dispatch({
-            type: SET_PASSWORD,
-            payload
-        });
-      });
-  };
+    })
+    .then((response) => {
+      // turn off spinner if implemented
+      return AsyncStorage.setItem('password', JSON.stringify(payload.password))
+    })
+    .catch((error) => {
+      // Need to handle error.
+      // RETRY submission.
+      // Save Preference
+      // Reset state
+      // Notify User.
+    })
+  }
 };

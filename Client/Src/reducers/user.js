@@ -39,6 +39,7 @@ export default (state = initialState, {type, payload}) => {
         id: payload._id,
         name: payload.name,
         isLoggedIn: true,
+        password: payload.password
       });
     case LOGOUT:
       return initialState;
@@ -84,11 +85,15 @@ export default (state = initialState, {type, payload}) => {
         isOverdue: true
       });
     case SET_PASSWORD:
+    //////////////////////////////////////////////////////
+    //AFTER DEBUGGING PASSWORD, REMOVE CONST AND CONSOLE LOG
+    //AND RETURN THE NEW STATE
       const nstate = extend({}, state, {
-        password: payload
+        password: payload.password
       });
       console.log('NEW PASSWORD', nstate);
       return nstate;
+    //////////////////////////////////////////////////////
     default:
         return state;
   };
