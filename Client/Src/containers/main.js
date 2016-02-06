@@ -26,6 +26,8 @@ import Home from '../components/Home';
 import MapStart from '../components/create-trip-start';
 import Settings from '../components/Settings';
 import Guardian from '../components/Guardian';
+import PasscodeConfirm from '../components/PasscodeConfirm';
+import PasscodeSet from '../components/PasscodeSet';
 
 
 // import * as ROUTES from '../constants/routes';
@@ -38,7 +40,9 @@ const ROUTES = {
   startLocation: MapStart,
   home: MapStart,
   settings: Settings,
-  guardian: Guardian
+  guardian: Guardian,
+  passcodeConfirm: PasscodeConfirm,
+  passcodeSet: PasscodeSet,
 };
 
 const SCENE_CONFIGS = {

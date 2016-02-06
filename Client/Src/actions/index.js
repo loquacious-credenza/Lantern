@@ -103,7 +103,8 @@ export {
 export {
   authenticate,
   authSuccess,
-  authError
+  authError,
+  setPassword,
 } from './authenticate-actions';
 
 /*=============================================================*/

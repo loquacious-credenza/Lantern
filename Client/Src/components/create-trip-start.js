@@ -9,7 +9,7 @@ import React, {
   Alert,
   Image,
   Navigator,
-  // AsyncStorage,
+  AsyncStorage,
   TouchableOpacity
 } from 'react-native';
 import { getCurrentPosition, watchPosition } from '../helpers/geolocation';
@@ -52,7 +52,20 @@ export default class MapStart extends Component {
   }
   componentDidMount() {
     // AsyncStorage.clear();
+    //   setTimeout(()=>{
+    //     console.log('REDUX.USER' ,this.props.state.user);
+    //   },1000);
+    // AsyncStorage.getItem('password',(result)=>{
+
+    setTimeout(() => {
+      console.log("HERE IS yOUr USER", this.props.state.user);
+      if(this.props.state.user.password === null){
+        this.props.navigator.push({name: 'passcodeSet'});
+      }
+
+    }, 1000)
     if (this.props.state.activeTrip.stage === 'tracking'){
+      console.log('SECOND',this.props.state)
       const { stage, markers, origin, destination} = this.props.state.activeTrip;
       this.setState({
         stage,
@@ -90,8 +103,10 @@ export default class MapStart extends Component {
   };
 
   render() {
+    // console.log('RENDERING', this.props.state.user)
     const { state, actions, navigator } = this.props;
-    const { currentLocation } = state; //destructure the parts of state that you need
+    const { currentLocation, user } = state; //destructure the parts of state that you need
+    console.log('IN THE RENDER OF CREATE TRIP', user);
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
