@@ -15,7 +15,8 @@ import {
   START_TRIP_ID,
   START_TRIP_FAIL,
   SET_ON_TRIP,
-  CLEAR_ON_TRIP
+  CLEAR_ON_TRIP,
+  ADD_MARKER
 } from '../constants/action-types';
 
 /**
@@ -129,8 +130,7 @@ export const setOnTrip = (payload) => {
       ['activeTrip', JSON.stringify(payload.activeTrip)]
     ]).then((response) => {
         dispatch({
-          type: SET_ON_TRIP,
-          payload
+          type: SET_ON_TRIP
         });
       });
   }
@@ -143,7 +143,7 @@ export const clearOnTrip = (payload) => {
       ['activeTrip', JSON.stringify(null)]
     ]).then((response) => {
         dispatch({
-          type: CLEAR_ON_TRIP,
+          type: CLEAR_ON_TRIP
         });
       });
   }
@@ -151,7 +151,7 @@ export const clearOnTrip = (payload) => {
 
 export const addMarker = (payload) => {
   return {
-    type: 'ADD_MARKER',
+    type: ADD_MARKER,
     payload
   }
-}
+};

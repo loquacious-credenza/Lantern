@@ -6,6 +6,7 @@ const {
   START_TRIP_ID,
   CHECK_IN_SUCCESS,
   ADD_WAYPOINT,
+  CONFIRM_IN_RANGE,
   LOAD_TRIP,
   LOAD_ACTIVE_TRIP,
   RESET_DELAY,
@@ -22,6 +23,7 @@ const initialState = {
   markers: [],
   eta: null,
   overdueTime: null,
+  inRange: false,
   origin: {},
   destination: {},
   waypoints: []
@@ -41,6 +43,10 @@ export default (state = initialState, {type, payload}) => {
     case ADD_WAYPOINT:
       return extend({}, state, {waypoints:state.waypoints.concat([payload])});
       // return waypointReducer(state, {type, action});
+    case CONFIRM_IN_RANGE:
+      return extend({}, state, {
+        inRange: true
+      });
     case LOAD_ACTIVE_TRIP:
       return extend({}, state, {
         id: payload.id,

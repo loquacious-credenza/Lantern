@@ -29,6 +29,7 @@ export const ADD_WAYPOINT = 'ADD_WAYPOINT';
 export const LOAD_TRIP = 'LOAD_TRIP';
 export const SET_ON_TRIP = 'SET_ON_TRIP';
 export const CLEAR_ON_TRIP = 'CLEAR_ON_TRIP';
+export const CONFIRM_IN_RANGE = 'CONFIRM_IN_RANGE';
 
 
 //ASSOCIATED WITH TIMELINESS
