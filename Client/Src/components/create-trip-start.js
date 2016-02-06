@@ -92,6 +92,9 @@ export default class MapStart extends Component {
   };
 
   checkingIn = () => {
+    this.props.navigator.push({name: 'passcodeConfirm'});
+    // actions.checkIn(state.user.id);
+    // These need to be read from redux state.
     this.setState({checkedIn: true, inRange: false});
   };
 
@@ -115,13 +118,10 @@ export default class MapStart extends Component {
     var checkIn = this.state.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
-        onPress={()=>{
-          this.checkingIn();
-          actions.checkIn(state.user.id)
-        }}
+        onPress={this.checkingIn}
     /> : null;
 
-   
+
 
     var autocomplete = this.state.show ?
       <View style={[baseStyles.component, styles.autoComplete]}>

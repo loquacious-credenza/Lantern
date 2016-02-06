@@ -12,17 +12,20 @@ export default class Passcode extends Component {
     super(props);
     this.state = {
           message: 'Please input your password.',
-          status: 'normal'
+          status: 'normal',
+          password: this.props.state.user.password
       }
   }
 
   onEnd = (password) => {
-      if (password == '123') {
+      if (password == this.state.password) {
           this.setState({
               status: 'right',
               message: 'Password is right, success.'
           });
 
+          this.props.actions.checkIn(this.props.state.user.id);
+          this.props.navigator.replace({name: 'home'});
           // your codes to close this view
       } else {
           this.setState({

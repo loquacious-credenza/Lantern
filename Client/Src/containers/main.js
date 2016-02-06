@@ -36,7 +36,6 @@ import PasscodeSet from '../components/PasscodeSet';
 
 const ROUTES = {
   signin: SignIn,
-  home: Home,
   startLocation: MapStart,
   home: MapStart,
   settings: Settings,
