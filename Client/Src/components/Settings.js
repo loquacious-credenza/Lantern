@@ -20,6 +20,7 @@ import EmergencyContactListItem from './emergency-contact-list-item';
 import AddEmergencyContactForm from './add-emergency-contact-form';
 import DelaySlider from './delay-slider';
 import NavBar from './nav-bar';
+import Button from '../Common/Button';
 
 
 
@@ -79,6 +80,10 @@ export default class Settings extends Component {
           delay={user.acceptableDelay}
           user={user}
           actions={{setPassedTimeDelay}}
+          />
+        <Button
+          text={'Reset Password'}
+          onPress={() => this.props.navigator.push({name: 'passcodeSet'})}
           />
         <View>
           <Text style={[styles.subHeading]}>Emergency Contacts:</Text>

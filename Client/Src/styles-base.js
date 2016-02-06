@@ -9,10 +9,11 @@ const { width, height } = Dimensions.get('window');
 
 // Button Styling
 export const BUTTON_WIDTH = 200;
-export const BUTTON_HEIGHT = 50;
+export const BUTTON_HEIGHT = 30;
 export const SHADOW_RADIUS = 5;
 export const BORDER_RADIUS = 10;
-export const BUTTON_FONT_SIZE = 20
+export const BUTTON_FONT_SIZE = 20;
+export const BUTTON_FONT_SIZE_SMALL = 14;
 
 // System Offsets
 export const SYSTEM_STATUS_BAR_WIDTH = 20;
