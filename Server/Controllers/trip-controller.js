@@ -129,11 +129,31 @@ function del(req, res){
     })
 }
 
+function readContactPage(req, res){
+  // trip id from req params
+  var user_id = req.params.user_id;
+  var _id = req.params.trip_id;
+
+  // uses the findOne method to return a single object found by ID
+  return Trip.findOne({ user_id: user_id, _id:_id})
+    .then(
+    // onSuccess handler
+    function(record){ //the record is passed to callback
+      res.json(record); //and sent as the response to the front-end
+    },
+    // onError handler
+    function(err){ //if there is an error it is passed to callback
+      res.status(404).send(err); // and a response is sent with 404 (not found) status.
+    });
+}
+
+
 module.exports = {
   addLocPoints: addLocPoints,
   create: create,
   read: read,
   update: update,
   delete: del,
-  renderInactive: renderInactive
+  renderInactive: renderInactive,
+  readContactPage: readContactPage
 };
