@@ -4,7 +4,7 @@ const {extend} = require('lodash');
 const {
   START_TRIP_SUCCESS,
   START_TRIP_ID,
-  CHECK_IN,
+  CHECK_IN_SUCCESS,
   ADD_WAYPOINT,
   LOAD_TRIP,
   LOAD_ACTIVE_TRIP,
@@ -33,14 +33,16 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, payload);
     case START_TRIP_ID:
       return extend({}, state, payload);
-    case CHECK_IN:
-      return null;
+    case CHECK_IN_SUCCESS:
+      return extend({}, state, {
+        onTrip: false,
+        activeTrip: null
+      });
     case ADD_WAYPOINT:
       return extend({}, state, {waypoints:state.waypoints.concat([payload])});
       // return waypointReducer(state, {type, action});
     case LOAD_ACTIVE_TRIP:
-      console.log('GOT TO LOAD ACTIVE TRIP REDUCER', payload)
-      const nstate =  extend({}, state, {
+      return extend({}, state, {
         id: payload.id,
         startTime: payload.startTime,
         eta: payload.eta,
@@ -51,17 +53,12 @@ export default (state = initialState, {type, payload}) => {
         destination: extend({}, state.destination, payload.destination),
         waypoints: state.waypoints.concat(payload.waypoints)
       });
-      console.log('STATE BEFORE',nstate);
-      return nstate;
     case CLEAR_ON_TRIP:
       return initialState;
     case ADD_MARKER:
-      console.log('ADD_MARKER', payload , state);
-      var another =  extend({}, state, {
+      return extend({}, state, {
         markers: state.markers.concat([payload])
       });
-      console.log('AFTER', another);
-      return another;
     case RESET_DELAY:
       return extend({}, state, {endTime:new Date});
       // TO DO: DOUBLE CHECK THIS LOGIC

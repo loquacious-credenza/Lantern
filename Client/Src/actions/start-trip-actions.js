@@ -14,7 +14,8 @@ import {
   START_TRIP_SUCCESS,
   START_TRIP_ID,
   START_TRIP_FAIL,
-  SET_ON_TRIP
+  SET_ON_TRIP,
+  CLEAR_ON_TRIP
 } from '../constants/action-types';
 
 /**
@@ -138,12 +139,11 @@ export const setOnTrip = (payload) => {
 export const clearOnTrip = (payload) => {
   return (dispatch) => {
     AsyncStorage.multiSet([
-      ['onTrip', JSON.stringify(payload.onTrip)],
-      ['activeTrip', JSON.stringify(payload.activeTrip)]
+      ['onTrip', JSON.stringify(false)],
+      ['activeTrip', JSON.stringify(null)]
     ]).then((response) => {
         dispatch({
           type: CLEAR_ON_TRIP,
-          payload
         });
       });
   }
