@@ -17,39 +17,34 @@ export const authenticate = (payload) => {
     type: AUTHENTICATE,
     payload
   };
-}
+};
 
 export const authSuccess = (payload) => {
   return {
     type: AUTH_SUCCESS,
     payload
   };
-}
+};
 
 export const authError = (payload) => {
   return {
     type: AUTH_FAIL,
     payload
   };
-}
+};
 
 export const setPassword = (payload) => {
   return (dispatch) => {
-    AsyncStorage.setItem('password',payload)
+    AsyncStorage.setItem('password', JSON.stringify(payload))
       .then((result) =>{
-
-        return AsyncStorage.getItem('password')
+        return AsyncStorage.getItem('password');
       })
       .then((result) => {
-
-        console.log('SET PASSWORD', result);
-        return {
-          type: SET_PASSWORD,
-          payload
-        };
-      },
-      (error) =>{
-        console.log('THERE IS AN ERROR', error);
+        console.log('THE ASYNC STORED PASSWORD', result);
+        dispatch({
+            type: SET_PASSWORD,
+            payload
+        });
       });
-  }
-}
+  };
+};

@@ -104,7 +104,7 @@ export {
   authenticate,
   authSuccess,
   authError,
-  setPassword,
+  setPassword
 } from './authenticate-actions';
 
 /*=============================================================*/

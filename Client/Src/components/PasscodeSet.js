@@ -32,14 +32,7 @@ export default class Passcode extends Component {
                   message: 'Thank You your password is now set'
               });
               this.props.actions.setPassword(password);
-              AsyncStorage.setItem('password', Password1, ()=>{
-                console.log('SETTING', password);
-                AsyncStorage.getItem('password', function(result){
-                  console.log('inide async get', result)
-                })
-                this.props.navigator.pop();
-              });
-
+              this.props.navigator.pop();
               // your codes to close this view
           } else {
               this.setState({
@@ -66,13 +59,13 @@ export default class Passcode extends Component {
 
     return (
         <PasswordGesture
-                ref='pg'
-                status={this.state.status}
-                message={this.state.message}
-                onStart={() => this.onStart()}
-                onEnd={(password) => this.onEnd(password)}
-                rightColor={'green'}
-                wrongColor={'red'}
+          ref='pg'
+          status={this.state.status}
+          message={this.state.message}
+          onStart={() => this.onStart()}
+          onEnd={(password) => this.onEnd(password)}
+          rightColor={'green'}
+          wrongColor={'red'}
         />
     );
   }

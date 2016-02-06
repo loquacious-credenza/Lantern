@@ -28,11 +28,11 @@ const initialState = {
   onTrip: false,
   isPastETA: false,
   isOverdue: false,
-  password: null
+  password: ''
 };
 
 export default (state = initialState, {type, payload}) => {
-  console.log('IN USER REDUCER', state, type, payload);
+  if (type === SET_PASSWORD) {console.log('IN USER REDUCER', state, type, payload);}
   switch(type) {
     case LOGIN_SUCCESS:
       return extend({}, state, {
@@ -84,11 +84,11 @@ export default (state = initialState, {type, payload}) => {
         isOverdue: true
       });
     case SET_PASSWORD:
-    console.log('SETTING PASSWORD', payload)
-
-      return extend({}, state, {
+      const nstate = extend({}, state, {
         password: payload
       });
+      console.log('NEW PASSWORD', nstate);
+      return nstate;
     default:
         return state;
   };
