@@ -28,6 +28,7 @@ export const login = (payload) => {
   responseBody._id = payload.id;
   responseBody.name = payload.name;
   responseBody.onTrip = payload.onTrip;
+  responseBody.password = payload.password;
 
   return (dispatch) => {
     fetch('http://localhost:8000/user/' + payload.id,
@@ -36,7 +37,7 @@ export const login = (payload) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(responseBody)
     }).then( (response) => {
-      var data = JSON.parse(response._bodyInit)
+      var data = JSON.parse(response._bodyInit);
       dispatch(loginSuccess(data.user));
       dispatch(loadDelay(data.user.delay));
       dispatch(loadEmergencyContact(data.user.contacts))

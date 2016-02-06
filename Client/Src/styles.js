@@ -156,4 +156,7 @@ module.exports = {
     justifyContent: 'flex-start',
     width: Math.floor(width * 0.7)
   },
+  passwordBG: {
+    backgroundColor: '#292B38',
+  }
 }

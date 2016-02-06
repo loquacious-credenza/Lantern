@@ -15,7 +15,8 @@ const {
     LOAD_DELAY,
     SET_ON_TRIP,
     CLEAR_ON_TRIP,
-    LOAD_EMERGENCY_CONTACT
+    LOAD_EMERGENCY_CONTACT,
+    SET_PASSWORD
 } = require('../constants/action-types');
 
 const initialState = {
@@ -26,16 +27,19 @@ const initialState = {
   emergencyContacts: [],
   onTrip: false,
   isPastETA: false,
-  isOverdue: false
+  isOverdue: false,
+  password: ''
 };
 
 export default (state = initialState, {type, payload}) => {
+  if (type === SET_PASSWORD) {console.log('IN USER REDUCER', state, type, payload);}
   switch(type) {
     case LOGIN_SUCCESS:
       return extend({}, state, {
         id: payload._id,
         name: payload.name,
         isLoggedIn: true,
+        password: payload.password
       });
     case LOGOUT:
       return initialState;
@@ -80,6 +84,16 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, {
         isOverdue: true
       });
+    case SET_PASSWORD:
+    //////////////////////////////////////////////////////
+    //AFTER DEBUGGING PASSWORD, REMOVE CONST AND CONSOLE LOG
+    //AND RETURN THE NEW STATE
+      const nstate = extend({}, state, {
+        password: payload.password
+      });
+      console.log('NEW PASSWORD', nstate);
+      return nstate;
+    //////////////////////////////////////////////////////
     default:
         return state;
   };

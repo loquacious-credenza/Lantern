@@ -9,9 +9,10 @@ import React, {
   Alert,
   Image,
   Navigator,
-  // AsyncStorage,
+  AsyncStorage,
   TouchableOpacity
 } from 'react-native';
+
 import { getCurrentPosition, watchPosition } from '../helpers/geolocation';
 import { submitStart, submitEnd } from '../helpers/submitStates';
 import { setMarkers } from '../helpers/setMarker';
@@ -51,7 +52,21 @@ export default class MapStart extends Component {
     getCurrentPosition(() => this.setState, () => alert);
   }
   componentDidMount() {
-    // AsyncStorage.clear();
+    setTimeout(() => {
+      console.log("HERE IS yOUr USER", this.props.state.user);
+      if(this.props.state.user.password === ''){
+        this.props.navigator.push({name: 'passcodeSet', setPassword: this.props.actions.setPassword});
+      }
+    }, 300);
+    ///////////////////////////////////////////////////////
+    // THIS CALL TO ASYNC STORAGE NEEDS TO BE DELETED
+    // IT IS BEING USED FOR CLEARING AN ACTIVE TRIP WHILE TESTING PASSCODE.
+    AsyncStorage.multiSet([
+      ['onTrip', JSON.stringify('false')],
+      ['activeTrip', JSON.stringify(null)]
+      // ['password', JSON.stringify('')]
+      ]);
+    ///////////////////////////////////////////////////////
     if (this.props.state.activeTrip.stage === 'tracking'){
       const { stage, markers, origin, destination} = this.props.state.activeTrip;
       this.setState({
@@ -77,6 +92,9 @@ export default class MapStart extends Component {
   };
 
   checkingIn = () => {
+    this.props.navigator.push({name: 'passcodeConfirm'});
+    // actions.checkIn(state.user.id);
+    // These need to be read from redux state.
     this.setState({checkedIn: true, inRange: false});
   };
 
@@ -90,21 +108,20 @@ export default class MapStart extends Component {
   };
 
   render() {
+    // console.log('RENDERING', this.props.state.user)
     const { state, actions, navigator } = this.props;
-    const { currentLocation } = state; //destructure the parts of state that you need
+    const { currentLocation, user } = state; //destructure the parts of state that you need
+    // console.log('IN THE RENDER OF CREATE TRIP', user);
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     var checkIn = this.state.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
-        onPress={()=>{
-          this.checkingIn();
-          actions.checkIn(state.user.id)
-        }}
+        onPress={this.checkingIn}
     /> : null;
 
-   
+
 
     var autocomplete = this.state.show ?
       <View style={[baseStyles.component, styles.autoComplete]}>

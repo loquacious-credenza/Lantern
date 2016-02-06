@@ -22,7 +22,7 @@ var {
 var Login = React.createClass({
 
   componentDidMount: function() {
-    AsyncStorage.multiGet(['userName','userID', 'onTrip', 'activeTrip']).then((response) => {
+    AsyncStorage.multiGet(['userName','userID', 'onTrip', 'activeTrip', 'password']).then((response) => {
       // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN
         if(response[0][1] !== null){
           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
@@ -31,7 +31,8 @@ var Login = React.createClass({
           const id = response[1][1];
           const onTrip = response[2][1];
           const activeTrip = JSON.parse(response[3][1]);
-          console.log("FROM AsyncStorage", name, id, onTrip, activeTrip);
+          const password = JSON.parse(response[4][1]);
+          console.log("FROM AsyncStorage", name, id, onTrip, activeTrip, password);
 
           // if there is an activeTrip and it is not expired
           const overdueTime = (activeTrip && activeTrip.overdueTime) || (moment().valueOf());
@@ -59,7 +60,8 @@ var Login = React.createClass({
           this.props.actions.login({
             name,
             id,
-            onTrip
+            onTrip,
+            password
           });
 
           this.props.navigator.replace({name: 'startLocation'});
