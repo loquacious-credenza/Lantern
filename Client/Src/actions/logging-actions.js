@@ -30,6 +30,8 @@ export const login = (payload) => {
   responseBody.onTrip = payload.onTrip;
   responseBody.password = payload.password;
 
+  console.log('In the login', responseBody);
+
   return (dispatch) => {
     fetch('http://localhost:8000/user/' + payload.id,
     {

@@ -12,6 +12,8 @@ const {
     PASSED_ETA,
     SET_PASSED_TIME_DELAY,
     PASSED_ACCEPTABLE_DELAY,
+    LOAD_ACTIVE_TRIP,
+    START_TRIP_SUCCESS,
     LOAD_DELAY,
     SET_ON_TRIP,
     CLEAR_ON_TRIP,
@@ -32,7 +34,7 @@ const initialState = {
 };
 
 export default (state = initialState, {type, payload}) => {
-  if (type === SET_PASSWORD) {console.log('IN USER REDUCER', state, type, payload);}
+  if (type === SET_ON_TRIP) {console.log('IN USER REDUCER', state, type, payload);}
   switch(type) {
     case LOGIN_SUCCESS:
       return extend({}, state, {
@@ -46,6 +48,14 @@ export default (state = initialState, {type, payload}) => {
     case LOAD_EMERGENCY_CONTACT:
       return extend({}, state, {
         emergencyContacts: payload
+      });
+    case SET_ON_TRIP:
+      return extend({}, state, {
+        onTrip: payload.onTrip
+      });
+    case LOAD_ACTIVE_TRIP:
+      return extend({}, state, {
+        onTrip: true
       });
     case LOAD_DELAY:
       return extend({}, state, {
@@ -75,7 +85,6 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, {
         acceptableDelay: payload
       });
-    case SET_ON_TRIP:
     case CLEAR_ON_TRIP:
       return extend({}, state, {
         onTrip: false
