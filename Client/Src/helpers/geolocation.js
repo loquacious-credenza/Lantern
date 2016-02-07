@@ -7,10 +7,15 @@ const {throttle} = require('lodash');
 
 
 
-export function getCurrentPosition (successCallback, errorCallback) {
+export function getCurrentPosition (parent) {
     navigator.geolocation.getCurrentPosition(
-      (initialPosition) => successCallback({initialPosition}), // success callback
-      (error) => errorCallback(error.message), // failure callback
+      (initialPosition) => {
+        parent.props.navigator.replace({
+          name: 'startLocation',
+          currentLocation: initialPosition
+        });
+      }, // success callback
+      (error) => Alert(error.message), // failure callback
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
     );
   };

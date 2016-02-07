@@ -19,6 +19,8 @@ var {
   FBSDKAccessToken,
 } = FBSDKCore;
 
+var geolocation = require('../helpers/geolocation');
+
 var Login = React.createClass({
 
   componentDidMount: function() {
@@ -63,8 +65,8 @@ var Login = React.createClass({
             onTrip,
             password
           });
-
-          this.props.navigator.replace({name: 'startLocation'});
+          geolocation.getCurrentPosition(this);
+          // this.props.navigator.replace({name: 'startLocation'});
         } else {
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
 
