@@ -37,7 +37,12 @@ export default class MapStart extends Component {
       stage: 'setStart',
       description: 'Confirm Start',
       markers: [],
-      region: null,
+      region: {
+        latitude: this.props.route.currentLocation.coords.latitude,
+        longitude:this.props.route.currentLocation.coords.longitude,
+        latitudeDelta: .2,
+        longitudeDelta: .2 / ASPECT_RATIO
+      },
       show: true,
       inRange: false,
       checkedIn: false,
@@ -48,12 +53,8 @@ export default class MapStart extends Component {
   onRegionChange = (region) => {
     this.setState({ region: region });
   };
-  componentWillMount() {
-    getCurrentPosition(() => this.setState, () => alert);
-  }
   componentDidMount() {
     setTimeout(() => {
-      console.log("HERE IS yOUr USER", this.props.state.user);
       if(this.props.state.user.password === ''){
         this.props.navigator.push({name: 'passcodeSet'});
       }
@@ -107,13 +108,13 @@ export default class MapStart extends Component {
   };
 
   render() {
-    // console.log('RENDERING', this.props.state.user)
+
     const { state, actions, navigator } = this.props;
     const { currentLocation, user } = state; //destructure the parts of state that you need
-    // console.log('IN THE RENDER OF CREATE TRIP', user);
+
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state
-    // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
+
     var checkIn = this.state.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
