@@ -6,6 +6,8 @@ import React, {
 
 var PasswordGesture = require('react-native-gesture-password');
 
+var geolocation = require('../helpers/geolocation');
+
 
 export default class Passcode extends Component {
   constructor(props) {
@@ -25,7 +27,7 @@ export default class Passcode extends Component {
           });
 
           this.props.actions.checkIn(this.props.state.user.id);
-          this.props.navigator.replace({name: 'home'});
+          geolocation.getCurrentPosition(this);
           // your codes to close this view
       } else {
           this.setState({
