@@ -10,7 +10,21 @@ module.exports = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: height/17,
+    height: base.BUTTON_HEIGHT,
+    width: width*.4,
+    margin: 5,
+    alignSelf: 'center',
+    padding: 5,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: base.Primary1,
+  },
+  button2: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: base.BUTTON_HEIGHT * 2,
     width: width*.4,
     margin: 5,
     alignSelf: 'center',
@@ -22,7 +36,7 @@ module.exports = {
   },
   buttonText: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: base.BUTTON_FONT_SIZE,
   },
 
   popUpAlertContainer: {
@@ -155,8 +169,5 @@ module.exports = {
   userContactsText: {
     justifyContent: 'flex-start',
     width: Math.floor(width * 0.7)
-  },
-  passwordBG: {
-    backgroundColor: '#292B38',
   }
 }

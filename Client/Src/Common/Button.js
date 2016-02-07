@@ -16,10 +16,14 @@ const styles = StyleSheet.create(require('../styles.js'));
 
 var Button = React.createClass ({
 
+
   render() {
+    const style = this.props.text.length <= 12 ?
+      styles.button :
+      styles.button2;
 
     return (
-        <TouchableHighlight style={styles.button} underlayColor='rgb(255, 255, 255)' onPress={this.props.onPress}>
+        <TouchableHighlight style={style} underlayColor='rgb(255, 255, 255)' onPress={this.props.onPress}>
           <Text style={styles.buttonText}>{this.props.text}</Text>
         </TouchableHighlight>
     );
