@@ -71,7 +71,7 @@ export default class Settings extends Component {
 
     const showCheckin = user.onTrip ?
       <Button
-          text={'Checkin Now'}
+          text={'Cancel Trip'}
           onPress={() => this.props.navigator.push({name: 'passcodeConfirm'})}
           /> : null;
 
