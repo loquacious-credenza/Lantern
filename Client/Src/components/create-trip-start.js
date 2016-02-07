@@ -92,6 +92,7 @@ export default class MapStart extends Component {
     setMarkers(location, this);
   };
 
+<<<<<<< c8b1bf067ca67212b0488763f75b34f48b887dde
   checkingIn = () => {
     this.props.navigator.push({name: 'passcodeConfirm'});
     // actions.checkIn(state.user.id);
@@ -99,6 +100,8 @@ export default class MapStart extends Component {
     this.setState({checkedIn: true, inRange: false});
   };
 
+=======
+>>>>>>> Timer now unmounts and stops setInterval.
 //handles the submit button being pressed and saves location as start then changes state to next save end
   submit = () => {
     if(this.state.stage === 'setStart'){
@@ -124,14 +127,11 @@ export default class MapStart extends Component {
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
         onPress={()=>{
-          //this.checkingIn();
           actions.checkIn(state.user.id)
         }}
     /> : null;
 
-
-
-    var autocomplete = this.state.show ?
+    var autocomplete = !state.user.onTrip ?
       <View style={[baseStyles.component, styles.autoComplete]}>
         <AutoComplete ref='auto'
           selectPoint={(input)=>{this.changeRegion(input);
@@ -164,7 +164,7 @@ export default class MapStart extends Component {
         <Text></Text>
       </MapView.Callout>;
 
-    var timer = this.state.stage === 'tracking' ?
+    var timer = state.user.onTrip ?
     <Timer
       state = {activeTrip}>
     </Timer> : null;

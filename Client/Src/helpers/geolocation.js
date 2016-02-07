@@ -26,7 +26,6 @@ export function getCurrentPosition (parent) {
 //   },1000);
 
 export function watchPosition (parent, user) {
-    //const state = parent.props.state;
     const addWaypoint = parent.props.actions.addWaypoint;
     const confirmInRange = parent.props.actions.confirmInRange;
     console.log('state in watch is: ', parent.props.state.user.onTrip);
@@ -41,7 +40,6 @@ export function watchPosition (parent, user) {
                                          lastPosition.coords.latitude,
                                          lastPosition.coords.longitude);
         if(distance <= 0.25 && parent.props.state.user.onTrip){
-          //parent.setState({inRange: true});
           confirmInRange();
         }
     });

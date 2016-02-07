@@ -17,6 +17,7 @@ const moment = require('moment');
 
 
 module.exports = React.createClass({
+  mixins:[timerMixin],
   getTimeRemaining: function() {
     var timeRemaining = moment.duration(this.props.timeRemaining)
     var minutes;
