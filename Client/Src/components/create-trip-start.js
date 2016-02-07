@@ -60,11 +60,11 @@ export default class MapStart extends Component {
     ///////////////////////////////////////////////////////
     // THIS CALL TO ASYNC STORAGE NEEDS TO BE DELETED
     // IT IS BEING USED FOR CLEARING AN ACTIVE TRIP WHILE TESTING PASSCODE.
-    AsyncStorage.multiSet([
-      ['onTrip', JSON.stringify('false')],
-      ['activeTrip', JSON.stringify(null)],
-      ['password', JSON.stringify('')]
-      ]);
+    // AsyncStorage.multiSet([
+    //   ['onTrip', JSON.stringify('false')],
+    //   ['activeTrip', JSON.stringify(null)],
+    //   ['password', JSON.stringify('')]
+    //   ]);
     ///////////////////////////////////////////////////////
     if (this.props.state.activeTrip.stage === 'tracking'){
       const { stage, markers, origin, destination} = this.props.state.activeTrip;
