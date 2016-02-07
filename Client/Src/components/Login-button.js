@@ -92,7 +92,7 @@ var Login = React.createClass({
         AsyncStorage.multiSet([['userID',id],['userName',name]]).then(() => {
           //pushing new navigation view
           this.props.actions.login({name:name,id:id});
-          this.props.navigator.replace({name: 'startLocation', sceneConfig: 'FloatFromBottom'})
+          geolocation.getCurrentPosition(this);
         // this.push(name,id);
         })
         // Data from request is in result

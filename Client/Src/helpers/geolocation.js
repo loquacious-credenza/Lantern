@@ -11,7 +11,7 @@ export function getCurrentPosition (parent) {
     navigator.geolocation.getCurrentPosition(
       (initialPosition) => {
         parent.props.navigator.replace({
-          name: 'startLocation',
+          name: 'home',
           currentLocation: initialPosition
         });
       }, // success callback
