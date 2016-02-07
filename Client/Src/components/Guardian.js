@@ -10,6 +10,7 @@ import React, {
 import NavBar from './nav-bar';
 
 // importing styles
+import { baseStyles } from '../styles-base';
 const styles = StyleSheet.create(require('../styles.js'));
 const localStyles = StyleSheet.create({
   guardianContainer: {
