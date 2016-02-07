@@ -77,7 +77,7 @@ class Main extends Component {
 
     return (
       <View style={baseStyles.FullScreen}>
-      <Navigator style={baseStyles.navContainer}
+      <Navigator style={baseStyles.FullScreen}
         initialRoute={{name: 'signin', sceneConfig: 'FloatFromBottom'}}
         state={state}
         actions={actions}

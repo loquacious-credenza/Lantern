@@ -145,6 +145,7 @@ export default class MapStart extends Component {
     </Timer> : null;
 
     return (
+      <View style={baseStyles.navContainer}>
       <View style={[baseStyles.container]}>
         <MapView
           style={baseStyles.container}
@@ -206,6 +207,7 @@ export default class MapStart extends Component {
           label='Guardian'
           />
 
+      </View>
       </View>
     );
   }

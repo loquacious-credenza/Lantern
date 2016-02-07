@@ -52,6 +52,7 @@ export default class Guardian extends Component {
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
 
     return (
+      <View style={baseStyles.navContainer}>
       <View style={localStyles.guardianContainer}>
         <NavBar
           navigator={navigator}
@@ -63,6 +64,7 @@ export default class Guardian extends Component {
           <View style={localStyles.circle}>
           </View>
         </TouchableOpacity>
+      </View>
       </View>
     );
   }
