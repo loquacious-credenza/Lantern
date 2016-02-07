@@ -76,6 +76,7 @@ export default class Settings extends Component {
           /> : null;
 
     return (
+      <View style={baseStyles.navContainer}>
       <View style={[baseStyles.container, baseStyles.bgGray1]}>
         <NavBar
           navigator={navigator}
@@ -98,6 +99,7 @@ export default class Settings extends Component {
             {showInputForm}
             {contactList}
         </View>
+      </View>
       </View>
     );
   }

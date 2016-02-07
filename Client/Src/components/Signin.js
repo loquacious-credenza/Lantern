@@ -4,7 +4,8 @@ import React, {
   StyleSheet,
   Component,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
 // Component
@@ -18,12 +19,13 @@ export default class SignIn extends Component {
   render() {
     const { actions, state, navigator } = this.props;
     return (
-      <View style={[baseStyles.bgGray1]} >
+       <Image source={require('../assets/background.jpeg')} style={[baseStyles.absoluteCenter]}>
         <View style={baseStyles.absoluteCenter}>
-          <Text>Guardian</Text>
+        </View>
+        <View style={baseStyles.absoluteCenter}>
           <Login navigator={navigator} actions={actions}/>
         </View>
-      </View>
+        </Image>
     );
   }
 };
