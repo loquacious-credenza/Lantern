@@ -51,6 +51,7 @@ export default (state = initialState, {type, payload}) => {
       return extend({}, state, {
         id: payload.id,
         startTime: payload.startTime,
+        inRange: payload.inRange,
         eta: payload.eta,
         stage: payload.stage,
         markers: state.markers.concat(payload.markers),

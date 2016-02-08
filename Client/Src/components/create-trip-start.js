@@ -120,9 +120,6 @@ export default class MapStart extends Component {
     const { activeTrip } = this.props.state
 
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
-    console.log('User on trip? ', state.user.onTrip);
-    console.log('Trip in range? ', state.activeTrip.inRange);
-
     var checkIn = state.activeTrip.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}

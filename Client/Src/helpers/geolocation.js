@@ -28,7 +28,6 @@ export function getCurrentPosition (parent) {
 export function watchPosition (parent, user) {
     const addWaypoint = parent.props.actions.addWaypoint;
     const confirmInRange = parent.props.actions.confirmInRange;
-    console.log('state in watch is: ', parent.props.state.user.onTrip);
 
     var watchID = navigator.geolocation.watchPosition((lastPosition) => {
         console.log('REDUX.USER.WATCHING' ,parent.props.state.user);

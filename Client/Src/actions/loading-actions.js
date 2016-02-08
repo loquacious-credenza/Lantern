@@ -21,6 +21,7 @@ export const loadEmergencyContact = (payload) => {
 };
 
 export const loadActiveTrip = (payload) => {
+  console.log('In range? ',payload.inRange);
   return {
     type: LOAD_ACTIVE_TRIP,
     payload
