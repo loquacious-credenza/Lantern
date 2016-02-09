@@ -21,7 +21,7 @@ export function getCurrentPosition (parent) {
   };
 
 
-export function crazyUncleJoesComicallyRedundantGeolocationFunction (successCallback, errorCallback) {
+export function getGeolocationForMarkers (successCallback, errorCallback) {
     navigator.geolocation.getCurrentPosition(
       (initialPosition) => successCallback({initialPosition}), // success callback
       (error) => errorCallback(error.message), // failure callback
