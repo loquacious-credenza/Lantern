@@ -8,6 +8,8 @@ var moment = require('moment');
 
 import { extend } from 'lodash';
 
+import { getGeolocationForMarkers } from '../helpers/geolocation.js'
+
 import {addStart, addDestination, addEta} from './'
 
 import {
@@ -15,7 +17,8 @@ import {
   START_TRIP_ID,
   START_TRIP_FAIL,
   SET_ON_TRIP,
-  CLEAR_ON_TRIP
+  CLEAR_ON_TRIP,
+  ADD_MARKER
 } from '../constants/action-types';
 
 /**
@@ -46,9 +49,8 @@ export const startTrip = (payload) => {
   let activeTrip = {};
   activeTrip.user_id = payload.id;
   activeTrip.stage = 'tracking';
-  activeTrip.origin = payload.origin;
-  activeTrip.markers = payload.markers;
-  activeTrip.destination = payload.destination;
+  activeTrip.origin = payload.markers[0].coordinate;
+  activeTrip.destination = payload.markers[1].coordinate;//destination;
   activeTrip.startTime = moment().format();
   activeTrip.eta = moment(activeTrip.startTime).add(parseInt(payload.etaValue), 'minutes').format();
   activeTrip.overdueTime = moment(activeTrip.eta).add(parseInt(payload.acceptableDelay), 'minutes').format(); // CALCULATE DELAY HERE
@@ -130,7 +132,7 @@ export const setOnTrip = (payload) => {
     ]).then((response) => {
         dispatch({
           type: SET_ON_TRIP,
-          payload
+          payload:{onTrip: true}
         });
       });
   }
@@ -143,15 +145,25 @@ export const clearOnTrip = (payload) => {
       ['activeTrip', JSON.stringify(null)]
     ]).then((response) => {
         dispatch({
-          type: CLEAR_ON_TRIP,
+          type: CLEAR_ON_TRIP
         });
       });
   }
 };
 
 export const addMarker = (payload) => {
-  return {
-    type: 'ADD_MARKER',
-    payload
+  return (dispatch) => {
+    var markers = [];
+    getGeolocationForMarkers(function (location) {
+      markers.push({key:0, id:'origin', coordinate:{latitude: location.initialPosition.coords.latitude, longitude: location.initialPosition.coords.longitude}})
+      markers.push({key:1, id:'destination', coordinate:{latitude: payload.latitude, longitude: payload.longitude}});
+      dispatch({
+        type: ADD_MARKER,
+        payload: markers
+      });
+    }
+    , function (err) {
+      console.log('Error: ', err);
+    });
   }
 }

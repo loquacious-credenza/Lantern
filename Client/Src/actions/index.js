@@ -34,7 +34,8 @@ export {
 //modifies `waypoints`
 export {
   addWaypoint,
-  addWaypointSuccess
+  addWaypointSuccess,
+  confirmInRange
 } from './waypoint-actions'
 
 /*=============================================================*/

@@ -1,6 +1,6 @@
 'use strict';
 
-import { ADD_WAYPOINT } from '../constants/action-types';
+import { ADD_WAYPOINT, CONFIRM_IN_RANGE } from '../constants/action-types';
 
 /**
  * Add geolocation data to the activeTrip.
@@ -26,9 +26,15 @@ export const addWaypoint = (payload, id) => {
 }
 
 export const addWaypointSuccess = (payload) => {
-  console.log('passed');
  return {
      type: ADD_WAYPOINT,
      payload
    };
  }
+
+export const confirmInRange = () => {
+  console.log('confirming in range!');
+  return {
+    type: CONFIRM_IN_RANGE
+  }
+}

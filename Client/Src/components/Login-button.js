@@ -65,6 +65,7 @@ var Login = React.createClass({
             onTrip,
             password
           });
+          console.log('login this', this)
           geolocation.getCurrentPosition(this);
           // this.props.navigator.replace({name: 'startLocation'});
         } else {

@@ -16,6 +16,7 @@ var moment = require('moment');
 var endTime;
 
 var TimerOverlay = React.createClass({
+  mixins:[timerMixin],
   getInitialState: function(){
    return {
       timeRemaining: 1000,
@@ -28,7 +29,7 @@ var TimerOverlay = React.createClass({
     var now = moment()
     var timeRemaining = (moment(eta)-now) - (moment(eta)-now)%1000;
     this.setState({timeRemaining: timeRemaining});
-    timerMixin.setInterval.call(this, function(){
+    this.setInterval(function(){
       this.setState({timeRemaining: this.state.timeRemaining -= 1000});
     },1000);
   },

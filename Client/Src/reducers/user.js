@@ -34,7 +34,7 @@ const initialState = {
 };
 
 export default (state = initialState, {type, payload}) => {
-  if (type === SET_ON_TRIP) {console.log('IN USER REDUCER', state, type, payload);}
+  //if (type === SET_ON_TRIP) {console.log('IN USER REDUCER', state, type, payload);}
   switch(type) {
     case LOGIN_SUCCESS:
       return extend({}, state, {
@@ -84,6 +84,10 @@ export default (state = initialState, {type, payload}) => {
     case SET_PASSED_TIME_DELAY:
       return extend({}, state, {
         acceptableDelay: payload
+      });
+    case SET_ON_TRIP:
+      return extend({}, state, {
+        onTrip: true
       });
     case CLEAR_ON_TRIP:
       return extend({}, state, {
