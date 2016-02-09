@@ -54,7 +54,7 @@ export default (state = initialState, {type, payload}) => {
         inRange: payload.inRange,
         eta: payload.eta,
         stage: payload.stage,
-        markers: state.markers.concat(payload.markers),
+        // markers: state.markers.concat(payload.markers),
         overdueTime: payload.overdueTime,
         origin: extend({}, state.origin, payload.origin),
         destination: extend({}, state.destination, payload.destination),
@@ -64,7 +64,8 @@ export default (state = initialState, {type, payload}) => {
       return initialState;
     case ADD_MARKER:
       return extend({}, state, {
-        markers: state.markers.concat([payload])
+        //markers: state.markers.concat([payload])
+        markers: payload
       });
     case RESET_DELAY:
       return extend({}, state, {endTime:new Date});

@@ -88,11 +88,11 @@ export default class MapStart extends Component {
       longitudeDelta: .005 / ASPECT_RATIO}});
   };
   //snaps view to location sets markers on start and end also adjust for marker changes before submit.
-  setMarker = (location) => {
-    setMarkers(location, this);
-  };
-
-<<<<<<< c8b1bf067ca67212b0488763f75b34f48b887dde
+  // setMarker = (location, state) => {
+  //   setMarkers(location, this, state);
+  //   //setMarkers(location, this);
+  // };
+  
   checkingIn = () => {
     this.props.navigator.push({name: 'passcodeConfirm'});
     // actions.checkIn(state.user.id);
@@ -100,8 +100,6 @@ export default class MapStart extends Component {
     this.setState({checkedIn: true, inRange: false});
   };
 
-=======
->>>>>>> Timer now unmounts and stops setInterval.
 //handles the submit button being pressed and saves location as start then changes state to next save end
   submit = () => {
     if(this.state.stage === 'setStart'){
@@ -115,11 +113,12 @@ export default class MapStart extends Component {
 
     const { state, actions, navigator } = this.props;
     const { currentLocation, user } = state; //destructure the parts of state that you need
-
-    const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
+    const { getCurrentLocation, addMarker } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state
 
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
+    //console.log("state: ", state);
+
     var checkIn = state.activeTrip.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
@@ -136,7 +135,7 @@ export default class MapStart extends Component {
         />
       </View> : null;
 
-    var eta = this.state.stage === 'eta' ?
+    var eta = (state.activeTrip.markers.length > 0 && !state.user.onTrip) ?// === 'eta' ?
       <ETA startTrip={(payload)=> {
           actions.startTrip(payload);
           this.setState({
@@ -150,6 +149,18 @@ export default class MapStart extends Component {
         acceptableDelay={state.user.acceptableDelay}
         >
       </ETA> : null;
+
+    var destination = state.activeTrip.markers.length > 0 ? 
+      <MapView.Marker
+        key={state.activeTrip.markers[1].key}
+        coordinate={state.activeTrip.markers[1].coordinate}
+        ref={state.activeTrip.markers[1].id}
+        title={state.activeTrip.markers[1].id}
+        onDragEnd={(e) => {addMarker(e.nativeEvent.coordinate)}}
+        draggable>
+        {callout}
+      </MapView.Marker>
+    : null;
 
     var callout = this.state.show ?
       <MapView.Callout>
@@ -166,6 +177,17 @@ export default class MapStart extends Component {
       state = {activeTrip}>
     </Timer> : null;
 
+          // {state.activeTrip.markers.map(marker => (
+          //   <MapView.Marker
+          //     key={marker.key}
+          //     coordinate={marker.coordinate}
+          //     ref={marker.id}
+          //     title={marker.id}
+          //     onDragEnd={(e) => {this.setMarker(e.nativeEvent.coordinate, state)}}
+          //     draggable>
+          //     {callout}
+          //   </MapView.Marker>
+          // ))}
     return (
       <View style={baseStyles.navContainer}>
       <View style={[baseStyles.container]}>
@@ -174,22 +196,10 @@ export default class MapStart extends Component {
           showsUserLocation={true}
           region={this.state.region}
           onRegionChange={this.onRegionChange}
-          onLongPress={(e) => {this.setMarker(e.nativeEvent.coordinate)}}
+          onLongPress={(e) => {addMarker(e.nativeEvent.coordinate)}}
           onPress={()=> {if(this.state.show){this.refs.auto.refs.Auto.setState({listViewDisplayed: false}); this.refs.auto.refs.Auto.triggerBlur();}}}
-          >
-
-          {this.state.markers.map(marker => (
-            <MapView.Marker
-              key={marker.key}
-              coordinate={marker.coordinate}
-              ref={marker.id}
-              title={marker.id}
-              onDragEnd={(e) => {this.setMarker(e.nativeEvent.coordinate)}}
-              draggable>
-              {callout}
-            </MapView.Marker>
-          ))}
-
+        >
+          { destination }
         </MapView>
 
         <NavBar

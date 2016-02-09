@@ -2,7 +2,7 @@
 
 
 
-export function setMarkers (location, parent) {
+export function setMarkers (location, parent, appState) {
     if(parent.state.stage === 'setStart'){
       parent.setState({startPoint: location});
       if(parent.state.markers.length === 0){

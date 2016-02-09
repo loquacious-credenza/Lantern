@@ -8,6 +8,8 @@ var moment = require('moment');
 
 import { extend } from 'lodash';
 
+import { getCurrentPosition } from '../helpers/geolocation.js'
+
 import {addStart, addDestination, addEta} from './'
 
 import {
@@ -47,9 +49,8 @@ export const startTrip = (payload) => {
   let activeTrip = {};
   activeTrip.user_id = payload.id;
   activeTrip.stage = 'tracking';
-  activeTrip.origin = payload.origin;
-  activeTrip.markers = payload.markers;
-  activeTrip.destination = payload.destination;
+  activeTrip.origin = payload.markers[0].coordinate;
+  activeTrip.destination = payload.markers[1].coordinate;//destination;
   activeTrip.startTime = moment().format();
   activeTrip.eta = moment(activeTrip.startTime).add(parseInt(payload.etaValue), 'minutes').format();
   activeTrip.overdueTime = moment(activeTrip.eta).add(parseInt(payload.acceptableDelay), 'minutes').format(); // CALCULATE DELAY HERE
@@ -66,6 +67,7 @@ export const startTrip = (payload) => {
         id: JSON.parse(response._bodyInit)._id,
         waypoints: []
       });
+      console.log('After: ', activeTrip);
       dispatch(setOnTrip({
         onTrip: true,
         activeTrip
@@ -124,6 +126,7 @@ export const startTripError = (payload) => {
 }
 
 export const setOnTrip = (payload) => {
+  console.log('4');
   return (dispatch) => {
     AsyncStorage.multiSet([
       ['onTrip', JSON.stringify(payload.onTrip)],
@@ -150,8 +153,18 @@ export const clearOnTrip = (payload) => {
 };
 
 export const addMarker = (payload) => {
-  return {
-    type: ADD_MARKER,
-    payload
+  return (dispatch) => {
+    var markers = [];
+    getCurrentPosition(function (location) {
+      markers.push({key:0, id:'origin', coordinate:{latitude: location.initialPosition.coords.latitude, longitude: location.initialPosition.coords.longitude}})
+      markers.push({key:1, id:'destination', coordinate:{latitude: payload.latitude, longitude: payload.longitude}});
+      dispatch({
+        type: ADD_MARKER,
+        payload: markers
+      });
+    }
+    , function (err) {
+      console.log('Error: ', err);
+    });
   }
-};
+}
