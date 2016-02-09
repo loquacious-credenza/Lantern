@@ -23,7 +23,6 @@ import tutorialContent from '../constants/tutorial-content';
 import Button from '../Common/Button';
 
 
-
 var Carousel = require('react-native-carousel');
 
 var TutorialOverlay = React.createClass({
