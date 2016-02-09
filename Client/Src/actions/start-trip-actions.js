@@ -67,7 +67,6 @@ export const startTrip = (payload) => {
         id: JSON.parse(response._bodyInit)._id,
         waypoints: []
       });
-      console.log('After: ', activeTrip);
       dispatch(setOnTrip({
         onTrip: true,
         activeTrip
@@ -126,7 +125,6 @@ export const startTripError = (payload) => {
 }
 
 export const setOnTrip = (payload) => {
-  console.log('4');
   return (dispatch) => {
     AsyncStorage.multiSet([
       ['onTrip', JSON.stringify(payload.onTrip)],
