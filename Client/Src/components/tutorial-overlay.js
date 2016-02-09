@@ -32,7 +32,7 @@ var TutorialOverlay = React.createClass({
     
     navigator = this.props.navigator
     return (
-     <View style={[baseStyles.navContainer,baseStyles.bgGray1]}>
+     <View style={[baseStyles.navContainer,{backgroundColor:'white'}]}>
         <NavBar
           navigator={navigator}
           description={this.state.description}
