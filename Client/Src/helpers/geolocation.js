@@ -20,6 +20,15 @@ export function getCurrentPosition (parent) {
     );
   };
 
+
+export function crazyUncleJoesComicallyRedundantGeolocationFunction (successCallback, errorCallback) {
+    navigator.geolocation.getCurrentPosition(
+      (initialPosition) => successCallback({initialPosition}), // success callback
+      (error) => errorCallback(error.message), // failure callback
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000} // options
+    );
+  };
+
     // Repeatedly track position
 // var throttledLocationSend = throttle(function(){
 //     addWaypoint.call(null,arguments);

@@ -8,7 +8,7 @@ var moment = require('moment');
 
 import { extend } from 'lodash';
 
-import { getCurrentPosition } from '../helpers/geolocation.js'
+import { crazyUncleJoesComicallyRedundantGeolocationFunction } from '../helpers/geolocation.js'
 
 import {addStart, addDestination, addEta} from './'
 
@@ -130,8 +130,10 @@ export const setOnTrip = (payload) => {
       ['onTrip', JSON.stringify(payload.onTrip)],
       ['activeTrip', JSON.stringify(payload.activeTrip)]
     ]).then((response) => {
+      console.log('dispatch: ', dispatch);//, dispatch({type: SET_ON_TRIP}), dispatch.toString());
         dispatch({
-          type: SET_ON_TRIP
+          type: SET_ON_TRIP,
+          payload:{onTrip: true}
         });
       });
   }
@@ -153,7 +155,7 @@ export const clearOnTrip = (payload) => {
 export const addMarker = (payload) => {
   return (dispatch) => {
     var markers = [];
-    getCurrentPosition(function (location) {
+    crazyUncleJoesComicallyRedundantGeolocationFunction(function (location) {
       markers.push({key:0, id:'origin', coordinate:{latitude: location.initialPosition.coords.latitude, longitude: location.initialPosition.coords.longitude}})
       markers.push({key:1, id:'destination', coordinate:{latitude: payload.latitude, longitude: payload.longitude}});
       dispatch({
