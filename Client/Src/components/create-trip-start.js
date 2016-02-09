@@ -115,7 +115,6 @@ export default class MapStart extends Component {
     const { currentLocation, user } = state; //destructure the parts of state that you need
     const { getCurrentLocation, addMarker } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state;
-    console.log("state: ", state);
 
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
     

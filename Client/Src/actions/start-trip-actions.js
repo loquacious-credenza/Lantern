@@ -130,7 +130,6 @@ export const setOnTrip = (payload) => {
       ['onTrip', JSON.stringify(payload.onTrip)],
       ['activeTrip', JSON.stringify(payload.activeTrip)]
     ]).then((response) => {
-      console.log('dispatch: ', dispatch);//, dispatch({type: SET_ON_TRIP}), dispatch.toString());
         dispatch({
           type: SET_ON_TRIP,
           payload:{onTrip: true}
