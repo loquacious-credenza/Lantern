@@ -18,6 +18,11 @@ export const BUTTON_FONT_SIZE_SMALL = 14;
 // System Offsets
 export const SYSTEM_STATUS_BAR_WIDTH = 20;
 
+export const FONT_LIGHT = '200';
+export const FONT_HEAVY = '300';
+export const FONT = 'Helvetica Neue';
+
+
 export const FULL_WIDTH = width;//Width based constants
 export const FULL_WIDTH_PADDED = Math.floor(width * 0.9);
 export const THREE_QUARTER_WIDTH = Math.floor(width * 0.75);

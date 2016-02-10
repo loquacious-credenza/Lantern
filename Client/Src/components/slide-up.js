@@ -47,6 +47,8 @@ const styles = StyleSheet.create({
     width: width,
     bottom: 25,
     fontSize: 16,
+    fontFamily: base.FONT,
+    fontWeight: base.FONT_HEAVY,
     color:'white',
     backgroundColor: 'transparent'
   },

@@ -137,18 +137,21 @@ var componentStyles = StyleSheet.create({
     marginTop:15
   },
   header: {
-    fontSize:20, 
+    fontWeight: '200',
+    fontFamily: baseStyles.FONT,
+    fontSize:24, 
     alignSelf:'center',
     color: '#4489CB',
     marginBottom: 5,
-    fontWeight: 'bold'
   },
   text: {
-    //top: height/5,
-    fontSize: 16, 
+    fontSize: 14, 
+    fontFamily: baseStyles.FONT,
+    fontWeight:'100',
+    color:'#1a1a1a'
   },
   image: {
-    borderWidth: 2,
+    borderWidth: .8,
     borderColor: 'black'  }
 });
 
