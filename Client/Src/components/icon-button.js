@@ -13,9 +13,9 @@ import React, {
 const styles = StyleSheet.create(require('../styles.js'));
 
 const icons = {
-  rightArrow: require('../assets/half-arrow-right-7.png'),
+  rightArrow: require('../assets/half-arrow-right-7white.png'),
   upArrow: 'later',
-  leftArrow: require('../assets/half-arrow-left-7.png'),
+  leftArrow: require('../assets/half-arrow-left-7white.png'),
   shield: require('../assets/shieldwhite.png'),
   gear: require('../assets/gear-7white.png'),
   bike: "addlater",
