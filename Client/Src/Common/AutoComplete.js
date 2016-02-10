@@ -2,6 +2,7 @@ var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplet
 var React = require('react-native');
 import Keys from '../Keys'
 
+import { baseStyles } from '../styles-base';
 const homePlace = {description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 const workPlace = {description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
@@ -29,11 +30,18 @@ var AutoComplete = React.createClass({
           // types: '(establishment)', // default: 'geocode'
         }}
         styles={{
+          input: {
+            fontFamily: baseStyles.FONT_HEAVY,
+            fontWeight: '100',
+            color:'black',
+          },
           description: {
-            fontWeight: 'bold',
+            fontFamily: baseStyles.FONT_HEAVY,
+            fontWeight: '300',
+            color:'black',
           },
           predefinedPlacesDescription: {
-            color: '#1faadb',
+            color: 'black',
           },
         }}
 
@@ -50,14 +58,13 @@ var AutoComplete = React.createClass({
         GooglePlacesSearchQuery={{
           // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
           rankby: 'distance',
-          types: 'food',
+          type: 'establishment'
         }}
         enablePoweredByContainer={false}
 
 
         filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
 
-        predefinedPlaces={[homePlace, workPlace]}
       />
     );
   }

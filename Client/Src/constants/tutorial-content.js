@@ -6,7 +6,7 @@ module.exports = {
           + " Before we can get started, we need to go over some housekeeping items."
   },
   1: {
-    title: 'Lantern is not a substitute for 911',
+    title: 'Not a substitute for 911',
     body: "If you feel unsafe, you need to call 911, which is the fastest and most reliable way for you to get help."
           + " Under no circumstances should Lantern be considered a substitute for dialing 911." 
   },

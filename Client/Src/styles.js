@@ -24,11 +24,11 @@ module.exports = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: base.BUTTON_HEIGHT * 2,
+    height: base.BUTTON_HEIGHT * 1.5,
     width: width*.4,
     margin: 5,
     alignSelf: 'center',
-    padding: 5,
+    padding: 2,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
@@ -37,6 +37,8 @@ module.exports = {
   buttonText: {
     textAlign: 'center',
     fontSize: base.BUTTON_FONT_SIZE,
+    fontFamily: base.FONT,
+    fontWeight: base.FONT_LIGHT
   },
 
   popUpAlertContainer: {
@@ -51,6 +53,8 @@ module.exports = {
   popUpText: {
     textAlign: 'center',
     padding: 5,
+    fontFamily:base.FONT,
+    fontWeight:base.FONT_HEAVY
   },
 
   //NavBar
@@ -72,6 +76,8 @@ module.exports = {
     width: width,
     alignSelf: 'flex-end',
     fontSize: 18,
+    fontFamily: base.FONT,
+    fontWeight: base.FONT_HEAVY,
     backgroundColor: 'transparent',
     paddingBottom: 10,
     color: 'white'
@@ -89,7 +95,7 @@ module.exports = {
   //Map View
 
   autoComplete: {
-    backgroundColor: base.GrayLight,
+    backgroundColor: 'white',
   },
 
   timerContainer: {
@@ -132,6 +138,8 @@ module.exports = {
     fontSize: 16,
     textAlign: 'center',
     padding: 5,
+    fontFamily: base.FONT,
+    fontWeight: base.FONT_LIGHT
   },
   slider: {
     width: Math.floor(width * .9),

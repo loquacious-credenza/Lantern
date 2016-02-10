@@ -38,7 +38,7 @@ var ETA = React.createClass({
   render: function() {
 
     return (
-      <PopUpAlert elementText={"Please confirm your ETA"}
+      <PopUpAlert elementText={"Please confirm your ETA (minutes)"}
         extra={<TextInput
           style={componentStyles.input}
           onChangeText={(etaValue) => this.setState({etaValue})}
@@ -46,7 +46,7 @@ var ETA = React.createClass({
           autoFocus={true}
           keyboardType='numeric'>
         </TextInput>}
-      buttonText={'Minutes'}
+      buttonText={'Start Tracking'}
       onPress={this.handleSubmit} />
          
     );
