@@ -39,18 +39,9 @@ var TutorialOverlay = React.createClass({
         <NavBar
           navigator={navigator}
           description={this.state.description}
-          right={{
-            image: 'gear',
-            action: () => navigator.push({
-              name: 'settings'
-            })
-          }}
           left={{
-            image: 'shield',
-            action: () => navigator.push({
-              name: 'guardian',
-              sceneConfig: 'FloatFromLeft'
-            })
+            image: 'leftArrow',
+            action: () => navigator.pop()
           }}
           />
       

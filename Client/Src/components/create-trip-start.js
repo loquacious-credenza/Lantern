@@ -251,7 +251,7 @@ export default class MapStart extends Component {
           left={{
             image: 'shield',
             action: () => navigator.push({
-              name: 'settings',
+              name: 'tutorial',
               sceneConfig: 'FloatFromLeft'
             })
           }}
