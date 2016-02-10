@@ -48,7 +48,7 @@ var renderUserToPage = function (data) {
 	$('#user-phone').html(data.phone);
 };
 
-// THIS FUNCTION MAKES A GET REQUEST TO THE SERVER EVERY 20 SECONDS, PROVIDING 'user_id' and 'trip_id' IN THE URL. 
+// THIS FUNCTION MAKES A GET REQUEST TO THE SERVER EVERY 20 SECONDS, PROVIDING 'user_id' and 'trip_id' IN THE URL.
 // IT THEN PASSES THE RESULTING DATA ALONG TO 'renderLocations'.
 var updateLocationData = function (map, targetUrl) {
 	$.ajax({
@@ -56,7 +56,7 @@ var updateLocationData = function (map, targetUrl) {
 		type: 'GET',
 		success: function (data) {
 			renderLocationsToMap(map, data);
-		}, 
+		},
 		error: function (err) {
 			console.log("Error getting map data: ", err);
 		}
@@ -76,14 +76,17 @@ var updateUserData = function (targetUrl) {
 	});
 };
 
-// THIS FUNCTION IS SOMEWHAT JANKY AND COULD PROBABLY BE AVOIDED ALTOGETHER WITH SOME REFACTORING. A WORD ON WHAT THIS FUNCTION IS FOR: 
+// THIS FUNCTION IS SOMEWHAT JANKY AND COULD PROBABLY BE AVOIDED ALTOGETHER WITH SOME REFACTORING. A WORD ON WHAT THIS FUNCTION IS FOR:
 // CURRENTLY, THE CONTACT BEING NOTIFIED IS SENT A LINK TO localhost:8000/contacts/(user_id)/(trip_id). EXPRESS IS CURRENTLY SET TO SERVE
 // STATIC FILES TO THIS URL. IN OTHER WORDS, CALLING GET TO THIS SAME URL RESULTS IN THE ENTIRE PAGE RELOADING. TO AVOID THIS, THIS FUNCTION
 // PARSES OUT THE RELEVANT PARAMETERS IN THE ORIGINAL LINKS' URL AND ATTACHES THEM TO 'parsedUrl'. THIS NEW URL IS THEN USED FOR REQUESTING
-// TRIP DATA FROM THE SERVER
+// TRIP DATA FROM THE SERVER. IT ALSO PROVIDES A LINK FOR LIVE VIDEO FEED.
 var parseUrl = function (url) {
 	var parsedUrl = url.split('contact/');
+  var videoUrl = $('#videoLink').attr('href') + parsedUrl[1].split('/')[0];
+
 	parsedUrl = parsedUrl[0] + 'userpath/' + parsedUrl[1];
+  $('#videoLink').attr('href', videoUrl);
 	return parsedUrl;
 };
 

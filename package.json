@@ -13,6 +13,7 @@
     "nodemailer": "^2.0.0",
     "react": "^0.14.6",
     "redux-thunk": "^1.0.3",
+    "socket.io": "^1.4.5",
     "twilio": "^2.8.0"
   },
   "devDependencies": {

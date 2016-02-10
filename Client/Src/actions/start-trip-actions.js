@@ -8,9 +8,14 @@ var moment = require('moment');
 
 import { extend } from 'lodash';
 
-import { getGeolocationForMarkers } from '../helpers/geolocation.js'
+import { getGeolocationForMarkers } from '../helpers/geolocation.js';
 
-import {addStart, addDestination, addEta} from './'
+import {
+  SERVER_URL,
+  SERVER_PORT
+} from '../constants/network';
+
+import {addStart, addDestination, addEta} from './';
 
 import {
   START_TRIP_SUCCESS,
@@ -57,7 +62,7 @@ export const startTrip = (payload) => {
 
   return (dispatch) => {
     dispatch(startTripSuccess(activeTrip));
-    fetch('http://localhost:8000/user/' + payload.id +'/trip',
+    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}/trip`,
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

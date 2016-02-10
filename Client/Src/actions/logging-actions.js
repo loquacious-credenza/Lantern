@@ -15,6 +15,11 @@ import {
   LOGIN_FAIL,
 } from '../constants/action-types';
 
+import {
+  SERVER_URL,
+  SERVER_PORT
+} from '../constants/network';
+
 // var rest = require('rest')
 /**
  * The action dispatched on login
@@ -30,14 +35,16 @@ export const login = (payload) => {
   responseBody.onTrip = payload.onTrip;
   responseBody.password = payload.password;
 
+  console.log('JUST BEFORE FETCH', payload);
   return (dispatch) => {
-    fetch('http://localhost:8000/user/' + payload.id,
+    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}`,
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(responseBody)
     }).then( (response) => {
       var data = JSON.parse(response._bodyInit);
+      console.log('GOT RESPONSE FROM SERVER', data);
       dispatch(loginSuccess(data.user));
       dispatch(loadDelay(data.user.delay));
       dispatch(loadEmergencyContact(data.user.contacts))

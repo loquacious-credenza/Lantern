@@ -6,7 +6,13 @@ import {
   CHECK_IN_FAIL
 } from '../constants/action-types';
 
-import { clearOnTrip } from './'
+import { clearOnTrip } from './';
+
+import {
+  SERVER_URL,
+  SERVER_PORT
+} from '../constants/network';
+
 /**
  * Action that fires when user clicks `check-in`.
  * Initiates an authenticate process.
@@ -18,7 +24,7 @@ export const checkIn = (payload) => { // payload is the USERID
   // initiate a transition to authenticated action
   // send a message to server
   return (dispatch) => {
-  	fetch('http://localhost:8000/user/' + payload + '/trip', {
+  	fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload}/trip`, {
   		method: 'DELETE',
   		body: null
   	})
@@ -52,7 +58,7 @@ export const checkInSuccess = () => {
 //  * Will attempt to retry connection with server.
 //  * @param  {object} payload the response from server and original geolocation object
 //  * @return {object}         processed by reducer
- 
+
 // export const checkInFail = (payload) => {
 //   // do stuff when the server did responded with error on authenticate
 //   return {
