@@ -49,13 +49,8 @@ var TutorialOverlay = React.createClass({
 
       <View >
        <Carousel width={width} animate={false} indicatorOffset={20}>
-<<<<<<< b9dda045b5557bf7b638ee2f4821ec0da9ae6781
-              <View style={componentStyles.container}>
-              <View style={{marginBottom:50}}>
-=======
               <View style={[componentStyles.container]}>
               <View style={{marginBottom:10}}>
->>>>>>> Tutorial styles added.
                 <Image style={componentStyles.image} source={require('../assets/logo.png')}></Image>
               </View>
                 <View style={[componentStyles.textContainer]}>
@@ -98,27 +93,23 @@ var TutorialOverlay = React.createClass({
                <View style={{marginBottom:10}}>
                 <Image style={componentStyles.image} source={require('../assets/emergency.png')}></Image>
                 </View>
-<<<<<<< b9dda045b5557bf7b638ee2f4821ec0da9ae6781
-                <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['4'].title}</Text>
-                <Text>{tutorialContent['4'].body}</Text>
-
-              </View>              
-              <View style={componentStyles.container}>
-               <View style={{marginBottom:10}}>
-                
-                </View>
-                <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['5'].title}</Text>
-                <Text style={{marginBottom:10}}>{tutorialContent['5'].body}</Text>
-                <Button 
-                text={'Finish Tutorial'} 
-                onPress={() => this.props.navigator.push({name: 'home'})}>
-                </Button>
-=======
                 <View style={[componentStyles.textContainer]}>
                   <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['4'].title}</Text>
                   <Text style={componentStyles.text}>{tutorialContent['4'].body}</Text>
                 </View>
->>>>>>> Tutorial styles added.
+              </View>
+              <View style={componentStyles.container}>
+               <View style={{marginBottom:10}}>
+                <Image style={componentStyles.image} source={require('../assets/emergency.png')}></Image>
+                </View>
+                <View style={[componentStyles.textContainer]}>
+                  <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['5'].title}</Text>
+                  <Text style={componentStyles.text}>{tutorialContent['5'].body}</Text>
+                  <Button 
+                  text={'Finish Tutorial'} 
+                  onPress={() => this.props.navigator.push({name: 'home'})}>
+                  </Button>
+                </View>
               </View>
       </Carousel>
       </View>
