@@ -152,6 +152,7 @@ export const clearOnTrip = (payload) => {
 };
 
 export const addMarker = (payload) => {
+  
   return (dispatch) => {
     var markers = [];
     getGeolocationForMarkers(function (location) {

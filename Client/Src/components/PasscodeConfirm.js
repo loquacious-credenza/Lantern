@@ -26,8 +26,14 @@ export default class Passcode extends Component {
               message: 'Password is right, success.'
           });
 
+          this.props.actions.setStage('setDestination');
           this.props.actions.checkIn(this.props.state.user.id);
-          geolocation.getCurrentPosition(this);
+          this.props.navigator.pop();
+
+          // TO DO: UNDERSTAND WHY THIS IS IMPORTANT AND FIX IT
+          // geolocation.getCurrentPosition(this, ()=>{
+          //   this.props.navigator.replace({name:'home'})
+          // });
           // your codes to close this view
       } else {
           this.setState({

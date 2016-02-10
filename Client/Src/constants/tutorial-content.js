@@ -24,6 +24,8 @@ module.exports = {
   4: {
     title: 'Emergency contacts',
     body: "Give us the name and number of up to five emergency contacts. If you do not make it to your destination before your ETA and Acceptable Delay" 
-          + " have passed, we will notify your emergency contacts of this."
-  }
+          + " have passed, we will notify your emergency contacts."
+  },
+  5: {
+    title: "Great! Let's get started."  }
 }

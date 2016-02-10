@@ -13,12 +13,14 @@ const {
   ADD_DESTINATION,
   CLEAR_ON_TRIP,
   ADD_MARKER,
-  ADD_START
+  ADD_START,
+  SET_STAGE,
+  SET_DESCRIPTION
 } = require('../constants/action-types');
 
 const initialState = {
   id: null,
-  stage: 'setStart',
+  stage: 'setDestination', // OPTIONS: 1. setDestination 2. setEta 3. tracking 4. completed
   startTime: null,
   markers: [],
   eta: null,
@@ -26,11 +28,16 @@ const initialState = {
   inRange: false,
   origin: {},
   destination: {},
-  waypoints: []
+  waypoints: [],
+  description: 'Enter your destination'
 };
 
 export default (state = initialState, {type, payload}) => {
   switch(type) {
+    case SET_DESCRIPTION:
+      return extend({}, state, {description:payload})
+    case SET_STAGE:
+      return extend({}, state, {stage:payload})
     case START_TRIP_SUCCESS:
       return extend({}, state, payload);
     case START_TRIP_ID:

@@ -18,7 +18,8 @@ const {
     SET_ON_TRIP,
     CLEAR_ON_TRIP,
     LOAD_EMERGENCY_CONTACT,
-    SET_PASSWORD
+    SET_PASSWORD,
+    CHANGE_TUTORIAL
 } = require('../constants/action-types');
 
 const initialState = {

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 20,
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderBottomColor: base.Primary2
+    borderBottomColor: base.Primary0,
   },
   sliderTip: {
     alignSelf: 'center',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     height: 40,
     width: width,
-    backgroundColor: base.Primary2
+    backgroundColor: base.Primary0
   },
   sliderText: {
     position: 'absolute',
