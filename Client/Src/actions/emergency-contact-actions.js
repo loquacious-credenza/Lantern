@@ -9,6 +9,11 @@ import {
   UPDATE_EMERGENCY_CONTACT
 } from '../constants/action-types';
 
+import {
+  SERVER_URL,
+  SERVER_PORT
+} from '../constants/network';
+
 /**
  * Action that sends updated contacts back to server.
  * This method sends the entire contacts array (5 items)
@@ -60,7 +65,7 @@ export const addEmergencyContact = (payload) => {
       contact_phone: payload.phone,
       contact_email: payload.email
     }));
-    fetch(`http://localhost:8000/user/${payload.id}/contacts`,
+    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}/contacts`,
       {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
@@ -84,7 +89,7 @@ export const addEmergencyContactSuccess = (payload) => {
 
 export const removeEmergencyContact = (payload) => {
   return (dispatch) => {
-    fetch('http://localhost:8000/user/' + payload.user_id + '/contacts',
+    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.user_id}/contacts`,
     {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},

@@ -2,6 +2,11 @@
 
 import { ADD_WAYPOINT, CONFIRM_IN_RANGE } from '../constants/action-types';
 
+import {
+  SERVER_URL,
+  SERVER_PORT
+} from '../constants/network';
+
 /**
  * Add geolocation data to the activeTrip.
  * The payload is pushed into the `activeTrip.waypoints` array.
@@ -11,7 +16,7 @@ import { ADD_WAYPOINT, CONFIRM_IN_RANGE } from '../constants/action-types';
 export const addWaypoint = (payload, id) => {
   var requestBody = {location:{coordinates:[payload.longitude, payload.latitude]}};
   return (dispatch) => {
-    fetch('http://localhost:8000/user/' + id + '/trip', {
+    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${id}/trip`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(requestBody)
