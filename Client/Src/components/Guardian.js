@@ -7,7 +7,8 @@ import React, {
   Text,
   TouchableOpacity,
   TouchableHighlight,
-  TextInput
+  TextInput,
+  AsyncStorage,
 } from 'react-native';
 import NavBar from './nav-bar';
 
@@ -24,12 +25,11 @@ var {
 window.navigator.userAgent = "react-native";
 const io = require('socket.io-client/socket.io');
 
-const socket = io.connect('http://react-native-webrtc.herokuapp.com');
+
 
 // importing styles
 import { baseStyles } from '../styles-base';
 const styles = StyleSheet.create(require('../styles.js'));
-const baseStyles = StyleSheet.create(require('../styles.js'));
 const localStyles = StyleSheet.create({
   guardianContainer: {
     position: 'absolute',
@@ -64,6 +64,8 @@ var configuration = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
 
 var pcPeers = {};
 var localStream;
+var container;
+var socket;
 
 function getLocalStream(isFront, callback) {
   console.log('getLocalStream');
@@ -123,7 +125,7 @@ function createPC(socketId, isOffer) {
 
   pc.onaddstream = function (event) {
     console.log('onaddstream', event.stream);
-    container.setState({info: 'One peer join!'});
+    container.setState({info: 'Someone is watching!'});
     peerConnected();
 
     var remoteList = container.state.remoteList;
@@ -195,7 +197,29 @@ function peerConnected() {
   RTCSetting.setProximityScreenOff(true);
 }
 
-let container;
+function turnOn() {
+  socket = io.connect('https://lantern-app-test.herokuapp.com');
+
+  socket.on('exchange', function(data){
+    console.log('exchange');
+    exchange(data);
+  });
+
+  socket.on('leave', function(socketId){
+      console.log('leave');
+    leave(socketId);
+  });
+
+  socket.on('connect', function(data) {
+    console.log('connect');
+    getLocalStream(true, function(stream) {
+      localStream = stream;
+      container.setState({selfViewSrc: stream.toURL()});
+      container.setState({status: 'ready', info: 'Please enter or create room ID'});
+    });
+  });
+}
+
 
 export default class Guardian extends Component {
   constructor(props) {
@@ -203,31 +227,24 @@ export default class Guardian extends Component {
     this.state = {
       info: 'Initializing',
       status: 'init',
-      roomID: '',
+      roomID: 'test',
       isFront: true,
       selfViewSrc: null,
       remoteList: {},
       webrtc: false,
     };
   }
-
+  testingStuff = () => {
+    // invoke action that sets redux webrtc  to true
+    // this action creates a link and sends it to server
+    //
+    this.setState({webrtc: true});
+  };
   componentDidMount() {
     container = this;
-    socket.on('exchange', function(data){
-      exchange(data);
-    });
-    socket.on('leave', function(socketId){
-      leave(socketId);
-    });
-
-    socket.on('connect', function(data) {
-      console.log('connect');
-      getLocalStream(true, function(stream) {
-        localStream = stream;
-        container.setState({selfViewSrc: stream.toURL()});
-        container.setState({status: 'ready', info: 'Please enter or create room ID'});
-      });
-    });
+    turnOn();
+    console.log('ID', this.props.state)
+    join(this.props.state.user.id);
   }
 
   _press = (event) => {
@@ -261,52 +278,35 @@ export default class Guardian extends Component {
     const { state, actions, navigator } = this.props;
     const { currentLocation } = state; //destructure the parts of state that you need
     const { getCurrentLocation } = actions; // destructure the actions the components uses to update state.
+
+    console.log( 'IN THE PROPS', navigator.props.state.user);
+
     const webrtc = this.state.webrtc ?
-      (<View style={styles.container}>
-        <Text style={styles.welcome}>
-          {this.state.info}
-        </Text>
-        <View style={{flexDirection: 'row'}}>
-          <Text>
-            {this.state.isFront ? "Use front camera" : "Use back camera"}
-          </Text>
-          <TouchableHighlight
-            style={{borderWidth: 1, borderColor: 'black'}}
-            onPress={this._switchVideoType}>
-            <Text>Switch camera</Text>
-          </TouchableHighlight>
-        </View>
-        { this.state.status == 'ready' ?
-          (<View>
-            <TextInput
-              ref='roomID'
-              autoCorrect={false}
-              style={{width: 200, height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(text) => this.setState({roomID: text})}
-              value={this.state.roomID}
-            />
+       (<View>
+        <RTCView streamURL={this.state.selfViewSrc} style={baseStyles.absoluteCenter}/>
+        <View style={baseStyles.container}>
+          <View>
             <TouchableHighlight
-              onPress={this._press}>
-              <Text>Enter room</Text>
+              style={style.switchCamera}
+              onPress={this._switchVideoType}>
+              <Text>Switch camera</Text>
             </TouchableHighlight>
-          </View>) : null
-        }
-        <RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/>
-        {
-          mapHash(this.state.remoteList, function(remote, index) {
-            return <RTCView key={index} streamURL={remote} style={styles.remoteView}/>
-          })
-        }
+          <Text style={style.welcome}>
+            {this.state.info}
+          </Text>
+        </View>
+        </View>
+
+
       </View>) : null;
+
     const streamToggle = !this.state.webrtc ?
       (<View style={localStyles.guardianContainer}>
           <NavBar
             navigator={navigator}
             description='Guardian'
           />
-          <TouchableOpacity onPress={() => {
-            this.setState({webrtc: true});
-          }}>
+          <TouchableOpacity onPress={this.testingStuff}>
             <View style={localStyles.circle}>
             </View>
           </TouchableOpacity>
@@ -320,3 +320,35 @@ export default class Guardian extends Component {
     );
   }
 }
+
+var style = StyleSheet.create({
+  selfView: {
+    position: 'relative',
+    width: baseStyles.FULL_WIDTH,
+    height: baseStyles.FULL_HEIGHT,
+  },
+  remoteView: {
+    width: 100,
+    height: 100,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    color:'white',
+  },
+  switchCamera: {
+    marginTop: 20,
+    marginRight: 20,
+    alignSelf: 'flex-end',
+    borderColor: 'white',
+    borderRadius: 5,
+    borderWidth: 2,
+  },
+});

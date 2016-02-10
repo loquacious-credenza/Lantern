@@ -6,7 +6,7 @@ var options = {
   cert: fs.readFileSync('./keys/server.crt'),
   passphrase: 'lantern'
 };
-var serverPort = 4443;
+var serverPort = process.env.PORT || 4443;
 var https = require('https');
 var server = https.createServer(options, app);
 var io = require('socket.io')(server);
@@ -15,7 +15,6 @@ var roomList = {};
 
 app.get('/', function(req, res){
   console.log('get /');
-  console.log('Got to route');
   res.sendFile(__dirname + '/index.html');
 });
 server.listen(serverPort, function(){
