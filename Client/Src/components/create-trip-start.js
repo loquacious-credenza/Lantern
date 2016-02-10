@@ -221,6 +221,9 @@ export default class MapStart extends Component {
           showsUserLocation={true}
           region={this.state.region}
           onRegionChange={this.onRegionChange}
+          onPress={()=>{
+            this.props.actions.activeTrip.setStage('addDestination')
+          }}
           onLongPress={(e) => {
             this.addMarker(e.nativeEvent.coordinate)
           }}

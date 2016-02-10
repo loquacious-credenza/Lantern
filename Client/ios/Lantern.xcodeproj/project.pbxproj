@@ -49,6 +49,8 @@
 		9D87243C1C6928200044FA1B /* libc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D87243B1C6928200044FA1B /* libc.tbd */; };
 		9D87243E1C69282A0044FA1B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D87243D1C69282A0044FA1B /* libsqlite3.tbd */; };
 		9D8724401C6928380044FA1B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D87243F1C6928380044FA1B /* libstdc++.tbd */; };
+		CABD334E1C6BBF2C00E3CE0E /* HelveticaNeue.dfont in Resources */ = {isa = PBXBuildFile; fileRef = CABD33401C6BBE8500E3CE0E /* HelveticaNeue.dfont */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +252,7 @@
 		9D87243D1C69282A0044FA1B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		9D87243F1C6928380044FA1B /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		B0950D2B4D604A199449EA28 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
+		CABD33401C6BBE8500E3CE0E /* HelveticaNeue.dfont */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.dfont; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,6 +435,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CABD33401C6BBE8500E3CE0E /* HelveticaNeue.dfont */,
 				9BFD88741C544DC100659F36 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* Lantern */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -843,6 +847,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				CABD334E1C6BBF2C00E3CE0E /* HelveticaNeue.dfont in Resources */,
 				9BFE04A51C594B3500F0BD19 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
