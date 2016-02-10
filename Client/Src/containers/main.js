@@ -28,7 +28,7 @@ import Settings from '../components/Settings';
 import Guardian from '../components/Guardian';
 import PasscodeConfirm from '../components/PasscodeConfirm';
 import PasscodeSet from '../components/PasscodeSet';
-
+import Tutorial from '../components/tutorial-overlay'
 
 // import * as ROUTES from '../constants/routes';
 
@@ -42,6 +42,7 @@ const ROUTES = {
   guardian: Guardian,
   passcodeConfirm: PasscodeConfirm,
   passcodeSet: PasscodeSet,
+  tutorial: Tutorial
 };
 
 const SCENE_CONFIGS = {

@@ -11,13 +11,17 @@ import React, {
   Image
 } from 'react-native';
 
+
+import {each} from 'lodash';
 const { width, height } = Dimensions.get('window');
 // importing styles
 const styles = StyleSheet.create(require('../styles.js'));
 import { baseStyles } from '../styles-base';
 import NavBar from './nav-bar';
 import TutorialItem from './tutorial-item';
-import tutorialContent from '../constants/tutorial-content'
+import tutorialContent from '../constants/tutorial-content';
+import Button from '../Common/Button';
+
 
 
 var Carousel = require('react-native-carousel');
@@ -29,8 +33,6 @@ var TutorialOverlay = React.createClass({
     }
   },
   render: function() {
-    
-    navigator = this.props.navigator
     return (
      <View style={[baseStyles.navContainer,{backgroundColor:'white'}]}>
         <NavBar
@@ -56,7 +58,7 @@ var TutorialOverlay = React.createClass({
       <View >
        <Carousel width={width} animate={false} indicatorOffset={20}>
               <View style={componentStyles.container}>
-              <View style={{marginBottom:10}}>
+              <View style={{marginBottom:50}}>
                 <Image style={componentStyles.image} source={require('../assets/logo.png')}></Image>
               </View>
                 <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['0'].title}</Text>
@@ -93,6 +95,18 @@ var TutorialOverlay = React.createClass({
                 </View>
                 <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['4'].title}</Text>
                 <Text>{tutorialContent['4'].body}</Text>
+
+              </View>              
+              <View style={componentStyles.container}>
+               <View style={{marginBottom:10}}>
+                
+                </View>
+                <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['5'].title}</Text>
+                <Text style={{marginBottom:10}}>{tutorialContent['5'].body}</Text>
+                <Button 
+                text={'Finish Tutorial'} 
+                onPress={() => this.props.navigator.push({name: 'home'})}>
+                </Button>
               </View>
 
       </Carousel>

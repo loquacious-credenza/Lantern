@@ -8,7 +8,8 @@ var {
   StyleSheet,
   View
 } = React;
-/*facebook react native wrapper for SDK*/
+
+// FACEBOOK REACT NATIVE WRAPPER FOR SDK
 var FBSDKLogin = require('react-native-fbsdklogin');
 var {
   FBSDKLoginButton,
@@ -24,19 +25,21 @@ var geolocation = require('../helpers/geolocation');
 var Login = React.createClass({
 
   componentDidMount: function() {
+    // AsyncStorage.clear();
+    var {loadActiveTrip} = this.props.actions;
     AsyncStorage.multiGet(['userName','userID', 'onTrip', 'activeTrip', 'password']).then((response) => {
       // THIS IS WHERE WE CHECK TO SEE IF THE USER ON THIS DEVICE HAS PREVIOUSLY LOGGED IN
         if(response[0][1] !== null){
           // IF WE HAVE DATA, THERE IS NO NEED TO MAKE FACEBOOK GRAPH CALL
-          //
+          // PARSING OUT VALUES FROM ASYNC STORAGE
           const name = response[0][1];
           const id = response[1][1];
           const onTrip = response[2][1];
           const activeTrip = JSON.parse(response[3][1]);
           const password = JSON.parse(response[4][1]);
-          console.log("FROM AsyncStorage", name, id, onTrip, activeTrip, password);
+          // console.log(name, id, onTrip, activeTrip)
 
-          // if there is an activeTrip and it is not expired
+          // CONSTRUCTING VARIABLES FOR TESTING WHETHER TRIPS ARE ACTIVE
           const overdueTime = (activeTrip && activeTrip.overdueTime) || (moment().valueOf());
           const timeDifference = moment
             .duration(moment(overdueTime) - moment().valueOf())
@@ -44,11 +47,12 @@ var Login = React.createClass({
           const isValid = timeDifference > 0;
 
           if (isValid && activeTrip){
-            // dispatch loadActiveTrip with activeTrip
-            // navigate to the startLocation
-            this.props.actions.loadActiveTrip(activeTrip);
+          // IF THERE IS AN ACTIVE TRIP THAT IS NOT EXPIRED
+            // CALL LOAD ACTION TRIP (ACTION CREATOR) WITH ACTIVE TRIP FROM ASYNC STORAGE
+            loadActiveTrip(activeTrip);
           } else {
-            // if there is an activeTrip and it is expired
+          // IF THERE IS AN ACTIVE TRIP THAT IS EXPIRED
+            // CALL CLEAR TRIP (ACTION CREATOR) WITH PAYLOAD FOR CLEARING TRIPS
             this.props.actions.clearOnTrip({
               onTrip: false,
               activeTrip: null
@@ -58,22 +62,25 @@ var Login = React.createClass({
             // set onTrip in AsyncStorage to false
             // set onTrip in redux state to false
             // navigate to `startLocation` for new trip
-          //
+          
           this.props.actions.login({
             name,
             id,
             onTrip,
             password
+
           });
-          console.log('login this', this)
-          geolocation.getCurrentPosition(this);
+
+          geolocation.getCurrentPosition(this, ()=>{
+            this.props.navigator.replace({name: 'home' })
+          });
           // this.props.navigator.replace({name: 'startLocation'});
         } else {
           // IF WE DON'T HAVE DATA, NEED TO PROCEED WITH LOGGING IN VIA FACEBOOK
 
         }
     }).done(() => {
-      // console.log("STATE LOOKS LIKE THIS", this.props.state)
+      // TBD
     });
   },
 
@@ -85,6 +92,7 @@ var Login = React.createClass({
     new FBSDKGraphRequest((error, result) => {
       if (error) {
         alert('Error making request.');
+        
         // THIS IS AN ERROR MAKING THE FB GRAPH REQUEST TO GET NAME
       } else {
         name = result.name;
@@ -93,7 +101,10 @@ var Login = React.createClass({
         AsyncStorage.multiSet([['userID',id],['userName',name]]).then(() => {
           //pushing new navigation view
           this.props.actions.login({name:name,id:id});
-          geolocation.getCurrentPosition(this);
+          geolocation.getCurrentPosition(this, ()=>{
+            this.props.navigator.replace({name:'tutorial'})
+          });
+          
         // this.push(name,id);
         })
         // Data from request is in result

@@ -49,7 +49,7 @@ export const Gray3 = 'rgba( 85, 85, 85,1)';
 export const Gray4 = 'rgba( 50, 50, 50,1)';
 export const GrayDark = 'rgba(23,23,23,1)';
 
-export const Primary0 = 'rgba( 49, 74, 98,1)'; /* Main Primary color */
+export const Primary0 =  '#4489CB';//'rgba( 49, 74, 98,1)'; /* Main Primary color */
 export const Primary1 = 'rgba(129,146,164,1)';
 export const Primary2 = 'rgba( 78,103,126,1)';
 export const Primary3 = 'rgba( 26, 51, 75,1)';
@@ -110,7 +110,7 @@ export const baseStyles = StyleSheet.create({
   },
   FullScreen: {
     flex: 1,
-    backgroundColor: GrayLight,
+    backgroundColor: Primary0,
   },
   component: {
     flex: 0,

@@ -16,8 +16,8 @@ const icons = {
   rightArrow: require('../assets/half-arrow-right-7.png'),
   upArrow: 'later',
   leftArrow: require('../assets/half-arrow-left-7.png'),
-  shield: require('../assets/shield.png'),
-  gear: require('../assets/gear-7.png'),
+  shield: require('../assets/shieldwhite.png'),
+  gear: require('../assets/gear-7white.png'),
   bike: "addlater",
   walk: "addlater",
   car: "addlater"

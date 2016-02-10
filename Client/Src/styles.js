@@ -60,20 +60,21 @@ module.exports = {
     flexDirection: 'row',
     width: width,
     height: 40,
-    backgroundColor: base.GrayLight,
+    backgroundColor: base.Primary0,
     borderBottomWidth: 1,
     borderBottomColor: 'black'
   },
   navBarText: {
     flex: 0,
     justifyContent: 'center',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     textAlign: 'center',
     width: width,
     alignSelf: 'flex-end',
     fontSize: 18,
     backgroundColor: 'transparent',
     paddingBottom: 10,
+    color: 'white'
   },
   navLinkStyle: {
     position: 'absolute',

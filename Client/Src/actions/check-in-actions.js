@@ -14,7 +14,7 @@ import { clearOnTrip } from './'
  * @param  {object} payload contains final geolocation and timestamp
  * @return {object}         passed onto server and success
  */
-export const checkIn = (payload) => {
+export const checkIn = (payload) => { // payload is the USERID
   // initiate a transition to authenticated action
   // send a message to server
   return (dispatch) => {

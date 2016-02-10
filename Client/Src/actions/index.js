@@ -117,5 +117,8 @@ export {
 } from './loading-actions';
 
 /*=============================================================*/
-
-
+// modifies stage on active trip
+export {
+  setStage,
+  setDescription
+} from './set-stage-actions'
