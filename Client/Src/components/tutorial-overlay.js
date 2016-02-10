@@ -35,7 +35,7 @@ var TutorialOverlay = React.createClass({
   render: function() {
     const { navigator } = this.props;
     return (
-     <View style={[baseStyles.navContainer,{backgroundColor:'#FAD480'}]}>
+     <View style={[baseStyles.navContainer,{backgroundColor:'white'}]}>
         <NavBar
           navigator={navigator}
           description={this.state.description}
@@ -139,33 +139,26 @@ var componentStyles = StyleSheet.create({
     padding: 21
   },
   textContainer: {
-    backgroundColor:'#E98136',
-    borderRadius:4,
+    backgroundColor:'transparent',
     padding:25,
-    paddingTop:10,
+    paddingTop:5,
     marginHorizontal:5,
-    marginTop:25,
-    shadowColor: '#000000',
-    shadowOpacity: 1,
-    shadowOffset: {width: 1, height: 1}
+    marginTop:15
   },
   header: {
     fontSize:20, 
     alignSelf:'center',
-    color: 'white',
+    color: '#4489CB',
     marginBottom: 5,
+    fontWeight: 'bold'
   },
   text: {
     //top: height/5,
     fontSize: 16, 
-    fontWeight: 'bold'
   },
   image: {
     borderWidth: 2,
     borderColor: 'black'  }
-
-
-
 });
 
 module.exports = TutorialOverlay;
