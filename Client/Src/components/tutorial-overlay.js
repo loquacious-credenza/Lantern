@@ -25,6 +25,7 @@ import Button from '../Common/Button';
 
 var Carousel = require('react-native-carousel');
 
+
 var TutorialOverlay = React.createClass({
   getInitialState: function(){
    return {
@@ -32,8 +33,9 @@ var TutorialOverlay = React.createClass({
     }
   },
   render: function() {
+    const { navigator } = this.props;
     return (
-     <View style={[baseStyles.navContainer,{backgroundColor:'white'}]}>
+     <View style={[baseStyles.navContainer,{backgroundColor:'#FAD480'}]}>
         <NavBar
           navigator={navigator}
           description={this.state.description}
@@ -46,7 +48,7 @@ var TutorialOverlay = React.createClass({
           left={{
             image: 'shield',
             action: () => navigator.push({
-              name: 'settings',
+              name: 'guardian',
               sceneConfig: 'FloatFromLeft'
             })
           }}
@@ -56,42 +58,56 @@ var TutorialOverlay = React.createClass({
 
       <View >
        <Carousel width={width} animate={false} indicatorOffset={20}>
+<<<<<<< b9dda045b5557bf7b638ee2f4821ec0da9ae6781
               <View style={componentStyles.container}>
               <View style={{marginBottom:50}}>
+=======
+              <View style={[componentStyles.container]}>
+              <View style={{marginBottom:10}}>
+>>>>>>> Tutorial styles added.
                 <Image style={componentStyles.image} source={require('../assets/logo.png')}></Image>
               </View>
-                <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['0'].title}</Text>
-                <Text>{tutorialContent['0'].body}</Text>
+                <View style={[componentStyles.textContainer]}>
+                  <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['0'].title}</Text>
+                  <Text style={[componentStyles.text]}>{tutorialContent['0'].body}</Text>
+                </View>
               </View>
 
               <View style={componentStyles.container}>
               <View style={{marginBottom:10}}>
                 <Image style={componentStyles.image} source={require('../assets/exclamation.png')}></Image>
               </View>
-                <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['1'].title}</Text>
-                <Text>{tutorialContent['1'].body}</Text>
+              <View style={[componentStyles.textContainer]}>
+                <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['1'].title}</Text>
+                <Text style={[componentStyles.text]}>{tutorialContent['1'].body}</Text>
+              </View>
               </View>
 
               <View style={componentStyles.container}>
                <View style={{marginBottom:10}}>
                 <Image style={componentStyles.image} source={require('../assets/destination.png')}></Image>
                 </View>
-                <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['2'].title}</Text>
-                <Text>{tutorialContent['2'].body}</Text>
+                <View style={[componentStyles.textContainer]}>
+                  <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['2'].title}</Text>
+                  <Text style={[componentStyles.text]}>{tutorialContent['2'].body}</Text>
+                </View>
               </View>
 
               <View style={componentStyles.container}>
                <View style={{marginBottom:10}}>
                 <Image style={componentStyles.image} source={require('../assets/delay.png')}></Image>
                 </View>
-                <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['3'].title}</Text>
-                <Text>{tutorialContent['3'].body}</Text>
+                <View style={[componentStyles.textContainer]}>
+                  <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['3'].title}</Text>
+                  <Text style={[componentStyles.text]}>{tutorialContent['3'].body}</Text>
+              </View>
               </View>
 
               <View style={componentStyles.container}>
                <View style={{marginBottom:10}}>
                 <Image style={componentStyles.image} source={require('../assets/emergency.png')}></Image>
                 </View>
+<<<<<<< b9dda045b5557bf7b638ee2f4821ec0da9ae6781
                 <Text style={[styles.subHeading,{fontSize:20},baseStyles.rgbaAccent0]}>{tutorialContent['4'].title}</Text>
                 <Text>{tutorialContent['4'].body}</Text>
 
@@ -106,8 +122,13 @@ var TutorialOverlay = React.createClass({
                 text={'Finish Tutorial'} 
                 onPress={() => this.props.navigator.push({name: 'home'})}>
                 </Button>
+=======
+                <View style={[componentStyles.textContainer]}>
+                  <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['4'].title}</Text>
+                  <Text style={componentStyles.text}>{tutorialContent['4'].body}</Text>
+                </View>
+>>>>>>> Tutorial styles added.
               </View>
-
       </Carousel>
       </View>
       </View>
@@ -124,10 +145,29 @@ var componentStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    padding: 15
+    padding: 21
+  },
+  textContainer: {
+    backgroundColor:'#E98136',
+    borderRadius:4,
+    padding:25,
+    paddingTop:10,
+    marginHorizontal:5,
+    marginTop:25,
+    shadowColor: '#000000',
+    shadowOpacity: 1,
+    shadowOffset: {width: 1, height: 1}
+  },
+  header: {
+    fontSize:20, 
+    alignSelf:'center',
+    color: 'white',
+    marginBottom: 5,
   },
   text: {
-    top: height/5
+    //top: height/5,
+    fontSize: 16, 
+    fontWeight: 'bold'
   },
   image: {
     borderWidth: 2,
