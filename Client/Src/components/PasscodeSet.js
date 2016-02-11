@@ -4,6 +4,8 @@ import React, {
   Component,
   AsyncStorage,
 } from 'react-native';
+import * as base from '../styles-base';
+
 
 var PasswordGesture = require('react-native-gesture-password');
 var Password1 = '';
@@ -67,8 +69,8 @@ export default class Passcode extends Component {
           message={this.state.message}
           onStart={() => this.onStart()}
           onEnd={(password) => this.onEnd(password)}
-          rightColor={'blue'}
-          wrongColor={'red'}
+          rightColor={base.Primary0}
+          wrongColor={base.Accent0}
         />
     );
   }

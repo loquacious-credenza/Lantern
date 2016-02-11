@@ -50,30 +50,11 @@ export const ZERO_HEIGHT = 0;
   /* As RGBa codes */
 export const LIGHT = 'rgba(255,255,250,1)'; /* Main Primary color */
 export const GrayLight = 'rgba(230,230,230,1)'; /* Main Primary color */
-export const Gray0 = 'rgba(114,114,114,1)';
-export const Gray1 = 'rgba(185,185,185,1)';
-export const Gray2 = 'rgba(143,143,143,1)';
-export const Gray3 = 'rgba( 85, 85, 85,1)';
-export const Gray4 = 'rgba( 50, 50, 50,1)';
-export const GrayDark = 'rgba(23,23,23,1)';
-
-export const Primary0 =  '#4489CB';//'rgba( 49, 74, 98,1)'; /* Main Primary color */
-export const Primary1 = 'rgba(129,146,164,1)';
-export const Primary2 = 'rgba( 78,103,126,1)';
-export const Primary3 = 'rgba( 26, 51, 75,1)';
-export const Primary4 = 'rgba( 8, 27, 46,1)';
-
-export const Complement0 = 'rgba(150,117, 70,1)'; /* Main Complement color */
-export const Complement1 = 'rgba(252,228,194,1)';
-export const Complement2 = 'rgba(194,162,115,1)';
-export const Complement3 = 'rgba(116, 83, 35,1)';
-export const Complement4 = 'rgba( 70, 45, 7,1)';
-
+export const Primary0 =  '#4489CB'; /* Main Primary color */
 export const Accent0 = 'rgba(149, 69, 71,1)'; /* Main Accent color */
-export const Accent1 = 'rgba(250,192,194,1)';
-export const Accent2 = 'rgba(193,114,116,1)';
-export const Accent3 = 'rgba(115, 34, 37,1)';
-export const Accent4 = 'rgba( 70, 7, 9,1)';
+export const overTime = 'rgba (255, 0, 0, .3)'; /* Main Accent color */
+
+
 
 export const baseStyles = StyleSheet.create({
   /*FOR DEVELOPMENT*/
@@ -128,39 +109,16 @@ export const baseStyles = StyleSheet.create({
 
 
   /* As RGBa codes */
-  grayRgba0: { color: 'rgba(114,114,114,1)' },  /* Main Primary color */
-  grayRgba1: { color: 'rgba(185,185,185,1)' },
-  grayRgba2: { color: 'rgba(143,143,143,1)' },
-  grayRgba3: { color: 'rgba( 85, 85, 85,1)' },
-  grayRgba4: { color: 'rgba( 50, 50, 50,1)' },
 
-  bgWhite: { backgroundColor: 'rgba(255,255,255,1)' },
-  bgGrayLight: { backgroundColor: 'rgba(230,230,230,1)' },
-  bgGray0: { backgroundColor: 'rgba(114,114,114,1)' },
-  bgGray1: { backgroundColor: 'rgba(185,185,185,1)' },
-  bgGray2: { backgroundColor: 'rgba(143,143,143,1)' },
-  bgGray3: { backgroundColor: 'rgba( 85, 85, 85,1)' },
-  bgGray4: { backgroundColor: 'rgba( 50, 50, 50,1)' },
-  bgGrayDark: { backgroundColor: 'rgba(23,23,23,1)' },
 
-  rgbaPrimary0: { color: 'rgba( 49, 74, 98,1)' },  /* Main Primary color */
-  rgbaPrimary1: { color: 'rgba(129,146,164,1)' },
-  rgbaPrimary2: { color: 'rgba( 78,103,126,1)' },
-  rgbaPrimary3: { color: 'rgba( 26, 51, 75,1)' },
-  rgbaPrimary4: { color: 'rgba(  8, 27, 46,1)' },
 
-  rgbaComplement0: { color: 'rgba(150,117, 70,1)' }, /* Main Complement color */
-  rgbaComplement1: { color: 'rgba(252,228,194,1)' },
-  rgbaComplement2: { color: 'rgba(194,162,115,1)' },
-  rgbaComplement3: { color: 'rgba(116, 83, 35,1)' },
-  rgbaComplement4: { color: 'rgba( 70, 45,  7,1)' },
+  colorPrimary0: { color: Primary0 },  /* Main Primary color */
+  colorLight: { color: LIGHT },  /* Main Primary color */
+  colorAccent0: { color: Accent0 }, /* Main Accent color */
 
-  rgbaAccent0: { color: 'rgba(149, 69, 71,1)' }, /* Main Accent color */
-  rgbaAccent1: { color: 'rgba(250,192,194,1)' },
-  rgbaAccent2: { color: 'rgba(193,114,116,1)' },
-  rgbaAccent3: { color: 'rgba(115, 34, 37,1)' },
-  rgbaAccent4: { color: 'rgba( 70,  7,  9,1)' },
-
+  bgLight: { backgroundColor: LIGHT },
+  bgAccent0: { backgroundColor: Accent0 }, /* Main Accent color */
+  bgPrimary0: { backgroundColor: Primary0 }, /* Main Accent color */
   bgTransparent: { backgroundColor: 'transparent' },
 
 

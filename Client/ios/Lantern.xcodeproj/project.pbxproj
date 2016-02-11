@@ -643,7 +643,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = EGN2S7YVJH;
+						DevelopmentTeam = P6SKWH9N8E;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -997,7 +997,7 @@
 					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Lantern1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Lantern;
 				PRODUCT_NAME = Lantern;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1032,7 +1032,7 @@
 					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Lantern1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Lantern;
 				PRODUCT_NAME = Lantern;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

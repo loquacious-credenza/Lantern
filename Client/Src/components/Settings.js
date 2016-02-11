@@ -80,12 +80,13 @@ export default class Settings extends Component {
     const showCheckin = user.onTrip ?
       <Button
           text={'Cancel Trip'}
+          style={baseStyles.bgAccent0}
           onPress={() => {
               this.props.navigator.push({ name: 'passcodeConfirm' });}}
           /> : null;
 
     return (
-      <View style={[baseStyles.navContainer,baseStyles.bgWhite]}>
+      <View style={[baseStyles.navContainer,baseStyles.bgLight]}>
         <NavBar
           navigator={navigator}
           description='Settings'

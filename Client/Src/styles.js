@@ -15,31 +15,25 @@ module.exports = {
     margin: 5,
     alignSelf: 'center',
     padding: 5,
-    borderColor: 'gray',
-    borderWidth: base.BUTTON_BORDER_WIDTH,
-    borderRadius: base.BUTTON_BORDER_RADIUS,
     backgroundColor: base.Primary0,
   },
   button2: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: base.BUTTON_HEIGHT * 1.5,
-    width: width*.4,
+    height: base.BUTTON_HEIGHT,
+    width: width*.6,
     margin: 5,
     alignSelf: 'center',
     padding: 2,
-    borderColor: 'gray',
-    borderWidth: base.BUTTON_BORDER_WIDTH,
-    borderRadius: base.BUTTON_BORDER_RADIUS,
-    backgroundColor: base.Primary1,
+    backgroundColor: base.Primary0,
   },
   buttonText: {
     textAlign: 'center',
     fontSize: base.BUTTON_FONT_SIZE,
     fontFamily: base.FONT,
-    fontWeight: base.FONT_LIGHT
-    color: base.LIGHT
+    fontWeight: base.FONT_LIGHT,
+    color: base.LIGHT,
   },
 
   popUpAlertContainer: {
@@ -101,8 +95,7 @@ module.exports = {
 
   timerContainer: {
     position: 'relative',
-    backgroundColor: base.Primary1,
-    width: 80,
+    backgroundColor: base.LIGHT,
     marginTop: 20,
     marginRight: 20,
     alignSelf: 'flex-end',
@@ -110,7 +103,7 @@ module.exports = {
     paddingVertical:3,
     shadowRadius: 1,
     height: 40,
-    width: width/3,
+    width: width/4,
     shadowColor: '#000000',
     shadowOpacity: 1,
     shadowOffset: {width: 0, height: 0},
@@ -127,7 +120,7 @@ module.exports = {
     bottom:0,
     right:0,
     left:0,
-    backgroundColor:'rgba (255, 0, 0, .3)',
+    backgroundColor:base.overTime,
     height:height,
     width:width,
 
@@ -140,10 +133,10 @@ module.exports = {
     textAlign: 'center',
     padding: 5,
     fontFamily: base.FONT,
-    fontWeight: base.FONT_LIGHT
+    fontWeight: base.FONT_LIGHT,
     width: width,
     paddingLeft: width * 0.05,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   sliderContainer: {
     flex: 0,
