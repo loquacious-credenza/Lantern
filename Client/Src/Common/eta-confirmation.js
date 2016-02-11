@@ -40,7 +40,7 @@ var ETA = React.createClass({
     return (
       <PopUpAlert elementText={"Please confirm your ETA (minutes)"}
         extra={<TextInput
-          style={componentStyles.input}
+          style={styles.etaInput}
           onChangeText={(etaValue) => this.setState({etaValue})}
           value={this.state.etaValue}
           autoFocus={true}
@@ -48,7 +48,7 @@ var ETA = React.createClass({
         </TextInput>}
       buttonText={'Start Tracking'}
       onPress={this.handleSubmit} />
-         
+
     );
   }
 });
@@ -59,12 +59,3 @@ import { Dimensions } from 'react-native';
   var width = Dimensions.get('window').width; //full width
   var height = Dimensions.get('window').height; //full height
 
-var componentStyles = StyleSheet.create({
-  input: {
-    alignSelf:'center',
-    textAlign:'center',
-    borderWidth:1,
-    height: height/16,
-    width: width*.5
-  }
-});

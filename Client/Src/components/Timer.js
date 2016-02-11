@@ -10,6 +10,8 @@ import React, {
 
 // importing styles
 const styles = StyleSheet.create(require('../styles.js'));
+import * as base from '../styles-base';
+
 
 
 const timerMixin = require('react-timer-mixin');
@@ -61,12 +63,13 @@ module.exports = React.createClass({
 var componentStyle = StyleSheet.create({
   blackText: {
     textAlign:'center',
-    fontSize:20
+    fontSize:20,
+    color: base.Primary0,
   },
   redText: {
     textAlign:'center',
     fontSize:20,
-    color:'red'
+    color: base.Accent0,
   }
 })
 // <Text style={styles.timerValue}>ETA: { moment(endTime).calendar() }</Text>

@@ -37,7 +37,7 @@ module.exports = {
   },
 
   popUpAlertContainer: {
-    backgroundColor: 'white',
+    backgroundColor: base.LIGHT,
     borderRadius: 10,
     padding: 5,
     height: height/5,
@@ -89,8 +89,21 @@ module.exports = {
   },
   //Map View
 
-  autoComplete: {
+  etaInput: {
+    padding: 4,
+    height: 30,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: base.BORDER_RADIUS,
     backgroundColor: 'white',
+    margin: 2,
+    width: width*.6,
+    alignSelf:'center',
+    textAlign:'center',
+  },
+
+  autoComplete: {
+    backgroundColor: base.LIGHT,
   },
 
   timerContainer: {
