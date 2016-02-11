@@ -20,7 +20,9 @@ const icons = {
   gear: require('../assets/gear-7white.png'),
   bike: "addlater",
   walk: "addlater",
-  car: "addlater"
+  car: "addlater",
+  question: require('../assets/circle-question-7white.png'),
+  doubleArrow: require('../assets/doublearrow.png')
 }
 
 export default class IconButton extends Component {
