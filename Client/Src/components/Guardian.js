@@ -71,7 +71,7 @@ function getLocalStream(isFront, callback) {
   console.log('getLocalStream');
   navigator.getUserMedia({
     "audio": true,
-    "video": true,
+    "video": false,
     "videoType": (isFront ? "front" : "back") // optional, values is `back`, `front`
   }, function (stream) {
     callback(stream);

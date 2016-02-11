@@ -31,7 +31,7 @@ export default class AddEmergencyContactForm extends Component {
     const { addEmergencyContact } = actions; // destructure the actions the components uses to update state.
 
     return (
-      <View style={[baseStyles.colCenterContainer]}>
+      <View style={[baseStyles.colCenterContainer, this.props.style]}>
         <View>
           <TextInput
             style={styles.emergencyInput}
@@ -49,7 +49,7 @@ export default class AddEmergencyContactForm extends Component {
           />
           <TextInput
             style={styles.emergencyInput}
-            placeholder='fake@email.com'
+            placeholder='name@email.com'
             ref='contactEmail'
             onChangeText={(email) => this.setState({email})}
             value={this.state.email}
