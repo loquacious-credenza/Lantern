@@ -9,9 +9,11 @@ const { width, height } = Dimensions.get('window');
 
 // Button Styling
 export const BUTTON_WIDTH = 200;
-export const BUTTON_HEIGHT = 30;
+export const BUTTON_HEIGHT = 40;
 export const SHADOW_RADIUS = 5;
-export const BORDER_RADIUS = 10;
+export const BORDER_RADIUS = 0;
+export const BUTTON_BORDER_RADIUS = 0;
+export const BUTTON_BORDER_WIDTH = 0;
 export const BUTTON_FONT_SIZE = 20;
 export const BUTTON_FONT_SIZE_SMALL = 14;
 
@@ -46,6 +48,7 @@ export const TENTH_HEIGHT = Math.floor(height * 0.10);
 export const ZERO_HEIGHT = 0;
 
   /* As RGBa codes */
+export const LIGHT = 'rgba(255,255,250,1)'; /* Main Primary color */
 export const GrayLight = 'rgba(230,230,230,1)'; /* Main Primary color */
 export const Gray0 = 'rgba(114,114,114,1)';
 export const Gray1 = 'rgba(185,185,185,1)';
@@ -131,6 +134,7 @@ export const baseStyles = StyleSheet.create({
   grayRgba3: { color: 'rgba( 85, 85, 85,1)' },
   grayRgba4: { color: 'rgba( 50, 50, 50,1)' },
 
+  bgWhite: { backgroundColor: 'rgba(255,255,255,1)' },
   bgGrayLight: { backgroundColor: 'rgba(230,230,230,1)' },
   bgGray0: { backgroundColor: 'rgba(114,114,114,1)' },
   bgGray1: { backgroundColor: 'rgba(185,185,185,1)' },

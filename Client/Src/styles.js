@@ -11,14 +11,14 @@ module.exports = {
     justifyContent: 'center',
     alignItems: 'center',
     height: base.BUTTON_HEIGHT,
-    width: width*.4,
+    width: base.FULL_WIDTH_PADDED,
     margin: 5,
     alignSelf: 'center',
     padding: 5,
     borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: base.Primary1,
+    borderWidth: base.BUTTON_BORDER_WIDTH,
+    borderRadius: base.BUTTON_BORDER_RADIUS,
+    backgroundColor: base.Primary0,
   },
   button2: {
     flexDirection: 'column',
@@ -30,8 +30,8 @@ module.exports = {
     alignSelf: 'center',
     padding: 2,
     borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
+    borderWidth: base.BUTTON_BORDER_WIDTH,
+    borderRadius: base.BUTTON_BORDER_RADIUS,
     backgroundColor: base.Primary1,
   },
   buttonText: {
@@ -39,6 +39,7 @@ module.exports = {
     fontSize: base.BUTTON_FONT_SIZE,
     fontFamily: base.FONT,
     fontWeight: base.FONT_LIGHT
+    color: base.LIGHT
   },
 
   popUpAlertContainer: {
@@ -140,6 +141,18 @@ module.exports = {
     padding: 5,
     fontFamily: base.FONT,
     fontWeight: base.FONT_LIGHT
+    width: width,
+    paddingLeft: width * 0.05,
+    paddingBottom: 5
+  },
+  sliderContainer: {
+    flex: 0,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    marginTop: 20,
+    backgroundColor: 'transparent',
+    height: base.TENTH_HEIGHT * 1.5,
+    marginBottom: 20
   },
   slider: {
     width: Math.floor(width * .9),
@@ -148,12 +161,17 @@ module.exports = {
     alignSelf: 'center',
     padding: 5,
   },
+  emergencyContactForm: {
+    flex: 0,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
   emergencyInput: {
     padding: 4,
-    height: 40,
+    height: 30,
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: base.BORDER_RADIUS,
     backgroundColor: 'white',
     margin: 2,
     width: Math.floor(width * 0.9),
@@ -162,11 +180,14 @@ module.exports = {
   userContacts: {
     paddingHorizontal: 5,
     paddingVertical: 3,
-    borderRadius: 10,
-    backgroundColor: base.GrayLight,
+    borderRadius: base.BORDER_RADIUS,
+    backgroundColor: base.bgWhite,
+    borderLeftWidth: 5,
+    borderLeftColor: base.Primary0,
     marginTop: 10,
     width: Math.floor(width * 0.9),
-    alignSelf: 'center'
+    alignSelf: 'center',
+    paddingTop: 5
   },
   userContactDeleteButton: {
     marginTop: 10,

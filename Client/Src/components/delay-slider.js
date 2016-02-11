@@ -10,6 +10,8 @@ import React, {
   TouchableOpacity
 } from 'react-native';
 
+import * as base from '../styles-base';
+
 const { width, height } = Dimensions.get('window');
 
 // importing styles
@@ -32,8 +34,8 @@ export default class DelaySlider extends Component {
     const { setPassedTimeDelay } = actions; // destructure the actions the components uses to update state.
 
     return (
-      <View style={{padding: 5}}>
-        <Text style={styles.subHeading}>
+      <View style={[styles.sliderContainer]}>
+        <Text style={[styles.subHeading, {alignSelf: 'flex-start'}]}>
           {`Trip Delay: `}
           <Text style={[styles.subHeading, {paddingLeft: 15}]}>
             {this.state.value === 1 ?
@@ -51,6 +53,7 @@ export default class DelaySlider extends Component {
           })}
           minimumValue={5}
           maximumValue={60}
+          minimumTrackTintColor={base.Primary0}
           step={1}
           style={styles.slider}
         />

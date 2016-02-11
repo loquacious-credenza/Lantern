@@ -141,6 +141,7 @@ export default class MapStart extends Component {
     const { getCurrentLocation, addMarker } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state;
 
+
     // console.log('STATE: ', state);
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
 
@@ -201,6 +202,7 @@ export default class MapStart extends Component {
       </MapView.Callout>;
 
 
+
     // var destination = this.state.show ?
     //   state.activeTrip.markers.map(marker => (
     //     <MapView.Marker
@@ -213,6 +215,18 @@ export default class MapStart extends Component {
     //       {callout}
     //     </MapView.Marker>
     //   ))
+    // : null;
+
+    // var destination = state.activeTrip.stage === 'marker' ?
+
+    //   <MapView.Marker
+    //     coordinate={state.activeTrip.markers[1].coordinate}
+    //     ref={state.activeTrip.markers[1].id}
+    //     title={state.activeTrip.markers[1].id}
+    //     onDragEnd={(e) => {this.addMarker(e.nativeEvent.coordinate)}}
+    //     draggable>
+    //     {callout}
+    //   </MapView.Marker>
     // : null;
 
     var timer = state.user.onTrip ?
