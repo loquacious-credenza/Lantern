@@ -23,7 +23,7 @@ export default class EmergencyContactListItem extends Component {
     const { contact_name, contact_phone, contact_email } = contact; //destructure the parts of state that you need
     const { removeEmergencyContact } = actions; // destructure the actions the components uses to update state.
     return (
-      <View style={styles.userContacts} >
+      <View style={[styles.userContacts, this.props.style]} >
         <TouchableOpacity
           style={styles.userContactDeleteButton}
           onPress={() => removeEmergencyContact({

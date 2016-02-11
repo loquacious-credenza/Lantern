@@ -34,6 +34,14 @@ export default class Settings extends Component {
     };
   }
 
+  componentDidMount() {
+    setTimeout(() =>{
+      this.setState({
+        contacts: this.props.state.user.emergencyContacts
+      })
+    }, 400)
+  }
+
   render() {
     const { state, actions, navigator } = this.props;
     const { user } = state; //destructure the parts of state that you need
@@ -63,11 +71,11 @@ export default class Settings extends Component {
 
     const showInputForm = user.emergencyContacts.length < 5 ?
       <AddEmergencyContactForm
-          style={baseStyles.container}
-          user={user}
-          emergencyContacts={user.emergencyContacts}
-          actions={{addEmergencyContact}}
-          /> : null;
+        style={{marginBottom: 20}}
+        user={user}
+        emergencyContacts={user.emergencyContacts}
+        actions={{addEmergencyContact}}
+        /> : null;
 
     const showCheckin = user.onTrip ?
       <Button
@@ -77,30 +85,34 @@ export default class Settings extends Component {
           /> : null;
 
     return (
-      <View style={baseStyles.navContainer}>
-      <View style={[baseStyles.container, baseStyles.bgGray1]}>
+      <View style={[baseStyles.navContainer,baseStyles.bgWhite]}>
         <NavBar
           navigator={navigator}
           description='Settings'
           right={{image: 'rightArrow', action: () => navigator.pop()}}
           />
-        <DelaySlider
-          style={baseStyles.container}
-          delay={user.acceptableDelay}
-          user={user}
-          actions={{setPassedTimeDelay}}
-          />
-        <Button
-          text={'Reset Password'}
-          onPress={() => this.props.navigator.push({name: 'passcodeSet'})}
-          />
-        {showCheckin}
-        <View>
-          <Text style={[styles.subHeading]}>Emergency Contacts:</Text>
-            {showInputForm}
-            {contactList}
-        </View>
-      </View>
+        <ScrollView
+          contentContainStyle={[baseStyles.container, baseStyles.bgWhite]}>
+          <DelaySlider
+            delay={user.acceptableDelay}
+            user={user}
+            actions={{setPassedTimeDelay}}
+            />
+          {showCheckin}
+          <View style={{flex: 0}}>
+            <Text style={[styles.subHeading]}>Emergency Contacts:</Text>
+              {showInputForm}
+              {contactList}
+          </View>
+          <View style={{flex: 0}}>
+            <Text style={[styles.subHeading, {marginTop: 40, textAlign: 'left'}]}>Password Reset:</Text>
+            <Button
+              style={{marginBottom: 20}}
+              text={'Reset Password'}
+              onPress={() => this.props.navigator.push({name: 'passcodeSet'})}
+              />
+          </View>
+        </ScrollView>
       </View>
     );
   }
