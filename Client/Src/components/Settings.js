@@ -79,6 +79,7 @@ export default class Settings extends Component {
 
     const showCheckin = user.onTrip ?
       <Button
+          style={{backgroundColor:'rgba(149, 69, 71,1)'}}
           text={'Cancel Trip'}
           style={baseStyles.bgAccent0}
           onPress={() => {
