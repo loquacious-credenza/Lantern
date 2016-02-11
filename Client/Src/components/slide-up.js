@@ -6,12 +6,14 @@ import React, {
   View,
   Text,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 
 import * as base from '../styles-base';
 
 import { extend } from 'lodash';
+var doubleArrow = require('../assets/doublearrow.png');
 
 const { width, height } = Dimensions.get('window');
 // importing styles
@@ -91,9 +93,13 @@ export default class SlideUp extends Component {
           onPress={() => navigator.push({'name': nextScene, sceneConfig: 'FloatFromBottom'})}
           activeOpacity={0.7}
           style={styles.slider}>
+
           <View style={[styles.sliderTip, styles.triangle]}></View>
-          <View style={styles.sliderBody}></View>
-          <Text style={styles.sliderText}>{label}</Text>
+          <View style={styles.sliderBody}>
+            <Image style={{alignSelf:'center', top:-7}} source={doubleArrow} />
+          </View>
+          
+          
         </TouchableOpacity>
       </View>
     );
