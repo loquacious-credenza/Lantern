@@ -23,7 +23,9 @@ import {
   START_TRIP_FAIL,
   SET_ON_TRIP,
   CLEAR_ON_TRIP,
-  ADD_MARKER
+  ADD_MARKER,
+  ADD_MARKER_START,
+
 } from '../constants/action-types';
 
 /**
@@ -54,6 +56,7 @@ export const startTrip = (payload) => {
   let activeTrip = {};
   activeTrip.user_id = payload.id;
   activeTrip.stage = 'tracking';
+  activeTrip.markers = payload.markers;
   activeTrip.origin = payload.markers[0].coordinate;
   activeTrip.destination = payload.markers[1].coordinate;//destination;
   activeTrip.startTime = moment().format();
@@ -157,7 +160,7 @@ export const clearOnTrip = (payload) => {
 };
 
 export const addMarker = (payload) => {
-  
+
   return (dispatch) => {
     var markers = [];
     getGeolocationForMarkers(function (location) {
@@ -172,4 +175,18 @@ export const addMarker = (payload) => {
       console.log('Error: ', err);
     });
   }
-}
+};
+
+export const addMarkerStart = (payload) => {
+  console.log('REDUCER',payload)
+
+  return (dispatch) => {
+    var markers = [];
+      markers.push({key:0, id:'origin', coordinate:{latitude: payload.origin.latitude, longitude: payload.origin.longitude}})
+      markers.push({key:1, id:'destination', coordinate:{latitude: payload.destination.latitude, longitude: payload.destination.longitude}});
+      dispatch({
+        type: ADD_MARKER_START,
+        payload: markers
+      });
+  }
+};

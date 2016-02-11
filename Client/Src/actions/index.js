@@ -47,7 +47,8 @@ export {
   startTripError,
   setOnTrip,
   clearOnTrip,
-  addMarker
+  addMarker,
+  addMarkerStart,
 } from './start-trip-actions'
 
 /*=============================================================*/

@@ -14,7 +14,7 @@ import React, {
 } from 'react-native';
 
 import { getCurrentPosition, watchPosition } from '../helpers/geolocation';
-import { submitStart, submitEnd } from '../helpers/submitStates';
+import { submitStart, submitEnd, routeRefreshView } from '../helpers/submitStates';
 import { setMarkers } from '../helpers/setMarker';
 import MapView from 'react-native-maps';
 import AutoComplete from '../Common/AutoComplete';
@@ -34,20 +34,13 @@ export default class MapStart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: "Enter your destination",
-      markers: [],
+      reload:false,
       region: {
         latitude: this.props.state.currentLocation.latitude,
         longitude:this.props.state.currentLocation.longitude,
         latitudeDelta: .2,
         longitudeDelta: .2 / ASPECT_RATIO
       },
-      show: true,
-      inRange: false,
-      checkedIn: false,
-      startPoint: null,
-      endPoint: null,
-      stage: this.props.state.stage
     }
   }
   onRegionChange = (region) => {
@@ -68,18 +61,33 @@ export default class MapStart extends Component {
     //   ['activeTrip', JSON.stringify(null)],
     //   ['password', JSON.stringify('')]
     //   ]);
-    ///////////////////////////////////////////////////////
+
+
     if (this.props.state.activeTrip.stage === 'tracking'){
+      console.log('there is an active trip', this.props.state.activeTrip)
       const { stage, markers, origin, destination} = this.props.state.activeTrip;
-      this.setState({
-        stage,
-        markers,
-        startPoint: origin,
-        endPoint: destination,
-        show: false,
-      });
+      setTimeout(()=>{
+      this.setState({reload: true});
+      },100)
     }
   }
+
+  reloadTrip = () => {
+    const { stage, markers, origin, destination} = this.props.state.activeTrip;
+      this.props.actions.addMarkerStart({
+        destination: destination,
+        origin: origin,
+      });
+
+      this.setState({region: routeRefreshView({
+        destination: destination,
+        origin: origin,
+        })
+      });
+      watchPosition(this,this.props.state.user)
+      this.setState({reload: false});
+
+  };
 
   // TO DO: MOVE FROM COMPONENT STATE TO REDUX STATE
   changeRegion = (location) => {
@@ -95,14 +103,14 @@ export default class MapStart extends Component {
   //   setMarkers(location, this, state);
   //   //setMarkers(location, this);
   // };
-  
+
   checkingIn = () => {
       this.props.actions.setDescription('Enter your destination');
       this.props.navigator.push({ name: 'passcodeConfirm' });
-      
-  
+
+
     // actions.checkIn(state.user.id);
-    
+
 
     // These need to be read from redux state.
 
@@ -135,7 +143,15 @@ export default class MapStart extends Component {
 
     // console.log('STATE: ', state);
     // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
-    
+
+    var currentTrip = this.state.reload ?
+    <PopUpAlert elementText={"We have detected that you are on an active trip."}
+        buttonText={"Load Trip!"}
+        onPress={()=>{
+          this.reloadTrip();
+        }}
+    /> : null;
+
     var checkIn = state.activeTrip.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
@@ -170,10 +186,10 @@ export default class MapStart extends Component {
       </ETA> : null;
 
 
-    var callout = (this.props.state.activeTrip.stage === 'setDestination' || 
+    var callout = (this.props.state.activeTrip.stage === 'setDestination' ||
       this.props.state.activeTrip.stage === 'marker' )?
       <MapView.Callout>
-        <TouchableOpacity 
+        <TouchableOpacity
         onPress={()=> {
           this.submit();
         }}
@@ -185,17 +201,19 @@ export default class MapStart extends Component {
       </MapView.Callout>;
 
 
-    var destination = state.activeTrip.stage === 'marker' ? 
-      
-      <MapView.Marker
-        coordinate={state.activeTrip.markers[1].coordinate}
-        ref={state.activeTrip.markers[1].id}
-        title={state.activeTrip.markers[1].id}
-        onDragEnd={(e) => {this.addMarker(e.nativeEvent.coordinate)}}
-        draggable>
-        {callout}
-      </MapView.Marker>
-    : null;
+    // var destination = this.state.show ?
+    //   state.activeTrip.markers.map(marker => (
+    //     <MapView.Marker
+    //       key={marker.key}
+    //       coordinate={marker.coordinate}
+    //       ref={marker.id}
+    //       title={marker.id}
+    //       onDragEnd={(e) => {this.addMarker(e.nativeEvent.coordinate)}}
+    //       draggable>
+    //       {callout}
+    //     </MapView.Marker>
+    //   ))
+    // : null;
 
     var timer = state.user.onTrip ?
     <Timer
@@ -226,7 +244,7 @@ export default class MapStart extends Component {
           }}
           onPress={()=> {if(!state.user.onTrip){this.refs.auto.refs.Auto.setState({listViewDisplayed: false}); this.refs.auto.refs.Auto.triggerBlur();}}}
         >
-            {state.activeTrip.markers.map(marker => (
+          {state.activeTrip.markers.map(marker => (
             <MapView.Marker
               key={marker.key}
               coordinate={marker.coordinate}
@@ -260,6 +278,8 @@ export default class MapStart extends Component {
         <View style={[baseStyles.component]}>
           {autocomplete}
         </View>
+
+        {currentTrip}
 
         {eta}
 

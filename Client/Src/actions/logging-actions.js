@@ -48,18 +48,39 @@ export const login = (payload) => {
       dispatch(loginSuccess(data.user));
       dispatch(loadDelay(data.user.delay));
       dispatch(loadEmergencyContact(data.user.contacts))
-      // if(payload.onTrip && data.activeTrip !== null){
-      //   dispatch(loadActiveTrip({
-      //     id: data.activeTrip._id,
-      //     startTime: data.activeTrip.start_time,
-      //     eta: data.activeTrip.eta,
-      //     overdueTime: data.activeTrip.overdue_time,
-      //     origin: data.activeTrip.origin,
-      //     destination: data.activeTrip.destination,
-      //     waypoints: data.activeTrip.path,
-      //     videos: data.activeTrip.videos
-      //   }));
-      // }
+      if(payload.onTrip && data.activeTrip !== null){
+        var markers = [
+          {coordinate: {
+            latitude: data.activeTrip.origin.location.coordinates[0],
+            longitude: data.activeTrip.origin.location.coordinates[1],
+            },
+           key: 0,
+           id: 'origin',
+          },{coordinate: {
+            latitude: data.activeTrip.destination.location.coordinates[0],
+            longitude: data.activeTrip.destination.location.coordinates[1],
+            },
+           key: 1,
+           id: 'destination',
+          }
+        ];
+
+
+        console.log('LOGIN action', data.activeTrip);
+        dispatch(loadActiveTrip({
+          id: data.activeTrip._id,
+          startTime: data.activeTrip.start_time,
+          eta: data.activeTrip.eta,
+          overdueTime: data.activeTrip.overdue_time,
+          origin: data.activeTrip.origin,
+          destination: data.activeTrip.destination,
+          waypoints: data.activeTrip.path,
+          videos: data.activeTrip.videos,
+          markers: markers,
+          stage: 'tracking',
+          description: 'Currently Tracking your Location',
+        }));
+      }
       //EXPECTED RESPONSE:
       //{_id , name: , activeTrip, contacts}
 
