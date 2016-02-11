@@ -107,7 +107,7 @@ export default class Settings extends Component {
               {contactList}
           </View>
           <View style={{flex: 0}}>
-            <Text style={[styles.subHeading, {marginTop: 40, textAlign: 'left'}]}>Password Reset:</Text>
+            <Text style={[styles.subHeading, {marginTop: 40}]}>Password Reset:</Text>
             <Button
               style={{marginBottom: 20}}
               text={'Reset Password'}
