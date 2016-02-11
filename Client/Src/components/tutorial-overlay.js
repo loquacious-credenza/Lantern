@@ -131,7 +131,6 @@ var componentStyles = StyleSheet.create({
   },
   textContainer: {
     backgroundColor:'transparent',
-    padding:25,
     paddingTop:5,
     marginHorizontal:5,
     marginTop:15
@@ -145,6 +144,7 @@ var componentStyles = StyleSheet.create({
     marginBottom: 5,
   },
   text: {
+    alignSelf:'center',
     fontSize: 14, 
     fontFamily: baseStyles.FONT,
     fontWeight:'100',
