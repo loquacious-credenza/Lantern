@@ -49,7 +49,7 @@ export const ZERO_HEIGHT = 0;
 
   /* As RGBa codes */
 export const LIGHT = 'rgba(255,255,250,1)'; /* Main Primary color */
-export const GrayLight = 'rgba(230,230,230,1)'; /* Main Primary color */
+// export const GrayLight = 'rgba(230,230,230,1)'; /* Main Primary color */
 export const Primary0 =  '#4489CB'; /* Main Primary color */
 export const Accent0 = 'rgba(149, 69, 71,1)'; /* Main Accent color */
 export const overTime = 'rgba (255, 0, 0, .3)'; /* Main Accent color */

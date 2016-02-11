@@ -22,7 +22,7 @@ var {
   RTCSetting,
 } = WebRTC;
 
-// window.navigator.userAgent = "react-native";
+window.navigator.userAgent = "react-native";
 const io = require('socket.io-client/socket.io');
 
 
