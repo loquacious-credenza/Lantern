@@ -59,7 +59,7 @@ export default class Passcode extends Component {
                 message={this.state.message}
                 onStart={() => this.onStart()}
                 onEnd={(password) => this.onEnd(password)}
-                rightColor={'green'}
+                rightColor={'blue'}
                 wrongColor={'red'}
         />
     );

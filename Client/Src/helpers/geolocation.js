@@ -23,7 +23,7 @@ export function getCurrentPosition (parent, success) {
             //   name: nextRoute,
             //   currentLocation: initialPosition
             // });
-        
+
         // AsyncStorage.getItem('tutorial').then((response)=>{
         //   if(response === null || response === true){
         //     parent.props.navigator.replace({
@@ -63,16 +63,16 @@ export function watchPosition (parent, user) {
     var watchID = navigator.geolocation.watchPosition((lastPosition) => {
       let coords = lastPosition.coords;
       parent.props.actions.getCurrentLocation({
-        latitude: coords.latitude, 
-        longitude:coords.longitude, 
+        latitude: coords.latitude,
+        longitude:coords.longitude,
         timestamp:lastPosition.timestamp
       });
       addWaypoint(coords, parent.props.state.user.id);
-      console.log('watching', parent.props.state.activeTrip.stage)
+      console.log('watching', parent.props.state.activeTrip)
       if(parent.props.state.activeTrip.stage === 'tracking'){
-      let distance = calculateDistance(parent.props.state.activeTrip.markers[1].coordinate.latitude, 
-                                         parent.props.state.activeTrip.markers[1].coordinate.longitude, 
-                                         lastPosition.coords.latitude, 
+      let distance = calculateDistance(parent.props.state.activeTrip.markers[1].coordinate.latitude,
+                                         parent.props.state.activeTrip.markers[1].coordinate.longitude,
+                                         lastPosition.coords.latitude,
                                          lastPosition.coords.longitude);
         if(distance <= 0.25 && parent.props.state.user.onTrip){
           confirmInRange();

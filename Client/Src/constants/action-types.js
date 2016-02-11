@@ -19,6 +19,7 @@ export const ADD_START = 'ADD_START';
 export const ADD_DESTINATION = 'ADD_DESTINATION';
 export const ADD_ETA = 'ADD_ETA';
 export const ADD_MARKER = 'ADD_MARKER';
+export const ADD_MARKER_START = 'ADD_MARKER_START';
 
 
 //ASSOCIATED WITH BEING ENROUTE

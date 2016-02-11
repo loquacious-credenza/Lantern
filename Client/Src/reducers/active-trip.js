@@ -13,6 +13,7 @@ const {
   ADD_DESTINATION,
   CLEAR_ON_TRIP,
   ADD_MARKER,
+  ADD_MARKER_START,
   ADD_START,
   SET_STAGE,
   SET_DESCRIPTION
@@ -29,6 +30,7 @@ const initialState = {
   origin: {},
   destination: {},
   waypoints: [],
+  markers: [],
   description: 'Enter your destination'
 };
 
@@ -61,7 +63,8 @@ export default (state = initialState, {type, payload}) => {
         inRange: payload.inRange,
         eta: payload.eta,
         stage: payload.stage,
-        // markers: state.markers.concat(payload.markers),
+        // markers: payload.markers,
+        description: payload.description,
         overdueTime: payload.overdueTime,
         origin: extend({}, state.origin, payload.origin),
         destination: extend({}, state.destination, payload.destination),
@@ -70,6 +73,11 @@ export default (state = initialState, {type, payload}) => {
     case CLEAR_ON_TRIP:
       return initialState;
     case ADD_MARKER:
+      return extend({}, state, {
+        //markers: state.markers.concat([payload])
+        markers: payload
+      });
+    case ADD_MARKER_START:
       return extend({}, state, {
         //markers: state.markers.concat([payload])
         markers: payload

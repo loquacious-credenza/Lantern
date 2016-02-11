@@ -35,3 +35,17 @@ export function submitEnd (parent) {
       longitudeDelta:midpoint.lngDelta}});
   // }
 };
+
+export function routeRefreshView (input) {
+    const lat1 = input.origin.latitude;
+    const lat2 = input.destination.latitude;
+    const lng1 = input.origin.longitude;
+    const lng2 = input.destination.longitude;
+    const midpoint = calculateMidpoint(lat1, lng1, lat2, lng2);
+    return{
+      latitude: midpoint.lat,
+      longitude:midpoint.lng,
+      latitudeDelta: midpoint.latDelta,
+      longitudeDelta:midpoint.lngDelta};
+  // }
+};
