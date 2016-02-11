@@ -18,10 +18,10 @@ var Button = React.createClass ({
 
 
   render() {
-    // const style = this.props.text.length <= 12 ?
-    //   styles.button :
-    //   styles.button2;
-    const style = styles.button;
+    const style = this.props.alert === true ?
+      styles.button2 :
+      styles.button;
+    // const style = styles.button;
 
     return (
         <TouchableHighlight style={[style, this.props.style]} underlayColor='rgb(255, 255, 255)' onPress={this.props.onPress}>

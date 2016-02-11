@@ -22,7 +22,7 @@ var popUpAlert = React.createClass({
         <View style={styles.popUpAlertContainer}>
         <Text style={styles.popUpText}>{this.props.elementText}</Text>
         {this.props.extra}
-        <Button text={this.props.buttonText} onPress={this.props.onPress}/>
+        <Button alert={true} text={this.props.buttonText} onPress={this.props.onPress}/>
         </View>
       </View>
     );

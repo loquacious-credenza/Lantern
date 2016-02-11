@@ -293,11 +293,11 @@ export default class MapStart extends Component {
           {autocomplete}
         </View>
 
-        {currentTrip}
-
         {eta}
 
         {timer}
+
+        {currentTrip}
 
         {checkIn}
 
