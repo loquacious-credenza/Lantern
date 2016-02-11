@@ -48,7 +48,7 @@ var TutorialOverlay = React.createClass({
 
 
       <View >
-       <Carousel width={width} animate={false} indicatorOffset={20}>
+       <Carousel width={width} animate={false} indicatorSize={30} indicatorOffset={-70}>
               <View style={[componentStyles.container]}>
               <View style={{marginBottom:10}}>
                 <Image style={componentStyles.image} source={require('../assets/logo.png')}></Image>
@@ -71,7 +71,7 @@ var TutorialOverlay = React.createClass({
 
               <View style={componentStyles.container}>
                <View style={{marginBottom:10}}>
-                <Image style={componentStyles.image} source={require('../assets/destination.png')}></Image>
+                <Image style={componentStyles.image} source={require('../assets/eta.png')}></Image>
                 </View>
                 <View style={[componentStyles.textContainer]}>
                   <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['2'].title}</Text>
@@ -100,7 +100,6 @@ var TutorialOverlay = React.createClass({
               </View>
               <View style={componentStyles.container}>
                <View style={{marginBottom:10}}>
-                <Image style={componentStyles.image} source={require('../assets/emergency.png')}></Image>
                 </View>
                 <View style={[componentStyles.textContainer]}>
                   <Text style={[styles.subHeading, componentStyles.header]}>{tutorialContent['5'].title}</Text>
@@ -131,7 +130,6 @@ var componentStyles = StyleSheet.create({
   },
   textContainer: {
     backgroundColor:'transparent',
-    padding:25,
     paddingTop:5,
     marginHorizontal:5,
     marginTop:15
@@ -145,6 +143,7 @@ var componentStyles = StyleSheet.create({
     marginBottom: 5,
   },
   text: {
+    alignSelf:'center',
     fontSize: 14, 
     fontFamily: baseStyles.FONT,
     fontWeight:'100',
@@ -152,7 +151,10 @@ var componentStyles = StyleSheet.create({
   },
   image: {
     borderWidth: .8,
-    borderColor: 'black'  }
+    borderColor: 'black',
+    width:360,
+    height:252  
+  }
 });
 
 module.exports = TutorialOverlay;
