@@ -18,12 +18,13 @@ var Button = React.createClass ({
 
 
   render() {
-    const style = this.props.text.length <= 12 ?
-      styles.button :
-      styles.button2;
+    // const style = this.props.text.length <= 12 ?
+    //   styles.button :
+    //   styles.button2;
+    const style = styles.button;
 
     return (
-        <TouchableHighlight style={style} underlayColor='rgb(255, 255, 255)' onPress={this.props.onPress}>
+        <TouchableHighlight style={[style, this.props.style]} underlayColor='rgb(255, 255, 255)' onPress={this.props.onPress}>
           <Text style={styles.buttonText}>{this.props.text}</Text>
         </TouchableHighlight>
     );

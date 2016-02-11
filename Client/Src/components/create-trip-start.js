@@ -95,14 +95,14 @@ export default class MapStart extends Component {
   //   setMarkers(location, this, state);
   //   //setMarkers(location, this);
   // };
-  
+
   checkingIn = () => {
       this.props.actions.setDescription('Enter your destination');
       this.props.navigator.push({ name: 'passcodeConfirm' });
-      
-  
+
+
     // actions.checkIn(state.user.id);
-    
+
 
     // These need to be read from redux state.
 
@@ -133,9 +133,6 @@ export default class MapStart extends Component {
     const { getCurrentLocation, addMarker } = actions; // destructure the actions the components uses to update state.
     const { activeTrip } = this.props.state;
 
-    // console.log('STATE: ', state);
-    // var button = this.state.show ? <Button ref='button' style={styles.ButtonContainer} text={this.state.description} onPress={this.submit}></Button> : null;
-    
     var checkIn = state.activeTrip.inRange ?
     <PopUpAlert elementText={"We have detected that you are close to your destination"}
         buttonText={"I'm safe!"}
@@ -170,10 +167,10 @@ export default class MapStart extends Component {
       </ETA> : null;
 
 
-    var callout = (this.props.state.activeTrip.stage === 'setDestination' || 
+    var callout = (this.props.state.activeTrip.stage === 'setDestination' ||
       this.props.state.activeTrip.stage === 'marker' )?
       <MapView.Callout>
-        <TouchableOpacity 
+        <TouchableOpacity
         onPress={()=> {
           this.submit();
         }}
@@ -185,8 +182,8 @@ export default class MapStart extends Component {
       </MapView.Callout>;
 
 
-    var destination = state.activeTrip.stage === 'marker' ? 
-      
+    var destination = state.activeTrip.stage === 'marker' ?
+
       <MapView.Marker
         coordinate={state.activeTrip.markers[1].coordinate}
         ref={state.activeTrip.markers[1].id}

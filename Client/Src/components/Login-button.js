@@ -62,7 +62,7 @@ var Login = React.createClass({
             // set onTrip in AsyncStorage to false
             // set onTrip in redux state to false
             // navigate to `startLocation` for new trip
-          
+
           this.props.actions.login({
             name,
             id,
@@ -92,7 +92,7 @@ var Login = React.createClass({
     new FBSDKGraphRequest((error, result) => {
       if (error) {
         alert('Error making request.');
-        
+
         // THIS IS AN ERROR MAKING THE FB GRAPH REQUEST TO GET NAME
       } else {
         name = result.name;
@@ -104,7 +104,7 @@ var Login = React.createClass({
           geolocation.getCurrentPosition(this, ()=>{
             this.props.navigator.replace({name:'tutorial'})
           });
-          
+
         // this.push(name,id);
         })
         // Data from request is in result
