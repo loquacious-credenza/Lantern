@@ -70,7 +70,11 @@ var Login = React.createClass({
             password
 
           });
-
+          if(password === null){
+            geolocation.getCurrentPosition(this, ()=>{
+              this.props.navigator.replace({name: 'tutorial' })
+            });
+          }
           geolocation.getCurrentPosition(this, ()=>{
             this.props.navigator.replace({name: 'home' })
           });

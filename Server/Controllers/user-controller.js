@@ -86,7 +86,7 @@ module.exports = {
         console.log("Error updating user: ", err);
         res.sendStatus(500);
       } else {
-        if(res !== null){
+        if(response !== null){
           res.json(response[prop]);          
         } else {
           res.sendStatus(500);
