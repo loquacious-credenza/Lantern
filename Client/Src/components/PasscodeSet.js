@@ -37,7 +37,7 @@ export default class Passcode extends Component {
                 id: this.props.state.user.id,
                 password
               });
-              this.props.navigator.pop();
+              this.props.navigator.replace({name: 'home'});
               // your codes to close this view
           } else {
               this.setState({

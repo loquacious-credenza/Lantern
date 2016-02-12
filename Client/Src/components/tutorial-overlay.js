@@ -106,7 +106,7 @@ var TutorialOverlay = React.createClass({
                   <Text style={componentStyles.text}>{tutorialContent['5'].body}</Text>
                   <Button 
                   text={'Finish Tutorial'} 
-                  onPress={() => this.props.navigator.push({name: 'home'})}>
+                  onPress={() => this.props.navigator.replace({name: 'passcodeSet'})}>
                   </Button>
                 </View>
               </View>

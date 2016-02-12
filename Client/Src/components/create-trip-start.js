@@ -47,12 +47,12 @@ export default class MapStart extends Component {
     this.setState({ region: region });
   };
   componentDidMount() {
-    setTimeout(() => {
-      console.log('mounting', this.props.state)
-      if(!this.props.state.user.password){
-        this.props.navigator.push({name: 'passcodeSet'});
-      }
-    }, 300);
+    // setTimeout(() => {
+    //   console.log('mounting', this.props.state)
+    //   if(!this.props.state.user.password){
+    //     this.props.navigator.push({name: 'passcodeSet'});
+    //   }
+    // }, );
     ///////////////////////////////////////////////////////
     // THIS CALL TO ASYNC STORAGE NEEDS TO BE DELETED
     // IT IS BEING USED FOR CLEARING AN ACTIVE TRIP WHILE TESTING PASSCODE.
