@@ -329,7 +329,7 @@ export default class Guardian extends Component {
           />
           <TouchableOpacity onPress={this.turnOnRTC}>
             <View style={localStyles.circle}>
-              <Text style={style.REC}>RECORD</Text>
+              <Text style={style.REC}>LIVE</Text>
             </View>
           </TouchableOpacity>
         </View>) : null;

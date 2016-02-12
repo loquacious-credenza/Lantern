@@ -234,6 +234,13 @@ export default class MapStart extends Component {
       state = {activeTrip}>
     </Timer> : null;
 
+    var slideUp = state.user.onTrip ?
+      <SlideUp
+        navigator={navigator}
+        onPress={()=>{this.props.navigator.push({name:'guardian', sceneConfig: 'FloatFromBottom'})}}
+        label='Live Stream'
+        /> : null;
+
           // {state.activeTrip.markers.map(marker => (
           //   <MapView.Marker
           //     key={marker.key}
@@ -301,14 +308,7 @@ export default class MapStart extends Component {
 
         {checkIn}
 
-
-
-
-        <SlideUp
-          navigator={navigator}
-          onPress={()=>{this.props.navigator.push({name:'guardian', sceneConfig: 'FloatFromBottom'})}}
-          label='Guardian'
-          />
+        {slideUp}
 
       </View>
       </View>
