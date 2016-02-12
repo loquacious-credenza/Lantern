@@ -5,12 +5,14 @@ import React, {
   Component,
   View,
   Text,
+  Image,
   TouchableOpacity,
   TouchableHighlight,
   TextInput,
   AsyncStorage,
 } from 'react-native';
 import NavBar from './nav-bar';
+import Button from '../Common/Button';
 
 var WebRTC = require('react-native-webrtc');
 var {
@@ -25,10 +27,12 @@ var {
 window.navigator.userAgent = "react-native";
 const io = require('socket.io-client/socket.io');
 
+var cameraSwitch = require('../assets/camera-switch-icon.png');
+
 
 
 // importing styles
-import { baseStyles } from '../styles-base';
+import * as base from '../styles-base';
 const styles = StyleSheet.create(require('../styles.js'));
 const localStyles = StyleSheet.create({
   guardianContainer: {
@@ -38,26 +42,26 @@ const localStyles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'lightGray'
+    backgroundColor: base.LIGHT
   },
   circle: {
     width: 200,
     height: 200,
     borderRadius: 200/2,
-    backgroundColor: '#833',
+    backgroundColor: base.Accent0,
     alignSelf: 'center',
     top: 200,
     borderWidth: 1,
     borderColor: '#222'
   },
-  square: {
-    width: 75,
-    height: 75,
-    borderRadius: 3,
-    backgroundColor: '#000',
-    alignSelf: 'center',
-    top: 62.5
-  }
+  // square: {
+  //   width: 75,
+  //   height: 75,
+  //   borderRadius: 3,
+  //   backgroundColor: '#000',
+  //   alignSelf: 'center',
+  //   top: 62.5
+  // }
 });
 
 var configuration = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
@@ -66,12 +70,13 @@ var pcPeers = {};
 var localStream;
 var container;
 var socket;
+var leaveId;
 
 function getLocalStream(isFront, callback) {
   console.log('getLocalStream');
   navigator.getUserMedia({
     "audio": true,
-    "video": false,
+    "video": true,
     "videoType": (isFront ? "front" : "back") // optional, values is `back`, `front`
   }, function (stream) {
     callback(stream);
@@ -165,6 +170,7 @@ function exchange(data) {
 
 function leave(socketId) {
   console.log('leave', socketId);
+  console.log('pc', pc)
   var pc = pcPeers[socketId];
   var viewIndex = pc.viewIndex;
   pc.close();
@@ -197,6 +203,12 @@ function peerConnected() {
   RTCSetting.setProximityScreenOff(true);
 }
 
+function turnOff() {
+  console.log('turnoff',this.props.navigator.props);
+  socket.emit('leave');
+  this.props.navigator.props.navigator.pop();
+}
+
 function turnOn() {
   socket = io.connect('https://lantern-app-test.herokuapp.com');
 
@@ -227,14 +239,20 @@ export default class Guardian extends Component {
     this.state = {
       info: 'Initializing',
       status: 'init',
-      roomID: 'test',
-      isFront: true,
+      roomID: this.props.state.user.id,
+      isFront: false,
       selfViewSrc: null,
       remoteList: {},
       webrtc: false,
     };
   }
-  testingStuff = () => {
+  turnOff = () => {
+    console.log('turnoff',this.props);
+    socket.emit('leave');
+    this.props.navigator.pop();
+  };
+
+  turnOnRTC = () => {
     // invoke action that sets redux webrtc  to true
     // this action creates a link and sends it to server
     //
@@ -247,13 +265,14 @@ export default class Guardian extends Component {
     join(this.props.state.user.id);
   }
 
-  _press = (event) => {
-    this.refs.roomID.blur();
-    this.setState({status: 'connect', info: 'Connecting'});
-    join(this.state.roomID);
-  };
+  // _press = (event) => {
+  //   this.refs.roomID.blur();
+  //   this.setState({status: 'connect', info: 'Connecting'});
+  //   join(this.state.roomID);
+  // };
 
   _switchVideoType = () => {
+    console.log('switching')
     var isFront = !this.state.isFront;
     this.setState({isFront});
     getLocalStream(isFront, function(stream) {
@@ -283,18 +302,20 @@ export default class Guardian extends Component {
 
     const webrtc = this.state.webrtc ?
        (<View>
-        <RTCView streamURL={this.state.selfViewSrc} style={baseStyles.absoluteCenter}/>
-        <View style={baseStyles.container}>
-          <View>
+        <RTCView streamURL={this.state.selfViewSrc} style={base.baseStyles.absoluteCenter}/>
+        <View style={base.baseStyles.container}>
+          <View style={style.container}>
             <TouchableHighlight
-              style={style.switchCamera}
               onPress={this._switchVideoType}>
-              <Text>Switch camera</Text>
+              <Image style={style.switchCamera} source={cameraSwitch}/>
             </TouchableHighlight>
           <Text style={style.welcome}>
             {this.state.info}
           </Text>
         </View>
+          <View style={style.button}>
+            <Button text={'stop video'} onPress={this.turnOff} />
+          </View>
         </View>
 
 
@@ -306,14 +327,15 @@ export default class Guardian extends Component {
             navigator={navigator}
             description='Guardian'
           />
-          <TouchableOpacity onPress={this.testingStuff}>
+          <TouchableOpacity onPress={this.turnOnRTC}>
             <View style={localStyles.circle}>
+              <Text style={style.REC}>RECORD</Text>
             </View>
           </TouchableOpacity>
         </View>) : null;
 
     return (
-      <View style={baseStyles.navContainer}>
+      <View style={base.baseStyles.navContainer}>
       {webrtc}
       {streamToggle}
       </View>
@@ -324,31 +346,43 @@ export default class Guardian extends Component {
 var style = StyleSheet.create({
   selfView: {
     position: 'relative',
-    width: baseStyles.FULL_WIDTH,
-    height: baseStyles.FULL_HEIGHT,
+    width: base.FULL_WIDTH,
+    height: base.FULL_WIDTH,
   },
   remoteView: {
     width: 100,
     height: 100,
   },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    position: 'relative',
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-    color:'white',
+    color:base.LIGHT,
   },
   switchCamera: {
-    marginTop: 20,
+    marginTop: 10,
     marginRight: 20,
     alignSelf: 'flex-end',
-    borderColor: 'white',
-    borderRadius: 5,
-    borderWidth: 2,
+    width: 40,
+    height: 40,
   },
+  button: {
+    alignItems: 'center',
+    bottom: -base.FULL_HEIGHT * .75,
+  },
+  REC: {
+    color: base.LIGHT,
+    fontSize: 50,
+    backgroundColor:'transparent',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    top: 70,
+  }
 });

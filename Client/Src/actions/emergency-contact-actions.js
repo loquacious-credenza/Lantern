@@ -65,7 +65,7 @@ export const addEmergencyContact = (payload) => {
       contact_phone: payload.phone,
       contact_email: payload.email
     }));
-    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}/contacts`,
+    fetch(`${SERVER_URL}${SERVER_PORT}/user/${payload.id}/contacts`,
       {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
@@ -89,7 +89,7 @@ export const addEmergencyContactSuccess = (payload) => {
 
 export const removeEmergencyContact = (payload) => {
   return (dispatch) => {
-    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.user_id}/contacts`,
+    fetch(`${SERVER_URL}${SERVER_PORT}/user/${payload.user_id}/contacts`,
     {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},

@@ -306,7 +306,7 @@ export default class MapStart extends Component {
 
         <SlideUp
           navigator={navigator}
-          nextScene='guardian'
+          onPress={()=>{this.props.navigator.push({name:'guardian', sceneConfig: 'FloatFromBottom'})}}
           label='Guardian'
           />
 

@@ -45,7 +45,7 @@ export const setPassword = (payload) => {
         payload
     });
     // turn on spinner for network activity if implemented (NEED TO CREATE ACTION and State for this)
-    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}`, {
+    fetch(`${SERVER_URL}${SERVER_PORT}/user/${payload.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
