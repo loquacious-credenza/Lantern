@@ -24,7 +24,7 @@ export const checkIn = (payload) => { // payload is the USERID
   // initiate a transition to authenticated action
   // send a message to server
   return (dispatch) => {
-  	fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload}/trip`, {
+  	fetch(`${SERVER_URL}${SERVER_PORT}/user/${payload}/trip`, {
   		method: 'DELETE',
   		body: null
   	})

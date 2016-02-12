@@ -21,9 +21,9 @@ import {
 export const setPassedTimeDelay = (payload) => {
   return (dispatch) => {
     dispatch(setPassedTimeDelaySuccess(payload.delay));
-    console.log(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}`);
+    console.log(`${SERVER_URL}${SERVER_PORT}/user/${payload.id}`);
     // turn on spinner for network activity if implemented (NEED TO CREATE ACTION and State for this)
-    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}`, {
+    fetch(`${SERVER_URL}${SERVER_PORT}/user/${payload.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

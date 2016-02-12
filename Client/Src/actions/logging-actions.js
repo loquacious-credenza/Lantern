@@ -37,7 +37,7 @@ export const login = (payload) => {
 
   console.log('JUST BEFORE FETCH', payload);
   return (dispatch) => {
-    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}`,
+    fetch(`${SERVER_URL}${SERVER_PORT}/user/${payload.id}`,
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

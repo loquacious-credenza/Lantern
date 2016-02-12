@@ -16,7 +16,7 @@ import {
 export const addWaypoint = (payload, id) => {
   var requestBody = {location:{coordinates:[payload.longitude, payload.latitude]}};
   return (dispatch) => {
-    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${id}/trip`, {
+    fetch(`${SERVER_URL}${SERVER_PORT}/user/${id}/trip`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(requestBody)

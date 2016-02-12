@@ -65,7 +65,7 @@ export const startTrip = (payload) => {
 
   return (dispatch) => {
     dispatch(startTripSuccess(activeTrip));
-    fetch(`${SERVER_URL}:${SERVER_PORT}/user/${payload.id}/trip`,
+    fetch(`${SERVER_URL}${SERVER_PORT}/user/${payload.id}/trip`,
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

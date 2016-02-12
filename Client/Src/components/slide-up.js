@@ -90,7 +90,7 @@ export default class SlideUp extends Component {
     return (
       <View style={styles.sliderContainer}>
         <TouchableOpacity
-          onPress={() => navigator.push({'name': nextScene, sceneConfig: 'FloatFromBottom'})}
+          onPress={this.props.onPress}
           activeOpacity={0.7}
           style={styles.slider}>
 
@@ -98,8 +98,8 @@ export default class SlideUp extends Component {
           <View style={styles.sliderBody}>
             <Image style={{alignSelf:'center', top:-7}} source={doubleArrow} />
           </View>
-          
-          
+
+
         </TouchableOpacity>
       </View>
     );
