@@ -14,7 +14,7 @@ export default class Passcode extends Component {
   constructor(props) {
     super(props);
     this.state = {
-          message: 'Please set a password.',
+          message: 'Please draw a password gesture.',
           status: 'normal'
       }
   }
@@ -24,14 +24,14 @@ export default class Passcode extends Component {
           Password1 = password;
           this.setState({
               status: 'normal',
-              message: 'Please confirm your password.'
+              message: 'Ok, now re-draw your password.'
           });
       } else {
           // The second password
           if ( password === Password1 ) {
               this.setState({
                   status: 'right',
-                  message: 'Thank You your password is now set'
+                  message: 'Yeah! Your password is now set'
               });
               this.props.actions.setPassword({
                 id: this.props.state.user.id,
@@ -42,7 +42,7 @@ export default class Passcode extends Component {
           } else {
               this.setState({
                   status: 'wrong',
-                  message:  'Not the same, try again.'
+                  message:  'Hmm, not quite right. Try again.'
               });
               Password1 = '';
           }
@@ -51,11 +51,11 @@ export default class Passcode extends Component {
   onStart = () => {
       if ( Password1 === '') {
           this.setState({
-              message: 'Please input your password.'
+              message: 'Please draw your password.'
           });
       } else {
           this.setState({
-              message: 'Please confirm your password.'
+              message: 'Please re-draw your password.'
           });
       }
   };
