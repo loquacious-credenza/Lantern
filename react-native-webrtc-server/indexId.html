@@ -4,9 +4,9 @@
   <title>react-native-webrtc server</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-<body>
-<video id="selfView" autoplay></video>
-<div id="remoteViewContainer"></div>
+<body style="padding: 0px; margin: 0px;">
+<div id="remoteViewContainer" style="width:270;height:480px;"></div>
+<!-- <video id="selfView" autoplay style="width:200px;height:150px;"></video> -->
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
@@ -24,7 +24,7 @@ var remoteViewContainer = document.getElementById("remoteViewContainer");
 var localStream;
 
 function getLocalStream() {
-  navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+  navigator.getUserMedia({ "audio": false, "video": true }, function (stream) {
     localStream = stream;
     selfView.src = URL.createObjectURL(stream);
   }, logError);
